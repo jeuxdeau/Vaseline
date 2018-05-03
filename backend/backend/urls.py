@@ -37,6 +37,7 @@ class EchoView(views.APIView):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^', include('companions.urls')),
     url(r'^$', generic.RedirectView.as_view(
          url='/api/', permanent=False)),
     url(r'^api/$', get_schema_view()),
