@@ -45,7 +45,7 @@ import { Provider } from 'react-redux'
 import configureStore from './store/configure'
 
 import {Route, Switch} from 'react-router'
-//import Login from './containers/Login'
+import Signin from './containers/Signin'
 //import PrivateRoute from './containers/PrivateRoute'
 
 const history = createHistory()
@@ -53,6 +53,10 @@ const store = configureStore(history)
 
 ReactDOM.render((
 	<Provider store={store}>
-    <h1>Hello, world</h1>
+   <ConnectedRouter history={history}>
+      <Switch>
+        <Route exact path="/signin/" component={Signin} />
+      </Switch>
+    </ConnectedRouter>
 	</Provider>
 ), document.getElementById('app'))
