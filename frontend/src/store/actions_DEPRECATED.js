@@ -1,3 +1,5 @@
+/* ORIGINAL ARC VER.
+
 const req = require.context('.', true, /\.\/.+\/actions\.js$/)
 
 req.keys().forEach((key) => {
@@ -7,3 +9,4 @@ req.keys().forEach((key) => {
     module.exports[name] = actions[name]
   })
 })
+*/
