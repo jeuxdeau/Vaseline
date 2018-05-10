@@ -20,3 +20,10 @@ export const isRefreshTokenExpired =
 	state => fromAuth.isRefreshTokenExpired(state.auth)
 export const authErrors = 
 	state => fromAuth.errors(state.auth)
+
+export function withAuth(headers={}) {
+	return (state)=>({
+		...headers,
+		'Authorization': `Bearer ${accessToken(state)}`
+	})
+}
