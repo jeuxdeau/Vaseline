@@ -57,7 +57,7 @@ ReactDOM.render((
    <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/signin/" component={Signin} />
-        <Route exact path="/" component={List} /> 
+        <Route exact path="/" component={List} />
       </Switch>
     </ConnectedRouter>
 	</Provider>
