@@ -16,11 +16,12 @@ export default (state=initialState, action) => {
 			return {
 				companion_list: undefined,
 				errors: 
-					action.payload.response || {'non_field_errors': action.payload.statusText},
+					action.payload.response || {'get_list_errors': action.payload.statusText},
 			}
 		default:
 			return state
 	}
 }
 
-export const companionList = (state) => (initialState.companion_list)
+export const companionList = (state) => (state.companion_list)
+export const errors = (state) => (state.errors)

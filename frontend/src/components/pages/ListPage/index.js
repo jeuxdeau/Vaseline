@@ -1,16 +1,46 @@
 import React, { Component } from 'react'
-import { Button } from 'reactstrap'
+import { Jumbotron, Alert, Button } from 'reactstrap'
 
 export default class ListPage extends Component {
-	state = {
-		companion_list:[]
+	componentDidMount() {
+		this.props.get_companion_list()
 	}
 
+	//showCompanionList = (list) => {
+	//	let companion_blocks = {}
+	//	for(const companion of list) {
+	//		companion_blocks += <div></div>
+	//	}
+
 	render() {
-		return (
-			<h1>VASELINE</h1>
-			<h2>Companion List</h2>
-			
-		)
+		const companion_list = this.props.companion_list
+		const errors = this.props.errors || {}
+		
+		if(companion_list) {
+			return (
+				<Jumbotron className="container">
+					<h1>VASELINE</h1>
+					{
+						errors.get_list_errors?
+							<Alert color="danger">
+								{errors.get_list_errors}
+							</Alert>
+							:""
+					}
+					<h2>Companion List</h2>
+					<ul>
+						{companion_list.map((companion) => { return (<li>{companion.name}</li>)})}
+					</ul>
+				</Jumbotron>
+			)
+		}
+		else {
+			return (
+				<Jumbotron className="container">
+					No info! 
+				</Jumbotron>
+			)
+		}
+		
 	}
 }

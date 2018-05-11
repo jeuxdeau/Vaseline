@@ -64,6 +64,8 @@ const config = createConfig([
       publicPath,
       host,
       port,
+      proxy: {"/companions/": { target: 'http://localhost:8000' },
+              "/api": { target: 'http://localhost:8000' } }
     }),
     sourceMaps(),
     addPlugins([
