@@ -1,5 +1,6 @@
 import React from 'react'
 import { UncontrolledCarousel } from 'reactstrap'
+import { Card, CardHeader, CardFooter, CardBody, CardTitle, CardText } from 'reactstrap'
 
 const items = [
 	{
@@ -22,6 +23,19 @@ const items = [
 	},
 ]
 
-export default ({}) => {
-	
-}
+export default ({companion}) => ({
+	<UncontrolledCarousel items={items} />
+	<Card>
+		<CardHeader tag="h2">
+			{companion.name}
+			<Button color="info">age:{companion.age}</Button>
+			<Button color="info">sex:{companion.sex}</Button>
+			<Button color="info">size:{companion.size}</Button>
+			<Button color="info">breed:{companion.breed}</Button>
+			<Button color="info">personality:{companion.personality}</Button>
+			<Button color="info">mating season:{companion.mating_season.season_start}~{companion.mating_season.season_start}</Button>
+		</CardHeader>
+		<CardBody>
+		</CardBody>
+	</Card>
+})

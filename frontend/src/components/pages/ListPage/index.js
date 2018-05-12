@@ -31,9 +31,7 @@ export default class ListPage extends Component {
 					<CardDeck>
 						{companion_list.map((companion, index) => 
 							{ return 	(
-											<CompanionBlock name={companion.name}
-															age={companion.age}
-															sex={companion.sex}
+											<CompanionBlock companion={companion}
 															key={index} />
 										)
 										//(<ul key={companion.name}>{companion.name}
