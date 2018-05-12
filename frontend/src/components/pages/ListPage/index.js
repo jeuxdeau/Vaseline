@@ -23,7 +23,11 @@ export default class ListPage extends Component {
 					}
 					<h2>Companion List</h2>
 					<ul>
-						{companion_list.map((companion) => { return (<li>{companion.name}</li>)})}
+						{companion_list.map((companion) => 
+							{ return 	(<ul>{companion.name}
+											<li>age : {companion.age}</li>
+											<li>sex : {companion.sex}</li>
+										</ul>)})}
 					</ul>
 				</Jumbotron>
 			)
