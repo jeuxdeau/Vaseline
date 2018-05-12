@@ -39,7 +39,7 @@ export default class SigninPage extends Component {
 					<TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} />
 					<TextInput name="password" label="Password" error={errors.password} type="password" 
 								onChange={this.handleInputChange} />
-					<Button type="submit" color="primary" size="lg">
+					<Button type="submit" color="danger" size="lg">
 						Log in
 					</Button>
 				</Form>

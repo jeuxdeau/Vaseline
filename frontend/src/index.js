@@ -49,6 +49,8 @@ import Signin from './containers/Signin'
 import List from './containers/List'
 import PrivateRoute from './containers/PrivateRoute'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 const history = createHistory()
 const store = configureStore(history)
 
