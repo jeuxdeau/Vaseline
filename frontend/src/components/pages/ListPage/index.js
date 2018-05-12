@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Jumbotron, Alert, Button } from 'reactstrap'
+import { Jumbotron, Alert, Button, CardDeck } from 'reactstrap'
+import CompanionBlock from '../../atoms/CompanionBlock'
 
 export default class ListPage extends Component {
 	componentDidMount() {
@@ -21,14 +22,20 @@ export default class ListPage extends Component {
 							</Alert>
 							:""
 					}
-					<h2>Companion List</h2>
-					<h3>
-						{companion_list.map((companion) => 
-							{ return 	(<ul key={companion.name}>{companion.name}
-											<li>age : {companion.age}</li>
-											<li>sex : {companion.sex}</li>
-										</ul>)})}
-					</h3>
+					<CardDeck>
+						{companion_list.map((companion, index) => 
+							{ return 	(
+											<CompanionBlock name={companion.name}
+															age={companion.age}
+															sex={companion.sex}
+															key={index} />
+										)
+										//(<ul key={companion.name}>{companion.name}
+										//	<li>age : {companion.age}</li>
+										//	<li>sex : {companion.sex}</li>
+										//</ul>)
+							})}
+					</CardDeck>
 				</Jumbotron>
 			)
 		}
