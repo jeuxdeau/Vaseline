@@ -22,7 +22,7 @@ export const login = (username, password) => ({
 
 export const refreshAccessToken = (token) => ({
 	[RSAA]: {
-		endpoint: 'api/auth/token/refresh/',
+		endpoint: '/api/auth/token/refresh/',
 		method: 'POST',
 		body: JSON.stringify({refresh: token}),
 		headers: { 'Content-type': 'application/json'},

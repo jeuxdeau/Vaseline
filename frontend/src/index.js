@@ -46,7 +46,8 @@ import configureStore from './store/configure'
 
 import {Route, Switch} from 'react-router'
 import Signin from './containers/Signin'
-//import PrivateRoute from './containers/PrivateRoute'
+import List from './containers/List'
+import PrivateRoute from './containers/PrivateRoute'
 
 const history = createHistory()
 const store = configureStore(history)
@@ -56,6 +57,7 @@ ReactDOM.render((
    <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/signin/" component={Signin} />
+        <PrivateRoute path="/" component={List} />
       </Switch>
     </ConnectedRouter>
 	</Provider>

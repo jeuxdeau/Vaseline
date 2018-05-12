@@ -7,8 +7,6 @@ export default function createAuthApiMiddleware() {
 	let postponedRSAAs = []
 
 	return ({ dispatch, getState }) => {
-        console.log(dispatch)
-
 		const rsaaMiddleware = apiMiddleware({dispatch, getState})
 		
 		return (next) => (action) => {
