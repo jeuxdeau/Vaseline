@@ -14,7 +14,9 @@ export default class ListPage extends Component {
 		if(companion_list) {
 			return (
 				<Jumbotron className="container">
-					<h1>VASELINE</h1>
+					<h1>
+						VASELINE <Button size="sm" outline color="primary">Logout</Button>
+					</h1>
 					{
 						errors.get_list_errors?
 							<Alert color="danger">
