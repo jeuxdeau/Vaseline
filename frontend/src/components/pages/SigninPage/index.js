@@ -26,7 +26,6 @@ export default class SigninPage extends Component {
 
 	render() {
 		const errors = this.props.errors || {}
-
 		return (
 			<Jumbotron className="container">
 				<Form onSubmit={this.onSubmit}>

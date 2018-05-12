@@ -4,10 +4,9 @@ import { Redirect } from 'react-router'
 
 import ListPage from '../components/pages/ListPage'
 import { list } from '../store/actions/list'
-import { currentCompanionList, listErrors } from '../store/reducers'
+import { currentCompanionList, listErrors, isAuthenticated } from '../store/reducers'
 
 const List = (props) => {
-	console.log(props)
 	return (
 		<div className="list-page">
 			<ListPage {...props}/>

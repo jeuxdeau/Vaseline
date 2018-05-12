@@ -6,12 +6,6 @@ export default class ListPage extends Component {
 		this.props.get_companion_list()
 	}
 
-	//showCompanionList = (list) => {
-	//	let companion_blocks = {}
-	//	for(const companion of list) {
-	//		companion_blocks += <div></div>
-	//	}
-
 	render() {
 		const companion_list = this.props.companion_list
 		const errors = this.props.errors || {}
@@ -36,8 +30,7 @@ export default class ListPage extends Component {
 		}
 		else {
 			return (
-				<Jumbotron className="container">
-					No info! 
+				<Jumbotron className="container"> 
 				</Jumbotron>
 			)
 		}
