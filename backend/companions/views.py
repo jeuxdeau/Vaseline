@@ -21,7 +21,7 @@ from rest_framework.exceptions import NotFound, ValidationError
 class CompanionList(generics.ListAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionAllSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
 class DesiredMateList(generics.ListAPIView):
     queryset = DesiredMate.objects.all()
