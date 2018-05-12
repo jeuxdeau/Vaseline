@@ -3,6 +3,10 @@ import { Jumbotron, Alert, Button, CardDeck } from 'reactstrap'
 import CompanionBlock from '../../atoms/CompanionBlock'
 
 export default class ListPage extends Component {
+	onSignoutBtnClick() {
+		this.props.post_signout()
+	}
+
 	componentDidMount() {
 		this.props.get_companion_list()
 	}
@@ -15,7 +19,7 @@ export default class ListPage extends Component {
 			return (
 				<Jumbotron className="container">
 					<h1>
-						VASELINE <Button size="sm" outline color="primary">Logout</Button>
+						VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
 					</h1>
 					{
 						errors.get_list_errors?

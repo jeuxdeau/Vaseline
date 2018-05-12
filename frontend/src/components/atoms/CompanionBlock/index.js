@@ -11,7 +11,7 @@ export default ({name, age, sex}) => {
 				<CardTitle>{name}</CardTitle>
 				<CardText>age : {age}</CardText>
 				<CardText>sex : {sex}</CardText>
-				<Button>Visit</Button>
+				<Button outline color="secondary">Visit</Button>
 			</CardBody>
 		</Card>
 	)

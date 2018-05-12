@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
 import ListPage from '../components/pages/ListPage'
+import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
 import { currentCompanionList, listErrors, isAuthenticated } from '../store/reducers'
 
@@ -23,6 +24,9 @@ const mapDispatchToProps = (dispatch) => ({
 	get_companion_list: () => {
 		dispatch(list())
 	},
+	post_signout: () => {
+		dispatch(logout())
+	}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)
