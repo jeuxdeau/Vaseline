@@ -1,12 +1,12 @@
 # sys.path.insert : import Breeds, Sex, Size, Weight class in model module
 from django.db import models
 from enumchoicefield import ChoiceEnum, EnumChoiceField
+from django.core.validators import MaxValueValidator, MinValueValidator
 import sys, os
 sys.path.insert(0, os.getcwd()+'/companions/model')
 from breeds import *
 from sex import *
 from size import *
-from weight import *
 
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
@@ -24,12 +24,12 @@ class DesiredMate(models.Model):
     size = EnumChoiceField(Size, default=Size.small)
 
 class Personality(models.Model):
-    affinity_with_human = EnumChoiceField(Weight, default=Weight.one)
-    affinity_with_dog = EnumChoiceField(Weight, default=Weight.one)
-    shyness = EnumChoiceField(Weight, default=Weight.one)
-    activity = EnumChoiceField(Weight, default=Weight.one)
-    loudness = EnumChoiceField(Weight, default=Weight.one)
-    aggression = EnumChoiceField(Weight, default=Weight.one)
+    affinity_with_human = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    affinity_with_dog = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    shyness = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    activity = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    loudness = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+    aggression = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
     etc = models.TextField(null=True)
 
 class MatingSeason(models.Model):
@@ -40,7 +40,7 @@ class Companion(models.Model):
     user = models.ForeignKey('auth.User', related_name='companion', on_delete=models.CASCADE)
     name = models.CharField(null=False, blank=False, max_length=15)
     sex = EnumChoiceField(Sex, default=Sex.male)
-    age = models.PositiveIntegerField(default=0)
+    birth_year = models.PositiveIntegerField(default=2018)
     breed = EnumChoiceField(Breeds, default=Breeds.beagle)
     size = EnumChoiceField(Size, default=Size.small)
     desired_mate = models.OneToOneField(DesiredMate, on_delete=models.CASCADE)

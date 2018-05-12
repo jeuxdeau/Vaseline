@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer,DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSerializer, ProfileSerializer, MakeUserSerializer
+from companions.serializers import CompanionAllSerializer, CompanionPostSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserPostSerializer, UserAllSerializer, ProfileSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +20,7 @@ from rest_framework.exceptions import NotFound, ValidationError
 
 class CompanionList(generics.ListAPIView):
     queryset = Companion.objects.all()
-    serializer_class = CompanionSerializer
+    serializer_class = CompanionAllSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 class DesiredMateList(generics.ListAPIView):
@@ -49,27 +49,27 @@ class MessageList(generics.ListAPIView):
 
 class UserListAndSignUp(generics.ListCreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserAllSerializer
 
     def post(self, request, format=None):
         if User.objects.filter(username=request.data['username']).exists():
             raise ValidationError
         user_data = QueryDict('', mutable=True)
         user_data.update({'username':request.data['username'], 'password':request.data['password']})
-        make_user_serializer = MakeUserSerializer(data=user_data)
-        if make_user_serializer.is_valid():
-            make_user_serializer.save()
+        user_post_serializer = UserPostSerializer(data=user_data)
+        if user_post_serializer.is_valid():
+            user_post_serializer.save()
         else:
-            Response(make_user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            Response(user_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
         companion_data.update({'user':user.id})
-        companion_serializer = CompanionSerializer(data=companion_data)
-        if companion_serializer.is_valid():
-            companion_serializer.save()
+        companion_post_serializer = CompanionPostSerializer(data=companion_data)
+        if companion_post_serializer.is_valid():
+            companion_post_serializer.save()
         else:
-            Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            Response(companion_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
         profile_serializer = ProfileSerializer(data=profile_data)

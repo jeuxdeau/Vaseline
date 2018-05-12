@@ -19,7 +19,7 @@ class MatingSeasonSerializer(serializers.ModelSerializer):
         model = MatingSeason
         fields = '__all__'
 
-class CompanionSerializer(serializers.ModelSerializer):
+class CompanionAllSerializer(serializers.ModelSerializer):
     desired_mate = DesiredMateSerializer(required=True)
     personality = PersonalitySerializer(required=True)
     mating_season = MatingSeasonSerializer(required=True)
@@ -32,8 +32,23 @@ class CompanionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Companion
-        fields = ('user', 'name', 'sex', 'age', 'breed', 'size', 'desired_mate', 'personality', 'mating_season', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
+        fields = ('user', 'name', 'sex', 'birth_year', 'breed', 'size', 'desired_mate', 'personality', 'mating_season', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
     
+class CompanionPostSerializer(serializers.ModelSerializer):
+    desired_mate = DesiredMateSerializer(required=True)
+    personality = PersonalitySerializer(required=True)
+    mating_season = MatingSeasonSerializer(required=True)
+    like_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
+    like_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
+    proposal_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
+    proposal_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
+    message_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
+    message_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
+
+    class Meta:
+        model = Companion
+        fields = ('user', 'name', 'sex', 'birth_year', 'breed', 'size', 'desired_mate', 'personality', 'mating_season', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
+
     def create(self, validated_data):
         desired_mate_data = validated_data.pop('desired_mate')
         desired_mate = DesiredMateSerializer.create(DesiredMateSerializer(), desired_mate_data)
@@ -45,7 +60,7 @@ class CompanionSerializer(serializers.ModelSerializer):
             user = validated_data['user'],
             name = validated_data['name'],
             sex = validated_data['sex'],
-            age = validated_data['age'],
+            birth_year = validated_data['birth_year'],
             breed = validated_data['breed'],
             size = validated_data['size'],
             desired_mate = desired_mate,
@@ -74,12 +89,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('user', 'nickname', 'postal_code', 'rough_address', 'detailed_address', 'age', 'gender', 'email')
    
-class MakeUserSerializer(serializers.ModelSerializer):
+class UserPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'password')
     
-class UserSerializer(serializers.ModelSerializer):
+class UserAllSerializer(serializers.ModelSerializer):
     companion = serializers.PrimaryKeyRelatedField(many=True, queryset=Companion.objects.all())
     profile = ProfileSerializer(required=True)
     class Meta:
