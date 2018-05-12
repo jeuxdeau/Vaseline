@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 class CompanionList(generics.ListAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionSerializer
-    #permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 class DesiredMateList(generics.ListAPIView):
     queryset = DesiredMate.objects.all()
