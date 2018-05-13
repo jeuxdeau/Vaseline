@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
 import { Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
 
 class CompanionBlock extends Component {
-	onDetailBtnClick({name}) {
-		
-	}
-
 	render() {
 		const companion = this.props.companion
 		const name = companion.name
@@ -20,7 +16,7 @@ class CompanionBlock extends Component {
 					<CardTitle>{companion.name}</CardTitle>
 					<CardText>age : {companion.age}</CardText>
 					<CardText>sex : {companion.sex}</CardText>
-					<Button outline color="secondary" onClick={() => this.onDetailBtnClick({name})} >Visit</Button>
+					<Button outline color="info" tag={Link} to="/signin/">Visit</Button>
 				</CardBody>
 			</Card>
 		)
