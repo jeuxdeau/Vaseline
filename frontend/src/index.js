@@ -40,13 +40,14 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
 
 //import './index.css'
-//import 'bootstrap/dist/css/bootstrap.css'
-//import App from './App'
 import configureStore from './store/configure'
 
 import {Route, Switch} from 'react-router'
+
 import Signin from './containers/Signin'
 import List from './containers/List'
+import Detail from './containers/Detail'
+
 import PrivateRoute from './containers/PrivateRoute'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -59,6 +60,7 @@ ReactDOM.render((
    <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/signin/" component={Signin} />
+        <Route path="/detail/:name" component={Detail} />
         <PrivateRoute path="/" component={List} />
       </Switch>
     </ConnectedRouter>

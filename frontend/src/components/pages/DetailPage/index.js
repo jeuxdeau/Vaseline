@@ -9,9 +9,10 @@ export default class DetailPage extends Component {
 
 	render() {
 		const companion_list = this.props.companion_list
+		const name = this.props.match.params.name
 		const errors = this.props.errors || {}
 
-		const companion = companion_list.find((element) => (element.id == this.props.companion_id))
+		const companion = companion_list.find((element) => (element.name == name))
 
 		if(companion_list) {
 			return (

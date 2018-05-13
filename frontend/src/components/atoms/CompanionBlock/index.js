@@ -6,6 +6,7 @@ class CompanionBlock extends Component {
 	render() {
 		const companion = this.props.companion
 		const name = companion.name
+		const btn_url = "/detail/" + name
 
 		return (
 			<Card>
@@ -16,7 +17,7 @@ class CompanionBlock extends Component {
 					<CardTitle>{companion.name}</CardTitle>
 					<CardText>age : {companion.age}</CardText>
 					<CardText>sex : {companion.sex}</CardText>
-					<Button outline color="info" tag={Link} to="/signin/">Visit</Button>
+					<Button outline color="info" tag={Link} to={btn_url}>Visit</Button>
 				</CardBody>
 			</Card>
 		)
