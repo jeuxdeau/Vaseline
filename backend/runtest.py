@@ -132,7 +132,7 @@ for i in range(0, userCreate):
     print("\tposting with user: {0}".format(i))
     post_or_error(link, userinfo)
 users_json = get_json_or_error("http://localhost:8000/api/users/")
-if len(users_json) != len(userlist)+userN-1:
+if len(users_json) != len(userlist)+userN:
     print("ERROR: GET http://localhost:8000/api.users/ has more or less items than proms")
     exit(1)
 

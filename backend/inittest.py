@@ -4,6 +4,12 @@ import promtest
 import json
 import requests
 
+print("MAKE SUPERUSER")
+superuser = User.objects.create_user('vaseline', password='vaseline')
+superuser.is_superuser = True
+superuser.is_staff=True
+superuser.save()
+
 N=10
 print("---------------")
 for (username, pwd) in promtest.create_users(N):
