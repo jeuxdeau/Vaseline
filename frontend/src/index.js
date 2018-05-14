@@ -50,6 +50,8 @@ import List from './containers/List'
 import PrivateRoute from './containers/PrivateRoute'
 import SignUp from './containers/Signup';
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 const history = createHistory()
 const store = configureStore(history)
 
