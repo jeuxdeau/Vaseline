@@ -1,3 +1,5 @@
+/* ORIGINAL ARC VER.
+
 import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
@@ -35,3 +37,41 @@ const configureStore = (initialState, history) => {
 }
 
 export default configureStore
+*/
+
+import storage from 'redux-persist/es/storage'
+import createAuthApiMiddleware from './middlewares/authApiMiddleware'
+import { applyMiddleware, createStore } from 'redux'
+import { createFilter } from 'redux-persist-transform-filter'
+import { persistReducer, persistStore } from 'redux-persist'
+import { routerMiddleware } from 'react-router-redux'
+import rootReducer from './reducers'
+
+// DEFINITION : configureStore
+export default (history) => {
+  const persistedFilter = createFilter(
+    'auth', ['access', 'refresh']
+  );
+
+  const reducer = persistReducer(
+    {
+      key: 'polls',
+      storage: storage,
+      whitelist: ['auth'],
+      transforms: [persistedFilter]
+    },
+    rootReducer
+  )
+
+  const store = createStore(
+    reducer, {},
+    applyMiddleware(
+      createAuthApiMiddleware(),
+      routerMiddleware(history)
+    )
+  )
+
+  persistStore(store)
+
+  return store
+}

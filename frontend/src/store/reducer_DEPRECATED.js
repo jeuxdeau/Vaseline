@@ -1,3 +1,4 @@
+/* ORIGINAL ARC VER.
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from 'redux-form'
@@ -15,3 +16,4 @@ req.keys().forEach((key) => {
 })
 
 export default combineReducers(reducers)
+*/

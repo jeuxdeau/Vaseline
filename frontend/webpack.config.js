@@ -53,6 +53,7 @@ const config = createConfig([
       rules: [
         { test: /\.(png|jpe?g|svg)$/, loader: 'url-loader?&limit=8000' },
         { test: /\.(woff2?|ttf|eot)$/, loader: 'url-loader?&limit=8000' },
+        { test: /\.css$/, use: [ {loader: "style-loader"}, {loader: "css-loader"}]}
       ],
     },
   }),
@@ -64,6 +65,8 @@ const config = createConfig([
       publicPath,
       host,
       port,
+      proxy: {"/companions/": { target: 'http://localhost:8000' },
+              "/api": { target: 'http://localhost:8000' } }
     }),
     sourceMaps(),
     addPlugins([
