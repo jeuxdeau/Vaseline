@@ -19,13 +19,14 @@ for (username, pwd) in promtest.create_users(N):
     print("realpassword : "+user.password)
     print("\tCreated user {0}".format(username))
 
-for i in range(1, N+1):
-    desired_mate = DesiredMate.objects.create()
-    print("\tCreated DesiredMate {0}".format(desired_mate))
-
-for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality(N+1):
+for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality(2*N+1):
     personality = Personality.objects.create(affinity_with_human=affinity_with_human, affinity_with_dog=affinity_with_dog, shyness=shyness, activity=activity, loudness=loudness, aggression=aggression, etc=etc)
     print("\tCreated Personality {0}".format(personality))
+
+for i in range(1, N+1):
+    personality = Personality.objects.get(pk=i+N)
+    desired_mate = DesiredMate.objects.create(personality=personality)
+    print("\tCreated DesiredMate {0}".format(desired_mate))
 
 for (season_start, season_end) in promtest.create_mating_season(N+1):
     mating_season = MatingSeason.objects.create(season_start=season_start, season_end=season_end)
@@ -35,8 +36,8 @@ for (i, name, birth_year) in promtest.create_companions(N+1):
     companion = Companion.objects.create(user=User.objects.get(pk=i), name=name, birth_year=birth_year, desired_mate=DesiredMate.objects.get(pk=i), personality=Personality.objects.get(pk=i), mating_season=MatingSeason.objects.get(pk=i))
     print("\tCreated Companion {0}".format(companion))
 
-for (i, nickname, postal_code, rough_address, detailed_address, age, email) in promtest.create_profiles(N+1):
-    profile = Profile.objects.create(user=User.objects.get(pk=i), nickname=nickname, postal_code=postal_code, rough_address=rough_address, detailed_address=detailed_address, age=age, email=email)
+for (i, nickname, first_address, second_address, age, email) in promtest.create_profiles(N+1):
+    profile = Profile.objects.create(user=User.objects.get(pk=i), nickname=nickname, first_address=first_address, second_address=second_address, age=age, email=email)
     print("\tCreated Profile {0}".format(profile))
 
 for (sender, receiver) in promtest.create_likes(N+1):

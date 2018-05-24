@@ -21,7 +21,7 @@ from rest_framework.exceptions import NotFound, ValidationError
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
         companion_serializer = CompanionSerializer(data=request.data)

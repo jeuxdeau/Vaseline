@@ -4,11 +4,6 @@ from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
 
-class DesiredMateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DesiredMate
-        fields = '__all__'
-
 class PersonalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Personality
@@ -18,6 +13,23 @@ class MatingSeasonSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatingSeason
         fields = '__all__'
+
+class DesiredMateSerializer(serializers.ModelSerializer):
+    personality = PersonalitySerializer(required=True)
+    class Meta:
+        model = DesiredMate
+        fields = '__all__'
+
+    def create(self, validated_data):
+        personality_data = validated_data.pop('personality')
+        personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
+        desired_mate = DesiredMate.objects.create(
+            breed = validated_data['breed'],
+            sex = validated_data['sex'],
+            size = validated_data['size'],
+            personality = personality,
+        )
+        return desired_mate
 
 class CompanionSerializer(serializers.ModelSerializer):
     desired_mate = DesiredMateSerializer(required=True)
@@ -74,16 +86,27 @@ class CompanionUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         desired_mate = instance.desired_mate
+        personality_desired_mate = desired_mate.personality
         personality = instance.personality
         mating_season = instance.mating_season
 
         desired_mate_data = validated_data.pop('desired_mate')
+        personality_desired_mate_data = desired_mate_data.pop('personality')
         personality_data = validated_data.pop('personality')
         mating_season_data = validated_data.pop('mating_season')
-
+        
         desired_mate.breed = desired_mate_data['breed']
         desired_mate.sex = desired_mate_data['sex']
         desired_mate.size = desired_mate_data['size']
+    
+        personality_desired_mate.affinity_with_human = personality_desired_mate_data['affinity_with_human']
+        personality_desired_mate.affinity_with_dog = personality_desired_mate_data['affinity_with_dog']
+        personality_desired_mate.shyness = personality_desired_mate_data['shyness']
+        personality_desired_mate.loudness = personality_desired_mate_data['loudness']
+        personality_desired_mate.aggression = personality_desired_mate_data['aggression']
+        personality_desired_mate.etc = personality_desired_mate_data['etc']
+
+
         personality.affinity_with_human = personality_data['affinity_with_human']
         personality.affinity_with_dog = personality_data['affinity_with_dog']
         personality.shyness = personality_data['shyness']
@@ -92,7 +115,9 @@ class CompanionUpdateSerializer(serializers.ModelSerializer):
         personality.etc = personality_data['etc']
         mating_season.season_start = mating_season_data['season_start']
         mating_season.season_end = mating_season_data['season_end']
-        
+       
+        personality_desired_mate.save()
+        desired_mate.personality = personality_desired_mate
         desired_mate.save()
         personality.save()
         mating_season.save()
@@ -140,8 +165,6 @@ class UserSignUpSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(username=username, password=password)
         user.save()
         return user
-
-
     
 class UserSerializer(serializers.ModelSerializer):
     companion = serializers.PrimaryKeyRelatedField(many=True, queryset=Companion.objects.all())

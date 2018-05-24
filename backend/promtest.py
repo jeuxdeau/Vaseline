@@ -27,7 +27,7 @@ def create_companions(N):
 def create_profiles(N):
     ls = []
     for i in range(1, N):
-        ls.append((i, "nickname{0}".format(i), randint(1, 10000), "rough_address{0}".format(i), "detailed_address".format(i), randint(10,30), "email".format(i)))
+        ls.append((i, "nickname{0}".format(i), "first_address{0}".format(i), "second_address".format(i), randint(10,30), "email".format(i)))
     return ls
 
 def create_likes(N):

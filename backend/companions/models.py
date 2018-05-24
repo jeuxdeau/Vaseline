@@ -11,18 +11,11 @@ from size import *
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     nickname = models.CharField(null=False, blank=False, max_length=15)
-    postal_code = models.PositiveIntegerField(default=0)
-    rough_address = models.CharField(null=False, blank=False, max_length=100)
-    detailed_address = models.CharField(null=False, blank=False, max_length=100)
+    first_address = models.CharField(null=False, blank=False, max_length=100)
+    second_address = models.CharField(null=False, blank=False, max_length=100)
     age = models.PositiveIntegerField(default=0)
     gender = EnumChoiceField(Sex, default=Sex.male)
     email = models.CharField(null=False, blank=False, max_length=30)
-
-class DesiredMate(models.Model):
-    breed = EnumChoiceField(Breeds, default=Breeds.beagle)
-    sex = EnumChoiceField(Sex, default=Sex.male)
-    size = EnumChoiceField(Size, default=Size.small)
-    
 
 class Personality(models.Model):
     affinity_with_human = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
@@ -36,6 +29,12 @@ class Personality(models.Model):
 class MatingSeason(models.Model):
     season_start = models.DateTimeField()
     season_end = models.DateTimeField()
+
+class DesiredMate(models.Model):
+    breed = EnumChoiceField(Breeds, default=Breeds.beagle)
+    sex = EnumChoiceField(Sex, default=Sex.male)
+    size = EnumChoiceField(Size, default=Size.small)
+    personality = models.OneToOneField(Personality, on_delete=models.CASCADE) 
 
 class Companion(models.Model):
     user = models.ForeignKey('auth.User', related_name='companion', on_delete=models.CASCADE)
