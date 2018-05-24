@@ -133,6 +133,15 @@ class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'password')
+
+    def create(self, validated_data):
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
+        return user
+
+
     
 class UserSerializer(serializers.ModelSerializer):
     companion = serializers.PrimaryKeyRelatedField(many=True, queryset=Companion.objects.all())

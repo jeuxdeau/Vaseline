@@ -9,12 +9,14 @@ superuser = User.objects.create_user('vaseline', password='vaseline')
 superuser.is_superuser = True
 superuser.is_staff=True
 superuser.save()
-
+print("password_vaseline : "+superuser.password)
 N=10
 print("---------------")
 for (username, pwd) in promtest.create_users(N):
+    print("password : "+pwd)
     user = User.objects.create_user(username, password=pwd)
     user.save()
+    print("realpassword : "+user.password)
     print("\tCreated user {0}".format(username))
 
 for i in range(1, N+1):

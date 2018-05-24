@@ -3,7 +3,7 @@ from random import randint
 def create_users(N):
     ls = []
     for i in range(1, N):
-        ls.append(("user{0}".format(i+1), "user{0}passwd".format(i)))
+        ls.append(("user{0}".format(i+1), "user{0}passwd".format(i+1)))
     return ls
 
 def create_personality(N):
