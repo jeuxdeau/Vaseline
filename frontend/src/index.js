@@ -47,6 +47,8 @@ import {Route, Switch} from 'react-router'
 import Signin from './containers/Signin'
 import List from './containers/List'
 import Detail from './containers/Detail'
+import SignUp from './containers/Signup'
+import IntroPage from './components/pages/IntroPage'
 
 import PrivateRoute from './containers/PrivateRoute'
 
@@ -60,6 +62,8 @@ ReactDOM.render((
    <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/signin/" component={Signin} />
+        <Route exact path="/signup/" component={SignUp} />
+        <Route exact path="/intro/" component={IntroPage} />
         <Route path="/detail/:name" component={Detail} />
         <PrivateRoute path="/" component={List} />
       </Switch>

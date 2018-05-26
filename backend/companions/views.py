@@ -9,8 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer,DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSerializer, ProfileSerializer, MakeUserSerializer
-from datetime import datetime
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, ProfileSerializer
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, authenticate
@@ -18,10 +17,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import QueryDict
 from rest_framework.exceptions import NotFound, ValidationError
 
-class CompanionList(generics.ListAPIView):
+class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        companion_serializer = CompanionSerializer(data=request.data)
+        if companion_serializer.is_valid():
+            companion_serializer.save()
+        else:
+            Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(companion_serializer.data, status = status.HTTP_201_CREATED)
 
 class DesiredMateList(generics.ListAPIView):
     queryset = DesiredMate.objects.all()
@@ -52,15 +59,16 @@ class UserListAndSignUp(generics.ListCreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request, format=None):
+        # Check same username
         if User.objects.filter(username=request.data['username']).exists():
             raise ValidationError
         user_data = QueryDict('', mutable=True)
         user_data.update({'username':request.data['username'], 'password':request.data['password']})
-        make_user_serializer = MakeUserSerializer(data=user_data)
-        if make_user_serializer.is_valid():
-            make_user_serializer.save()
+        user_signup_serializer = UserSignUpSerializer(data=user_data)
+        if user_signup_serializer.is_valid():
+            user_signup_serializer.save()
         else:
-            Response(make_user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            Response(user_signup_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
@@ -82,3 +90,15 @@ class UserListAndSignUp(generics.ListCreateAPIView):
 class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+class ProfileDetail(generics.RetrieveUpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+class CompanionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Companion.objects.all()
+    serializer_class = CompanionUpdateSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
