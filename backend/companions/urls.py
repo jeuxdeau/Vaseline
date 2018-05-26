@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^api/companions/(?P<pk>[0-9]+)/$', views.CompanionDetail.as_view()),
     url(r'^api/companions/desired_mate$', views.DesiredMateList.as_view()),
     url(r'^api/companions/personality$', views.PersonalityList.as_view()),
+    url(r'^api/companions/personality_desired_mate$', views.PersonalityDesiredMateList.as_view()),
     url(r'^api/companions/mating_season$', views.MatingSeasonList.as_view()),
     url(r'^api/likes/$', views.LikeList.as_view()),
     url(r'^api/proposals/$', views.ProposalList.as_view()),

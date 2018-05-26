@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from companions.models import DesiredMate, Personality, MatingSeason, Companion, Profile, Like, Proposal, Message
+from companions.models import DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Companion, Profile, Like, Proposal, Message
 import promtest
 import json
 import requests
@@ -19,12 +19,16 @@ for (username, pwd) in promtest.create_users(N):
     print("realpassword : "+user.password)
     print("\tCreated user {0}".format(username))
 
-for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality(2*N+1):
+for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality(N+1):
     personality = Personality.objects.create(affinity_with_human=affinity_with_human, affinity_with_dog=affinity_with_dog, shyness=shyness, activity=activity, loudness=loudness, aggression=aggression, etc=etc)
     print("\tCreated Personality {0}".format(personality))
 
+for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality_desired_mate(N+1):
+    personality = PersonalityDesiredMate.objects.create(affinity_with_human=affinity_with_human, affinity_with_dog=affinity_with_dog, shyness=shyness, activity=activity, loudness=loudness, aggression=aggression, etc=etc)
+    print("\tCreated PersonalityDesiredMate {0}".format(personality))
+
 for i in range(1, N+1):
-    personality = Personality.objects.get(pk=i+N)
+    personality = PersonalityDesiredMate.objects.get(pk=i)
     desired_mate = DesiredMate.objects.create(personality=personality)
     print("\tCreated DesiredMate {0}".format(desired_mate))
 

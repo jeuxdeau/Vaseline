@@ -12,10 +12,16 @@ def create_personality(N):
         ls.append((randint(1,5), randint(1,5), randint(1,5), randint(1,5), randint(1,5), randint(1,5), "etc{0}".format(i)))
     return ls
 
+def create_personality_desired_mate(N):
+    ls = []
+    for i in range(1, N):
+        ls.append((randint(0,5), randint(0,5), randint(0,5), randint(0,5), randint(0,5), randint(0,5), "etc{0}".format(i)))
+    return ls
+
 def create_mating_season(N):
     ls = []
     for i in range(1, N):
-        ls.append(("2018-05-12T08:52:3{0}Z".format(randint(1,9)), "2018-05-12T08:52:4{0}Z".format(randint(1,9))))
+        ls.append(("2018-05-2{0}".format(randint(1,9)), "2018-06-0{0}".format(randint(1,9))))
     return ls
 
 def create_companions(N):
