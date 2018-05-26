@@ -11,10 +11,9 @@ export default class DetailPage extends Component {
 		const companion_list = this.props.companion_list
 		const name = this.props.match.params.name
 		const errors = this.props.errors || {}
-
-		const companion = companion_list.find((element) => (element.name == name))
-
+		
 		if(companion_list) {
+			const companion = companion_list.find((element) => (element.name == name))
 			return (
 				<Jumbotron className="container">
 					<h1>

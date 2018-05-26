@@ -42,7 +42,7 @@ import { Provider } from 'react-redux'
 //import './index.css'
 import configureStore from './store/configure'
 
-import {Route, Switch} from 'react-router'
+import { Route, Switch } from 'react-router'
 
 import Signin from './containers/Signin'
 import List from './containers/List'
@@ -54,19 +54,23 @@ import PrivateRoute from './containers/PrivateRoute'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import { PersistGate } from 'redux-persist/es/integration/react'
+
 const history = createHistory()
-const store = configureStore(history)
+const {store, persistor} = configureStore(history)
 
 ReactDOM.render((
 	<Provider store={store}>
-   <ConnectedRouter history={history}>
-      <Switch>
-        <Route exact path="/signin/" component={Signin} />
-        <Route exact path="/signup/" component={SignUp} />
-        <Route exact path="/intro/" component={IntroPage} />
-        <PrivateRoute path="/detail/:name" component={Detail} />
-        <PrivateRoute path="/" component={List} />
-      </Switch>
-    </ConnectedRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route exact path="/signin/" component={Signin} />
+          <Route exact path="/signup/" component={SignUp} />
+          <Route exact path="/intro/" component={IntroPage} />
+          <PrivateRoute path="/detail/:name" component={Detail} />
+          <PrivateRoute path="/" component={List} />
+        </Switch>
+      </ConnectedRouter>
+    </PersistGate>
 	</Provider>
 ), document.getElementById('app'))
