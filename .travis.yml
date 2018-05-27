@@ -21,7 +21,6 @@ matrix:
         - pip3 install -r ./backend/requirements.txt
       script:
         - sh ./init.sh
-        - python3 runtest.py
 
 notifications:
   email:
