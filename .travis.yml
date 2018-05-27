@@ -17,7 +17,7 @@ matrix:
       before_script:
         - cd backend/
       install:
-        - pip3 install -r requirements.txt
+        - pip3 install -r /backend/requirements.txt
       script:
         - python3 manage.py runserver
 
