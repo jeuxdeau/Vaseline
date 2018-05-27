@@ -6,7 +6,7 @@ matrix:
       before_script:
         - cd frontend/
       script:
-        - npm run lint && npm test -- --coverage
+        - npm install && npm run
       cache:
         - yarn
       after_success:
