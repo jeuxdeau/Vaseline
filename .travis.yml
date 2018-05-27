@@ -1,0 +1,22 @@
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - v6
+      before_script:
+        - cd frontend/
+      script:
+        - npm run lint && npm test -- --coverage
+      cache:
+        - yarn
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+
+    - language: python
+      python: 3.5.2
+      before_script:
+        - cd backend/
+
+notifications:
+  email:
+    - keyxiz@gmail.com
