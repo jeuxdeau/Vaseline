@@ -6,7 +6,7 @@ matrix:
       before_script:
         - cd frontend/
       script:
-        - npm run lint && npm test -- --coverage
+        - npm install && npm run
       cache:
         - yarn
       after_success:
@@ -16,6 +16,11 @@ matrix:
       python: 3.5.2
       before_script:
         - cd backend/
+        - virtualenv -p python3 env
+        - source env/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - python manage.py runserver
 
 notifications:
   email:
