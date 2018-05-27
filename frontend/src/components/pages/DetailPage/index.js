@@ -3,6 +3,10 @@ import { Jumbotron, Alert, Button } from 'reactstrap'
 import DetailCompanionBlock from '../../atoms/DetailCompanionBlock'
 
 export default class DetailPage extends Component {
+	onSignoutBtnClick() {
+		this.props.post_signout()
+	}
+
 	componentDidMount() {
 		this.props.get_companion_list()
 	}
