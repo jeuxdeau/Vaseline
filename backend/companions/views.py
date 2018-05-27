@@ -6,10 +6,11 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
-from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
+from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, ProfileSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, ProfileSerializer
+from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, authenticate
@@ -20,7 +21,7 @@ from rest_framework.exceptions import NotFound, ValidationError
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionSerializer
-    #permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
         companion_serializer = CompanionSerializer(data=request.data)
@@ -30,13 +31,17 @@ class CompanionList(generics.ListCreateAPIView):
             Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(companion_serializer.data, status = status.HTTP_201_CREATED)
 
-class DesiredMateList(generics.ListAPIView):
+class DesiredMateList(generics.ListCreateAPIView):
     queryset = DesiredMate.objects.all()
     serializer_class = DesiredMateSerializer
 
 class PersonalityList(generics.ListAPIView):
     queryset = Personality.objects.all()
     serializer_class = PersonalitySerializer
+
+class PersonalityDesiredMateList(generics.ListAPIView):
+    queryset = PersonalityDesiredMate.objects.all()
+    serializer_class = PersonalityDesiredMateSerializer
 
 class MatingSeasonList(generics.ListAPIView):
     queryset = MatingSeason.objects.all()

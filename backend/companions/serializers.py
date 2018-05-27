@@ -1,12 +1,20 @@
 from django.contrib.auth.models import User
-from rest_framework import serializers
+from rest_framework import fields, serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
-from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
+from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile
+import sys, os
+sys.path.insert(0, os.getcwd()+'/companions/model')
+from breeds import *
 
 class PersonalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Personality
+        fields = '__all__'
+
+class PersonalityDesiredMateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonalityDesiredMate
         fields = '__all__'
 
 class MatingSeasonSerializer(serializers.ModelSerializer):
@@ -15,14 +23,15 @@ class MatingSeasonSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DesiredMateSerializer(serializers.ModelSerializer):
-    personality = PersonalitySerializer(required=True)
+    personality = PersonalityDesiredMateSerializer(required=True)
+    breed = fields.MultipleChoiceField(choices=BreedsDesiredMate)
     class Meta:
         model = DesiredMate
         fields = '__all__'
 
     def create(self, validated_data):
         personality_data = validated_data.pop('personality')
-        personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
+        personality = PersonalityDesiredMateSerializer.create(PersonalityDesiredMateSerializer(), personality_data)
         desired_mate = DesiredMate.objects.create(
             breed = validated_data['breed'],
             sex = validated_data['sex'],
@@ -105,7 +114,6 @@ class CompanionUpdateSerializer(serializers.ModelSerializer):
         personality_desired_mate.loudness = personality_desired_mate_data['loudness']
         personality_desired_mate.aggression = personality_desired_mate_data['aggression']
         personality_desired_mate.etc = personality_desired_mate_data['etc']
-
 
         personality.affinity_with_human = personality_data['affinity_with_human']
         personality.affinity_with_dog = personality_data['affinity_with_dog']
