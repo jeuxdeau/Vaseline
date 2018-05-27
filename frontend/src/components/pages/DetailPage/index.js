@@ -21,7 +21,11 @@ export default class DetailPage extends Component {
 			return (
 				<Jumbotron className="container">
 					<h1>
-						VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
+						VASELINE 
+						<Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
+						<Button size="sm" outline color="primary">좋아요</Button>{' '}
+						<Button size="sm" outline color="primary">쪽지보내기</Button>{' '}
+						<Button size="sm" outline color="primary">결혼해요</Button>
 					</h1>
 					{
 						errors.get_list_errors?
