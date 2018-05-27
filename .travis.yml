@@ -16,10 +16,12 @@ matrix:
       python: 3.5.2
       before_script:
         - cd backend/
+        - python3 manage.py runserver &
       install:
         - pip3 install -r ./backend/requirements.txt
       script:
-        - python3 manage.py runserver
+        - sh ./init.sh
+        - python3 runtest.py
 
 notifications:
   email:
