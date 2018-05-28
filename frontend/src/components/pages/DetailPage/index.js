@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
-import { Jumbotron, Alert, Button } from 'reactstrap'
+import { Jumbotron, Alert, Button, Modal } from 'reactstrap'
 import DetailCompanionBlock from '../../atoms/DetailCompanionBlock'
+import MessageApp from '../../atoms/MessageApp'
 
 export default class DetailPage extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			messageAppActivated: false,
+		}
+	}
+
+	onSendMessageBtnClick() {
+		this.setState({
+			messageAppActivated: !this.state.messageAppActivated
+		})
+	}
+
 	onSignoutBtnClick() {
 		this.props.post_signout()
 	}
@@ -24,8 +38,9 @@ export default class DetailPage extends Component {
 						VASELINE 
 						<Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
 						<Button size="sm" outline color="primary">좋아요</Button>{' '}
-						<Button size="sm" outline color="primary">쪽지보내기</Button>{' '}
+						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
 						<Button size="sm" outline color="primary">결혼해요</Button>
+						<MessageApp messageAppOpen={this.state.messageAppActivated} messageReceiverName={name} messageReceiverId='1' />
 					</h1>
 					{
 						errors.get_list_errors?
