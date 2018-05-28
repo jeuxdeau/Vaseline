@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Label, Form, FormGroup, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 class MessageApp extends Component {
-	toggle() {
-		console.log("toggle")
-	}
 
 	render() {
 		const messageAppOpen = this.props.messageAppOpen
 		const messageReceiverName = this.props.messageReceiverName
 		const messageReceiverId = this.props.messageReceiverId
-		console.log(messageAppOpen)
+		const messageToggle = this.props.messageToggle
 		return (
-				<Modal isOpen={messageAppOpen} toggle={this.toggle} className={messageReceiverId}>
-         			<ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-          			<ModalBody>
-            			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          			</ModalBody>
-          			<ModalFooter>
-            			<Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            			<Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          			</ModalFooter>
-        		</Modal>
+				<Modal isOpen={messageAppOpen} toggle={messageToggle} centered={true} size="lg">
+					<ModalHeader>받는 친구 : {messageReceiverName}</ModalHeader>
+					<ModalBody>
+						<Form>
+							<FormGroup>
+								<Label for="exampleMessage" size="lg">Message</Label>
+								<Input type="textarea" name="message" id="exampleMessage" placeholder="사랑의 편지를 써보세요~" bsSize="lg"/>
+							</FormGroup>
+						</Form>
+					</ModalBody>
+					<ModalFooter>
+						<Button size="lg" outline color="primary">보내기</Button>
+					</ModalFooter>
+				</Modal>
 		)		
 	}
 
