@@ -151,11 +151,13 @@ class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
         fields = '__all__'
+        read_only_fields = ('granted',)
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+        read_only_fields = ('date_sent',)
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:

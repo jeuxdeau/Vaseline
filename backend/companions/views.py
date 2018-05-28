@@ -47,15 +47,15 @@ class MatingSeasonList(generics.ListAPIView):
     queryset = MatingSeason.objects.all()
     serializer_class = MatingSeasonSerializer
 
-class LikeList(generics.ListAPIView):
+class LikeList(generics.ListCreateAPIView):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
 
-class ProposalList(generics.ListAPIView):
+class ProposalList(generics.ListCreateAPIView):
     queryset = Proposal.objects.all()
     serializer_class = ProposalSerializer
 
-class MessageList(generics.ListAPIView):
+class MessageList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
