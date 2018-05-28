@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from companions import views
 from rest_framework.urlpatterns import format_suffix_patterns
+from .views import FileView
 
 urlpatterns = [
     url(r'^api/sign_up/$', views.UserListAndSignUp.as_view()),
@@ -13,6 +14,7 @@ urlpatterns = [
     url(r'^api/messages/$', views.MessageList.as_view()),
     url(r'^api/users/$', views.UserListAndSignUp.as_view()),
     url(r'^api/users/profiles/$', views.ProfileList.as_view()),
+    url(r'^api/upload/$', FileView.as_view(), name='file-upload'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

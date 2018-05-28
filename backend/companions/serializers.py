@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
-from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
+from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile, File
 
 class DesiredMateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,7 +33,7 @@ class CompanionAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = Companion
         fields = ('user', 'name', 'sex', 'birth_year', 'breed', 'size', 'desired_mate', 'personality', 'mating_season', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
-    
+
 class CompanionPostSerializer(serializers.ModelSerializer):
     desired_mate = DesiredMateSerializer(required=True)
     personality = PersonalitySerializer(required=True)
@@ -88,16 +88,20 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('user', 'nickname', 'postal_code', 'rough_address', 'detailed_address', 'age', 'gender', 'email')
-   
+
 class UserPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'password')
-    
+
 class UserAllSerializer(serializers.ModelSerializer):
     companion = serializers.PrimaryKeyRelatedField(many=True, queryset=Companion.objects.all())
     profile = ProfileSerializer(required=True)
     class Meta:
         model = User
-        fields = ('username', 'password', 'companion', 'profile') 
-    
+        fields = ('username', 'password', 'companion', 'profile')
+
+class FileSerializer(serializers.ModelSerializer):
+  class Meta():
+    model = File
+    fields = ('file', 'remark', 'timestamp')

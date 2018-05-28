@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionAllSerializer, CompanionPostSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserPostSerializer, UserAllSerializer, ProfileSerializer
+from companions.serializers import CompanionAllSerializer, CompanionPostSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserPostSerializer, UserAllSerializer, ProfileSerializer, FileSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -17,6 +17,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import QueryDict
 from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
 
 class CompanionList(generics.ListAPIView):
     queryset = Companion.objects.all()
@@ -82,3 +84,13 @@ class UserListAndSignUp(generics.ListCreateAPIView):
 class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+class FileView(APIView):
+  parser_classes = (MultiPartParser, FormParser)
+  def post(self, request, *args, **kwargs):
+    file_serializer = FileSerializer(data=request.data)
+    if file_serializer.is_valid():
+      file_serializer.save()
+      return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+    else:
+      return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
