@@ -2,6 +2,8 @@ import promtest
 import requests, json
 from time import sleep
 from random import randint
+from requests.auth import HTTPBasicAuth
+
 
 def get_id(users_json, uname):
     for user_json in users_json:
@@ -15,6 +17,32 @@ def get_json_or_error(link):
     try:
         res = requests.get(link).json()
         return res
+    except Exception:
+        print("ERROR: Cannot get {0}".format(link))
+        exit(1)
+
+def get_json_or_error_token(link, uname, upwd):
+    sleep(0.05)
+    try:
+        url_token = "http://localhost:8000/api/auth/token/obtain/"
+        data = {"username":uname, "password":upwd}
+        res_token = requests.post(url_token, data).json()
+        token = res_token['access']
+        res = requests.get(link, headers={'Authorization':'Bearer '+token}).json()
+        return res
+    except Exception:
+        print("ERROR: Cannot get {0}".format(link))
+        exit(1)
+
+def get_json_or_error_new(link, uname, upwd):
+    sleep(0.05)
+    try:
+        res = requests.get(link, auth=(uname, upwd))
+        if res.status_code != 200:
+            print("ERROR: Cannot get {0} : {1}, id = {2}, pwd = {3}".format(link, res.status_code, uname, upwd))
+            exit(1)
+        resjson = res.json()
+        return resjson
     except Exception:
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
@@ -52,10 +80,13 @@ print("Test 1 success")
 print("******************************************************************************************************************")
 
 print("2. Checking GET http://localhost:8000/api/companions/")
-companions = get_json_or_error("http://localhost:8000/api/companions/")
+
+companions = get_json_or_error_token("http://localhost:8000/api/companions/", "vaseline", "vaseline")
+
 print("******************************************************************************************************************")
-print("Print User List")
+print("Print Companion List")
 for companion in companions:
+    print("\nCompanion {0} : ".format(companion['id']))
     print(companion)
 print("******************************************************************************************************************")
 print("Test 2 success")
@@ -72,9 +103,16 @@ sex_companion = ["male", "female", "male"]
 birth_year = [1995, 1996, 1997]
 breed_companion = ["labrador_retriever", "beagle", "sheepdog"]
 size_companion = ["small", "medium", "large"]
-breed_desired_mate = ["mix", "etc", "sapsal"]
+breed_desired_mate = [["labrador_retriever", "beagle", "sheepdog"], ["toy_poodle", "sapsal"],["no_matter"]]
 sex_desired_mate = ["female", "male", "female"]
 size_desired_mate = ["small", "small", "medium"]
+affinity_with_human_desired_mate = [1, 0 ,2]
+affinity_with_dog_desired_mate = [0, 5, 3]
+shyness_desired_mate = [2, 5, 0]
+activity_desired_mate = [2, 4, 4]
+loudness_desired_mate = [0, 3, 0]
+aggression_desired_mate = [1, 1, 1]
+etc_desired_mate = ["amoo", "mal", "dejanchi"]
 affinity_with_human = [1, 2 ,3]
 affinity_with_dog = [2, 3, 4]
 shyness = [3, 4, 5]
@@ -82,16 +120,17 @@ activity = [4, 5, 1]
 loudness = [5, 1, 2]
 aggression = [1, 2, 3]
 etc = ["iam", "so", "tired"]
-season_start = ["2011-01-28T08:18:36.959885Z", "2012-02-28T08:18:36.959885Z","2013-03-28T08:18:36.959885Z"]
-season_end = ["2013-03-28T08:18:36.959885Z", "2014-04-28T08:18:36.959885Z", "2015-05-28T08:18:36.959885Z"]
+season_start = ["2011-01-28", "2012-02-28","2013-03-28"]
+season_end = ["2013-03-28", "2014-04-28", "2015-05-28"]
 nickname = ["post_test1n", "post_test2n", "post_test3n"]
-postal_code = [100, 200, 300]
-rough_address = ["r_test1", "r_test2", "r_test3"]
-detailed_address = ["d_test1", "d_test2", "d_test3"]
+first_address = ["first_test1", "first_test2", "first_test3"]
+second_address = ["second_test1", "second_test2", "second_test3"]
 age = [10, 20, 30]
 gender = ["male", "female", "female"]
 email = ["e_test1", "e_test2", "e_test3"]
 print("3. Checking SignUp POST http://localhost:8000/api/users/ by creating {0} user.".format(userCreate))
+
+users_json_before = get_json_or_error("http://localhost:8000/api/users/")
 for i in range(0, userCreate):
     username_i = username[i]
     password_i = password[i]
@@ -103,6 +142,14 @@ for i in range(0, userCreate):
     breed_desired_mate_i = breed_desired_mate[i]
     sex_desired_mate_i = sex_desired_mate[i]
     size_desired_mate_i = size_desired_mate[i]
+    affinity_with_human_desired_mate_i = affinity_with_human_desired_mate[i]
+    affinity_with_dog_desired_mate_i = affinity_with_dog_desired_mate[i]
+    shyness_desired_mate_i = shyness_desired_mate[i]
+    activity_desired_mate_i = activity_desired_mate[i]
+    loudness_desired_mate_i = loudness_desired_mate[i]
+    aggression_desired_mate_i = aggression_desired_mate[i]
+    etc_desired_mate_i = etc_desired_mate[i]
+
     affinity_with_human_i = affinity_with_human[i]
     affinity_with_dog_i = affinity_with_dog[i]
     shyness_i = shyness[i]
@@ -113,25 +160,25 @@ for i in range(0, userCreate):
     season_start_i = season_start[i]
     season_end_i = season_end[i]
     nickname_i = nickname[i]
-    postal_code_i = postal_code[i]
-    rough_address_i = rough_address[i]
-    detailed_address_i = detailed_address[i]
+    first_address_i = first_address[i]
+    second_address_i = second_address[i]
     age_i = age[i]
     gender_i = gender[i]
     email_i = email[i]
-    
-    desired_mate_i = {"breed":breed_desired_mate_i, "sex":sex_desired_mate_i, "size":size_desired_mate_i}
+    personality_desired_mate_i = {"affinity_with_human": affinity_with_human_desired_mate_i, "affinity_with_dog": affinity_with_dog_desired_mate_i, "shyness": shyness_desired_mate_i, "activity": activity_desired_mate_i, "loudness": loudness_desired_mate_i, "aggression": aggression_desired_mate_i, "etc": etc_desired_mate_i}
+    desired_mate_i = {"personality":personality_desired_mate_i, "breed":breed_desired_mate_i, "sex":sex_desired_mate_i, "size":size_desired_mate_i}
     personality_i = {"affinity_with_human": affinity_with_human_i, "affinity_with_dog": affinity_with_dog_i, "shyness": shyness_i, "activity": activity_i, "loudness": loudness_i, "aggression": aggression_i, "etc": etc_i}
     mating_season_i = {"season_start": season_start_i, "season_end": season_end_i}
     companion_i ={"name": name_i, "sex": sex_companion_i, "birth_year": birth_year_i, "breed": breed_companion_i, "size": size_companion_i, "desired_mate":desired_mate_i, "personality":personality_i, "mating_season":mating_season_i, "like_sent": [], "like_received": [], "proposal_sent": [], "proposal_received": [], "message_sent": [], "message_received": []}
-    profile_i = {"nickname": nickname_i, "postal_code": postal_code_i, "rough_address": rough_address_i, "detailed_address": detailed_address_i, "age": age_i, "gender": gender_i, "email": email_i}
+    profile_i = {"nickname": nickname_i,"first_address": first_address_i, "second_address": second_address_i, "age": age_i, "gender": gender_i, "email": email_i}
     
     userinfo_for_store = {"username": username_i, "password": password_i, "companion":companion_i, "profile":profile_i} 
     userinfo = userinfo_for_store
     userlist.append(userinfo_for_store)
     print("\tposting with user: {0}".format(i))
     post_or_error(link, userinfo)
-users_json = get_json_or_error("http://localhost:8000/api/users/")
+    users_json = get_json_or_error("http://localhost:8000/api/users/")
+
 if len(users_json) != len(userlist)+userN:
     print("ERROR: GET http://localhost:8000/api.users/ has more or less items than proms")
     exit(1)
@@ -143,7 +190,7 @@ for user in userlist:
         check_key(user_json, "password")
         check_key(user_json, "companion")
         check_key(user_json, "profile")
-        if user_json["username"] == user["username"] and user_json["password"] == user["password"]:
+        if user_json["username"] == user["username"]:
             found = True
             break
     if not found:
@@ -152,5 +199,43 @@ for user in userlist:
 
 print("******************************************************************************************************************")
 print("Test 3 success")
+print("******************************************************************************************************************")
+print("4. Checking GET http://localhost:8000/api/likes/")
+
+likes = get_json_or_error("http://localhost:8000/api/likes/")
+
+print("******************************************************************************************************************")
+print("Print Likes List")
+for like in likes:
+    print("\nLike {0} : ".format(like['id']))
+    print(like)
+print("******************************************************************************************************************")
+print("Test 4 success")
+print("******************************************************************************************************************")
+
+
+print("5. Checking GET http://localhost:8000/api/messages/")
+
+messages = get_json_or_error("http://localhost:8000/api/messages/")
+
+print("******************************************************************************************************************")
+print("Print Messages List")
+for message in messages:
+    print("\nMessage {0} : ".format(message['id']))
+    print(message)
+print("******************************************************************************************************************")
+print("Test 5 success")
+print("******************************************************************************************************************")
+print("6. Checking GET http://localhost:8000/api/proposals/")
+
+proposals = get_json_or_error("http://localhost:8000/api/proposals/")
+
+print("******************************************************************************************************************")
+print("Print Proposals List")
+for proposal in proposals:
+    print("\nProposal {0} : ".format(proposal['id']))
+    print(proposal)
+print("******************************************************************************************************************")
+print("Test 6 success")
 print("******************************************************************************************************************")
 
