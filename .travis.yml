@@ -5,8 +5,10 @@ matrix:
         - v6
       before_script:
         - cd frontend/
+      install:
+        - npm install
       script:
-        - npm install && npm run
+        - npm run
       cache:
         - yarn
       after_success:
