@@ -3,7 +3,7 @@ import requests, json
 from time import sleep
 from random import randint
 from requests.auth import HTTPBasicAuth
-
+from random import randint
 
 def get_id(users_json, uname):
     for user_json in users_json:
@@ -238,4 +238,70 @@ for proposal in proposals:
 print("******************************************************************************************************************")
 print("Test 6 success")
 print("******************************************************************************************************************")
+likeCreate = 5
+print("7. Checking Like POST http://localhost:8000/api/likes/ by creating {0} likes.".format(likeCreate))
+companions = get_json_or_error_token("http://localhost:8000/api/companions/", "vaseline", "vaseline")
+N = len(companions)
+link = "http://localhost:8000/api/likes/"
+print("\tposting with likes: {0}".format(likeCreate))
+for i in range (0, likeCreate):
+    sender = randint(1, N)
+    receiver = randint(1, N)
+    while(receiver == sender):
+        receiver = randint(1, N)
+    print("\t\npost like: {0}".format(i+1))
+    like = {"sender":sender, "receiver":receiver}
+    post_or_error(link, like)
+likes_after = get_json_or_error("http://localhost:8000/api/likes/")
+if(len(likes)+likeCreate != len(likes_after)):
+    print("ERROR: GET http://localhost:8000/api/likes/ has more or less items than proms")
+    exit(1)
+print("******************************************************************************************************************")
+print("Test 7 success")
+print("******************************************************************************************************************")
 
+messageCreate = 5
+print("8. Checking Message POST http://localhost:8000/api/messages/ by creating {0} messages.".format(messageCreate))
+companions = get_json_or_error_token("http://localhost:8000/api/companions/", "vaseline", "vaseline")
+N = len(companions)
+link = "http://localhost:8000/api/messages/"
+print("\tposting with messages: {0}".format(messageCreate))
+for i in range (0, messageCreate):
+    message = "message_test{0}".format(i+1)
+    sender = randint(1, N)
+    receiver = randint(1, N)
+    while(receiver == sender):
+        receiver = randint(1, N)
+    print("\t\npost message: {0}".format(i+1))
+    message = {"sender":sender, "receiver":receiver, "message":message}
+    post_or_error(link, message)
+messages_after = get_json_or_error("http://localhost:8000/api/messages/")
+if(len(messages)+messageCreate != len(messages_after)):
+    print("ERROR: GET http://localhost:8000/api/messages/ has more or less items than proms")
+    exit(1)
+print("******************************************************************************************************************")
+print("Test 8 success")
+print("******************************************************************************************************************")
+
+proposalCreate = 5
+print("9. Checking Proposal POST http://localhost:8000/api/proposals/ by creating {0} proposals.".format(proposalCreate))
+companions = get_json_or_error_token("http://localhost:8000/api/companions/", "vaseline", "vaseline")
+N = len(companions)
+link = "http://localhost:8000/api/proposals/"
+print("\tposting with proposals: {0}".format(proposalCreate))
+for i in range (0, proposalCreate):
+    sender = randint(1, N)
+    receiver = randint(1, N)
+    while(receiver == sender):
+        receiver = randint(1, N)
+    print("\t\npost proposal: {0}".format(i+1))
+    proposal = {"sender":sender, "receiver":receiver}
+    post_or_error(link, proposal)
+proposals_after = get_json_or_error("http://localhost:8000/api/proposals/")
+if(len(proposals)+proposalCreate != len(proposals_after)):
+    print("ERROR: GET http://localhost:8000/api/proposals/ has more or less items than proms")
+    exit(1)
+print("******************************************************************************************************************")
+print("Test 9 success")
+print("******************************************************************************************************************")
+print("Test complete")
