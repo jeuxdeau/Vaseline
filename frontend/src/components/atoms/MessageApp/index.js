@@ -5,12 +5,13 @@ class MessageApp extends Component {
 
 	render() {
 		const messageAppOpen = this.props.messageAppOpen
+		const messageSender = this.props.messageSender
 		const messageReceiverName = this.props.messageReceiverName
 		const messageReceiverId = this.props.messageReceiverId
 		const messageToggle = this.props.messageToggle
 		return (
 				<Modal isOpen={messageAppOpen} toggle={messageToggle} centered={true} size="lg">
-					<ModalHeader>받는 친구 : {messageReceiverName}</ModalHeader>
+					<ModalHeader>받는 친구 : {messageReceiverName} Sender : {messageSender}</ModalHeader>
 					<ModalBody>
 						<Form>
 							<FormGroup>

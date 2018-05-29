@@ -22,6 +22,8 @@ export const isRefreshTokenExpired =
 	state => fromAuth.isRefreshTokenExpired(state.auth)
 export const authErrors = 
 	state => fromAuth.errors(state.auth)
+export const userID =
+	state => fromAuth.userID(state.auth)
 
 export function withAuth(headers={}) {
 	return (state)=>({

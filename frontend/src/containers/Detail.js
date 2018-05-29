@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import DetailPage from '../components/pages/DetailPage'
 import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
-import { currentCompanionList, listErrors } from '../store/reducers'
+import { userID, currentCompanionList, listErrors } from '../store/reducers'
 
 const Detail = (props) => {
 	return (
@@ -15,6 +15,7 @@ const Detail = (props) => {
 }
 
 const mapStateToProps = (state) => ({
+	user_id: userID(state),
 	companion_list: currentCompanionList(state),
 	errors: listErrors(state)
 })

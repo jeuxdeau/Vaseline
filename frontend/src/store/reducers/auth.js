@@ -81,3 +81,9 @@ export function isAuthenticated(state) {
 export function errors(state) {
 	return state.errors
 }
+
+export function userID(state) {
+	if(state.access) {
+		return state.access.user_id
+	}
+}
