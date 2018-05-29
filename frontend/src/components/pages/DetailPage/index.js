@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Jumbotron, Alert, Button, Modal } from 'reactstrap'
 import DetailCompanionBlock from '../../atoms/DetailCompanionBlock'
+import Sidebar from '../../molecules/Sidebar'
 import MessageApp from '../../atoms/MessageApp'
 
 export default class DetailPage extends Component {
@@ -33,6 +34,8 @@ export default class DetailPage extends Component {
 		if(companion_list) {
 			const companion = companion_list.find((element) => (element.name == name))
 			return (
+				<div>
+				<Sidebar />
 				<Jumbotron className="container">
 					<h1>
 						VASELINE 
@@ -55,6 +58,7 @@ export default class DetailPage extends Component {
 					}
 					<DetailCompanionBlock companion={companion} />
 				</Jumbotron>
+				</div>
 			)
 		}
 		else {
