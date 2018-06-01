@@ -474,14 +474,9 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
     <option value='medium'>중형견</option>
     <option value='large'>대형견</option>
     </select><br/><br/>
-    <button type="submit" onClick={onSubmit}>다 했어요♡</button>
+    <button id="submit" type="submit" onClick={onSubmit}>다 했어요♡</button>
     </div>
   )
-}
-
-SignUp.propTypes = {
-  reverse: PropTypes.bool,
-  children: PropTypes.node,
 }
 
 export default SignUp
