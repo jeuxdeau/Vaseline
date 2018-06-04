@@ -35,7 +35,6 @@ export default class DetailPage extends Component {
 			const companion = companion_list.find((element) => (element.name == name))
 			return (
 				<div>
-				<Sidebar />
 				<Jumbotron className="container">
 					<h1>
 						VASELINE 

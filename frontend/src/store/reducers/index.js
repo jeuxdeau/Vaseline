@@ -1,15 +1,23 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+
+/* seperate classes of states we will use in this project.
+ * auth : Authorization information.
+ * list : Companion list information.
+ * user : User information.
+ */
 import auth, * as fromAuth from './auth'
 import list, * as fromList from './list'
+import user, * as fromUser from './user'
 
 export default combineReducers ({
 	auth: auth,
 	list: list,
+	user: user,
 	router: routerReducer
 })
 
-// Use functions below to get authentication info
+// 1. AUTH
 export const isAuthenticated = 
 	state => fromAuth.isAuthenticated(state.auth)
 export const accessToken = 
@@ -32,8 +40,14 @@ export function withAuth(headers={}) {
 	})
 }
 
-// Use functions below to get list info
+// 2. LIST
 export const currentCompanionList = 
 	state => fromList.companionList(state.list)
 export const listErrors = 
 	state => fromList.errors(state.list)
+
+// 3. USER
+export const userInfo =
+	state => fromUser.user(state.user)
+export const userErrors =
+	state => fromUser.errors(state.user)
