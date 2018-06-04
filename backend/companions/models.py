@@ -78,3 +78,4 @@ class Message(models.Model):
     receiver = models.ForeignKey(Companion, related_name='message_received', on_delete=models.CASCADE)
     message = models.TextField(null=False)
     date_sent = models.DateTimeField(default=datetime.datetime.now)
+    is_read = models.BooleanField(default=False)

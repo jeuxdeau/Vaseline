@@ -5,8 +5,10 @@ matrix:
         - v6
       before_script:
         - cd frontend/
+      install:
+        - npm install
       script:
-        - npm install && npm run
+        - npm run
       cache:
         - yarn
       after_success:
@@ -21,6 +23,7 @@ matrix:
         - pip3 install -r ./backend/requirements.txt
       script:
         - sh ./init.sh
+        - python3 runtest.py
 
 notifications:
   email:
