@@ -53,7 +53,7 @@ export const postSignupRequest = (input) => ({
 	[RSAA]: {
 		endpoint: '/api/users/',
 		method: 'POST',
-		body: JSON.stringify({postInput(input)}),
+		body: JSON.stringify(postInput(input)),
 		headers: { 'Content-type': 'application/json' },
 		type: [
       POST_SIGNUP_REQUEST, POST_SIGNUP_SUCCESS, POST_SIGNUP_FAILURE

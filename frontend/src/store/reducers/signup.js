@@ -1,10 +1,18 @@
-import { initialState } from "./selectors"
+import * as signup from '../actions/signup'
 
-const signup_reducer = (state = initialState, action) => {
-  switch(action.type) {
-    default:
-      return state
-  }
-};
+const initialState = {
+}
 
-export default signup_reducer
+export default (state=initialState, action) => {
+	console.log(action)
+	switch(action.type) {
+		case signup.POST_SIGNUP_SUCCESS:
+			console.log("SIGNUP SUCCESS!")
+			return {}
+		case signup.POST_SIGNUP_FAILURE:
+			console.log("SIGNUP FAILURE!")
+			return {}
+		default:
+			return state
+	}
+}

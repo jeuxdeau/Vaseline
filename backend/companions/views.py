@@ -54,6 +54,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
     serializer_class = UserAllSerializer
 
     def post(self, request, format=None):
+        print("POST started")
         if User.objects.filter(username=request.data['username']).exists():
             raise ValidationError
         user_data = QueryDict('', mutable=True)
@@ -62,7 +63,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         if user_post_serializer.is_valid():
             user_post_serializer.save()
         else:
-            Response(user_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(user_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
@@ -71,14 +72,14 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         if companion_post_serializer.is_valid():
             companion_post_serializer.save()
         else:
-            Response(companion_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(companion_post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
         profile_serializer = ProfileSerializer(data=profile_data)
         if profile_serializer.is_valid():
             profile_serializer.save()
         else:
-            Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_201_CREATED)
 
 class ProfileList(generics.ListAPIView):

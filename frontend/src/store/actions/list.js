@@ -7,7 +7,7 @@ export const LIST_FAILURE = '@@list/LIST_FAILURE'
 
 export const list = () => ({
 	[RSAA]: {
-		endpoint: '/companions/',
+		endpoint: '/api/companions/',
 		method: 'GET',
 		headers: withAuth({'Content-type': 'application/json'}),
 		types: [

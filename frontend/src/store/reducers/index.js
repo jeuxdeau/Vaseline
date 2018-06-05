@@ -2,11 +2,13 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth'
 import list, * as fromList from './list'
+import signup from './signup'
 
 export default combineReducers ({
 	auth: auth,
 	list: list,
-	router: routerReducer
+	router: routerReducer,
+	signup: signup
 })
 
 // Use functions below to get authentication info
