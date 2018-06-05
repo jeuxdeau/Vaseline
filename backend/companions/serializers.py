@@ -162,7 +162,13 @@ class MessageSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__' 
+        fields = '__all__'
+
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+        read_only_fields = ('user',)
 
 class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
@@ -181,4 +187,30 @@ class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'companion', 'profile') 
+        fields = ('id', 'username', 'password', 'companion', 'profile')
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(required=True)
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password', 'profile')
+        read_only_fields = ('username',)
+
+    def update(self, instance, validated_data):
+        # if password input is null, no change
+        if validated_data['password'] is not None:
+            password = validated_data['password']
+            instance.set_password(password)
+        profile_data = validated_data['profile']
+        profile = instance.profile
+        profile.nickname = profile_data['nickname']
+        profile.first_address = profile_data['first_address']
+        profile.second_address = profile_data['second_address']
+        profile.age = profile_data['age']
+        profile.gender = profile_data['gender']
+        profile.email = profile_data['email']
+        profile.save()
+
+        instance.profile = profile
+        instance.save()
+        return instance

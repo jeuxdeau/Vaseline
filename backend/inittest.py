@@ -9,14 +9,14 @@ superuser = User.objects.create_user('vaseline', password='vaseline')
 superuser.is_superuser = True
 superuser.is_staff=True
 superuser.save()
-print("password_vaseline : "+superuser.password)
+print("superuser's username : vaseline")
+print("superuser's password : vaseline")
 N=10
 print("---------------")
 for (username, pwd) in promtest.create_users(N):
-    print("password : "+pwd)
+    print("\t{0}'s password : ".format(username)+pwd)
     user = User.objects.create_user(username, password=pwd)
     user.save()
-    print("realpassword : "+user.password)
     print("\tCreated user {0}".format(username))
 
 for (affinity_with_human, affinity_with_dog, shyness, activity, loudness, aggression, etc) in promtest.create_personality(N+1):
