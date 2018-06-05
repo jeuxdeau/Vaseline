@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -17,6 +17,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import QueryDict
 from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
 
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
@@ -28,7 +30,7 @@ class CompanionList(generics.ListCreateAPIView):
         if companion_serializer.is_valid():
             companion_serializer.save()
         else:
-            Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(companion_serializer.data, status = status.HTTP_201_CREATED)
 
 class DesiredMateList(generics.ListCreateAPIView):
@@ -73,7 +75,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         if user_signup_serializer.is_valid():
             user_signup_serializer.save()
         else:
-            Response(user_signup_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(user_signup_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
@@ -82,14 +84,14 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         if companion_serializer.is_valid():
             companion_serializer.save()
         else:
-            Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
         profile_serializer = ProfileSerializer(data=profile_data)
         if profile_serializer.is_valid():
             profile_serializer.save()
         else:
-            Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_201_CREATED)
 
 class ProfileList(generics.ListAPIView):
@@ -115,3 +117,13 @@ class UserUpdateDetail(generics.RetrieveUpdateAPIView):
 class UserTotalInfoDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserTotalInfoSerializer
+
+class FileView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    def post(self, request, *args, **kwargs):
+        file_serializer = FileSerializer(data=request.data)
+        if file_serializer.is_valid():
+            file_serializer.save()
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
