@@ -4,13 +4,14 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
 	NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 export default class Sidebar extends Component {
-	createInterval(f, dynamicParam0, dynamicParam1, dynamicParam2, interval) {
+	createInterval(f, dynamicParam0, dynamicParam1, interval) {
 		setInterval(function() {
-			f(dynamicParam0, dynamicParam1, dynamicParam2)
+			f(dynamicParam0, dynamicParam1)
 		}, interval)
 	}
 
-	updateUserInfo(get_user_info, userID, user) {
+	updateUserInfo(get_user_info, userID) {
+		console.log("Update user information...")
 		get_user_info(userID)
 	}
 
@@ -26,7 +27,7 @@ export default class Sidebar extends Component {
 
 	componentDidMount() {
 		this.props.get_user_info(this.props.user_id)
-		//this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, this.props.user, 3000)
+		this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, 3000)
 	}
 
 	toggle() {
@@ -36,7 +37,7 @@ export default class Sidebar extends Component {
 	}
 
 	render() {
-		const userName = (this.props.user == undefined) ? "Undefined" : this.props.user.username
+		const userName = (this.props.user == undefined) ? "Undefined" : this.props.user.profile.nickname
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
