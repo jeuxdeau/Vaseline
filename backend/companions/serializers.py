@@ -142,6 +142,7 @@ class CompanionUpdateSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
@@ -158,6 +159,13 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
         read_only_fields = ('date_sent',)
+
+class CompanionMessageSerializer(serializers.ModelSerializer):
+    message_sent = MessageSerializer(read_only=True, many=True)
+    message_received = MessageSerializer(read_only=True, many=True)
+    class Meta:
+        model = Companion
+        fields = ('id', 'message_sent', 'message_received')
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -190,7 +198,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password', 'companion', 'profile')
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(required=True)
+    profile = ProfileUpdateSerializer(required=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'password', 'profile')
@@ -198,7 +206,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # if password input is null, no change
-        if validated_data['password'] is not None:
+        if validated_data['password'] is None:
             password = validated_data['password']
             instance.set_password(password)
         profile_data = validated_data['profile']
@@ -214,3 +222,10 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.profile = profile
         instance.save()
         return instance
+
+class UserMessageSerializer(serializers.ModelSerializer):
+    companion = CompanionMessageSerializer(read_only=True, many=True)
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'companion')
+
