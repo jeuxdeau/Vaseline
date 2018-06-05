@@ -29,7 +29,7 @@ const options = {
   '해외': ['해외']
 }
 
-export const SignUp = ({ statefunction, onPostSignup }) => {
+export const SignUp = (props) => {
   /* SIGNUP POST */
   // USER info
   let username, password;
@@ -198,7 +198,7 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
         "email": profile.email.value
       }
     }
-    onPostSignup(post_input);
+    props.onPostSignup(post_input);
   };
   return (
     <div>

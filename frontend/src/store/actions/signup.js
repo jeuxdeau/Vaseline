@@ -1,6 +1,8 @@
 import { RSAA } from 'redux-api-middleware'
 
 export const POST_SIGNUP_REQUEST = '@@signup/POST_SIGNUP_REQUEST'
+export const POST_SIGNUP_SUCCESS = '@@signup/POST_SIGNUP_SUCCESS'
+export const POST_SIGNUP_FAILURE = '@@signup/POST_SIGNUP_FAILURE'
 
 export const postInput = (input) => ({
   "username": input.username,
@@ -53,6 +55,8 @@ export const postSignupRequest = (input) => ({
 		method: 'POST',
 		body: JSON.stringify({postInput(input)}),
 		headers: { 'Content-type': 'application/json' },
-		type: POST_SIGNUP_REQUEST
+		type: [
+      POST_SIGNUP_REQUEST, POST_SIGNUP_SUCCESS, POST_SIGNUP_FAILURE
+    ]
 	}
 })
