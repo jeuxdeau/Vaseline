@@ -160,12 +160,16 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('date_sent',)
 
-class CompanionMessageSerializer(serializers.ModelSerializer):
+class CompanionTotalInfoSerializer(serializers.ModelSerializer):
     message_sent = MessageSerializer(read_only=True, many=True)
     message_received = MessageSerializer(read_only=True, many=True)
+    like_sent = LikeSerializer(read_only=True, many=True)
+    like_received = LikeSerializer(read_only=True, many=True)
+    proposal_sent = ProposalSerializer(read_only=True, many=True)
+    proposal_received = ProposalSerializer(read_only=True, many=True)
     class Meta:
         model = Companion
-        fields = ('id', 'message_sent', 'message_received')
+        fields = ('id', 'message_sent', 'message_received', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received')
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -223,8 +227,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class UserMessageSerializer(serializers.ModelSerializer):
-    companion = CompanionMessageSerializer(read_only=True, many=True)
+class UserTotalInfoSerializer(serializers.ModelSerializer):
+    companion = CompanionTotalInfoSerializer(read_only=True, many=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'companion')
