@@ -4,15 +4,29 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
 	NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 export default class Sidebar extends Component {
+	createInterval(f, dynamicParam0, dynamicParam1, dynamicParam2, interval) {
+		setInterval(function() {
+			f(dynamicParam0, dynamicParam1, dynamicParam2)
+		}, interval)
+	}
+
+	updateUserInfo(get_user_info, userID, user) {
+		get_user_info(userID)
+	}
+
 	constructor(props) {
 		super(props)
-
-		console.log(props)
 
 		this.toggle = this.toggle.bind(this)
 		this.state = {
 			isOpen: false,
+			userID: props.user_id
 		}
+	}
+
+	componentDidMount() {
+		this.props.get_user_info(this.props.user_id)
+		//this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, this.props.user, 3000)
 	}
 
 	toggle() {
@@ -22,11 +36,12 @@ export default class Sidebar extends Component {
 	}
 
 	render() {
+		const userName = (this.props.user == undefined) ? "Undefined" : this.props.user.username
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
 					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>Welcome!</NavbarBrand>
+					<NavbarBrand>Welcome! {userName}</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
