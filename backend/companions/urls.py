@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^api/messages/$', views.MessageList.as_view()),
     url(r'^api/users/$', views.UserListAndSignUp.as_view()),
     url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
-    url(r'^api/messages/user/(?P<pk>[0-9]+)/$', views.UserMessageDetail.as_view()),
+    url(r'^api/total/(?P<pk>[0-9]+)/$', views.UserTotalInfoDetail.as_view()),
     url(r'^api/users/update/(?P<pk>[0-9]+)/$', views.UserUpdateDetail.as_view()),
     url(r'^api/profiles/$', views.ProfileList.as_view()),
     url(r'^api/profiles/(?P<pk>[0-9]+)/$', views.ProfileDetail.as_view()),
