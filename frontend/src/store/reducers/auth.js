@@ -8,6 +8,7 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
+	console.log(action)
 	switch(action.type) {
 		case auth.LOGIN_SUCCESS:
 			return {

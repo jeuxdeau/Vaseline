@@ -1,14 +1,9 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
 import { InputGroup, InputGroupAddon, InputGroupText, Input, Form, Jumbotron, Button } from 'reactstrap'
 import { font, palette } from 'styled-theme'
 import { hashHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-
-const Wrapper = styled.div`
-font-family: ${font('primary')};
-color: ${palette('grayscale', 0)};
-`
 
 const options = {
   '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
@@ -31,9 +26,40 @@ const options = {
   '해외': ['해외']
 }
 
+export default class SignupPage extends Component {
+    constructor(props) {
+        super(props)
+
+        this.username = undefined
+        this.password = undefined
+        this.profile = {
+            'nickname': '',
+            'postal_code': 0,
+            'rough_address': '서울',
+            'detailed_address': '강남구',
+            'age': 10,
+            'gender': 'female',
+            'email': '',
+        }
+    }
+
+    onSubmitSignupForm() {
+        this.props.onPostSignup()
+    }
+
+    render() {
+        return (
+            <div>
+                <Button onClick={()=>this.onSubmitSignupForm()}>Sign Up!</Button>
+            </div>
+        )
+    }
+}
+
+/*
 export const SignUp = ({ statefunction, onPostSignup }) => {
 
-  /* SIGNUP POST */
+  // SIGNUP POST 
   // USER info
   let username, password;
   let profile = {
@@ -123,7 +149,7 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
   }
 
   const onSubmit = () => {
-    /* SUBMIT TEST */
+    // SUBMIT TEST 
     console.log("==========user==========")
     console.log(username.value);
     console.log(password.value);
@@ -517,3 +543,4 @@ SignUp.propTypes = {
 }
 
 export default SignUp
+*/
