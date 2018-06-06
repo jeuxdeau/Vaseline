@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	onPostSignup: (input) => { dispatch(postSignup()) }
+	onPostSignup: (username, userpwd) => { dispatch(postSignup(username, userpwd)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup)

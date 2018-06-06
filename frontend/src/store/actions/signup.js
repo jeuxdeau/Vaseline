@@ -4,13 +4,13 @@ export const SIGNUP_REQUEST = '@@signup/SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = '@@signup/SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = '@@signup/SIGNUP_FAILURE'
 
-export const postSignup = () => ({
+export const postSignup = (username, userpwd) => ({
 	[RSAA]: {
 		endpoint: '/api/users/',
 		method: 'POST',
 		body: JSON.stringify({
- 			"username": 'shh1295',
-  			"password": '',//input.''password,
+ 			"username": username,
+  			"password": userpwd,
   			"companion": {
     			"name": '',//input.''companion.name,
     			"sex": '',//input.''companion.sex,

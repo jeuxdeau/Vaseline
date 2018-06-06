@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import styled from 'styled-components'
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Form, Jumbotron, Button } from 'reactstrap'
+import { InputGroup, InputGroupAddon, InputGroupText, Input, Label, Form, FormGroup, Button } from 'reactstrap'
 import { font, palette } from 'styled-theme'
 import { hashHistory } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -32,26 +32,30 @@ export default class SignupPage extends Component {
 
         this.username = undefined
         this.password = undefined
-        this.profile = {
-            'nickname': '',
-            'postal_code': 0,
-            'rough_address': '서울',
-            'detailed_address': '강남구',
-            'age': 10,
-            'gender': 'female',
-            'email': '',
-        }
     }
 
     onSubmitSignupForm() {
-        this.props.onPostSignup()
+        this.props.onPostSignup(this.username, this.password)
+    }
+
+    onInputChange(id) {
+        if(id == "username") this.username = document.getElementById(id).value
+        if(id == "userpwd") this.password = document.getElementById(id).value
     }
 
     render() {
         return (
-            <div>
-                <Button onClick={()=>this.onSubmitSignupForm()}>Sign Up!</Button>
-            </div>
+            <Form>
+            <FormGroup>
+                <Label for="username">Name</Label>
+                <Input type="text" name="name" id="username" onChange={(value) => {this.onInputChange(value.target.id)}} />
+            </FormGroup>
+            <FormGroup>
+                <Label for="userpwd">Password</Label>
+                <Input type="password" name="pwd" id="userpwd" onChange={(value) => {this.onInputChange(value.target.id)}} />
+            </FormGroup>
+            <Button onClick={()=>this.onSubmitSignupForm()}>Sign Up!</Button>
+            </Form>
         )
     }
 }
