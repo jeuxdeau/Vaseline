@@ -51,7 +51,6 @@ import SignUp from './containers/Signup'
 import IntroPage from './components/pages/IntroPage'
 
 import PrivateRoute from './containers/PrivateRoute'
-import SignUp from './containers/Signup';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 

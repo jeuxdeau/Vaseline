@@ -9,11 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from companions.serializers import CompanionAllSerializer, CompanionPostSerializer, DesiredMateSerializer, PersonalitySerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserPostSerializer, UserAllSerializer, ProfileSerializer, FileSerializer
-=======
 from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer
->>>>>>> master
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -26,7 +22,7 @@ from rest_framework.views import APIView
 
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
-    serializer_class = CompanionAllSerializer
+    serializer_class = CompanionSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
@@ -67,7 +63,7 @@ class MessageList(generics.ListCreateAPIView):
 
 class UserListAndSignUp(generics.ListCreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserAllSerializer
+    serializer_class = UserSerializer
 
     def post(self, request, format=None):
         # Check same username
