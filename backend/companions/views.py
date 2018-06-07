@@ -80,9 +80,9 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
         companion_data.update({'user':user.id})
-        companion_post_serializer = CompanionPostSerializer(data=companion_data)
-        if companion_post_serializer.is_valid():
-            companion_post_serializer.save()
+        companion_serializer = CompanionSerializer(data=companion_data)
+        if companion_serializer.is_valid():
+            companion_serializer.save()
         else:
             return Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         profile_data = request.data.pop('profile')
