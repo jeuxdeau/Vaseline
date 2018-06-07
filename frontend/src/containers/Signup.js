@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import Signup from "../components/molecules/Signup";
-import { postSignupRequest } from "../store/signup/actions.js"
+import Signup from "../components/molecules/Signup"
+import { signup } from '../store/actions/auth'
 
 const mapStateToProps = (state) => {
   return {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onPostSignup: (input) => {
-      dispatch(postSignupRequest(input))
+    	dispatch(signup(input))
     }
   }
 };

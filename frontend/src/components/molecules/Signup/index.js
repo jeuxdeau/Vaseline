@@ -116,7 +116,7 @@ export const SignUp = (props) => {
   }
 
   const onSubmit = () => {
-    /* SUBMIT TEST */
+    /* SUBMIT TEST 
     console.log("==========user==========")
     console.log(username.value);
     console.log(password.value);
@@ -153,7 +153,7 @@ export const SignUp = (props) => {
     console.log(profile.age.value);
     console.log(profile.gender);
     console.log(profile.email.value);
-
+    */
     let post_input = {
       "username": username.value,
       "password": password.value,
