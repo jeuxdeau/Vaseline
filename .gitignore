@@ -1,0 +1,4 @@
+## IGNORE REDUNDANT FILES
+
+# pyc files created from backend server run command
+*.pyc

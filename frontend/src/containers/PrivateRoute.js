@@ -4,11 +4,18 @@ import { connect } from 'react-redux'
 import * as reducers from '../store/reducers'
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
+  const isInvalidURL = ({...rest}.computedMatch.path == "/") && (!{...rest}.computedMatch.isExact)
+
 	return (
   		<Route {...rest} render={props => (
-    		isAuthenticated ? (
-      		<Component {...props}/>
-    		) : (
+    		isAuthenticated ? ( 
+          isInvalidURL ? (
+            <h1>Logged in, but invalid URL!</h1>
+          ) : (
+      		  <Component {...props}/>
+    		  )
+        )
+         : (
       		<Redirect to={{
         		pathname: '/signin/',
         		state: { from: props.location }

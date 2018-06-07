@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
 
 import ListPage from '../components/pages/ListPage'
 import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
-import { currentCompanionList, listErrors, isAuthenticated } from '../store/reducers'
+import { currentCompanionList, listErrors } from '../store/reducers'
 
 const List = (props) => {
 	return (
