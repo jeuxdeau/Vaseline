@@ -1,9 +1,12 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Label, Form, FormGroup, Button } from 'reactstrap'
 import { font, palette } from 'styled-theme'
-import { hashHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Button } from '../../atoms/Button'
+
+const Wrapper = styled.div`
+font-family: ${font('primary')};
+color: ${palette('grayscale', 0)};
+`
 
 const options = {
   '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
@@ -26,44 +29,8 @@ const options = {
   '해외': ['해외']
 }
 
-export default class SignupPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.username = undefined
-        this.password = undefined
-    }
-
-    onSubmitSignupForm() {
-        this.props.onPostSignup(this.username, this.password)
-    }
-
-    onInputChange(id) {
-        if(id == "username") this.username = document.getElementById(id).value
-        if(id == "userpwd") this.password = document.getElementById(id).value
-    }
-
-    render() {
-        return (
-            <Form>
-            <FormGroup>
-                <Label for="username">Name</Label>
-                <Input type="text" name="name" id="username" onChange={(value) => {this.onInputChange(value.target.id)}} />
-            </FormGroup>
-            <FormGroup>
-                <Label for="userpwd">Password</Label>
-                <Input type="password" name="pwd" id="userpwd" onChange={(value) => {this.onInputChange(value.target.id)}} />
-            </FormGroup>
-            <Button onClick={()=>this.onSubmitSignupForm()}>Sign Up!</Button>
-            </Form>
-        )
-    }
-}
-
-/*
-export const SignUp = ({ statefunction, onPostSignup }) => {
-
-  // SIGNUP POST 
+export const SignUp = (props) => {
+  /* SIGNUP POST */
   // USER info
   let username, password;
   let profile = {
@@ -102,10 +69,6 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
     }
   };
 
-  const handleClick = () => {
-        this.props.history.push("/intro");
-    };
- 
   //dynamic selectbox for address
   class MyForm extends React.Component {
     constructor(props) {
@@ -153,7 +116,7 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
   }
 
   const onSubmit = () => {
-    // SUBMIT TEST 
+    /* SUBMIT TEST 
     console.log("==========user==========")
     console.log(username.value);
     console.log(password.value);
@@ -190,7 +153,7 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
     console.log(profile.age.value);
     console.log(profile.gender);
     console.log(profile.email.value);
-
+    */
     let post_input = {
       "username": username.value,
       "password": password.value,
@@ -235,33 +198,15 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
         "email": profile.email.value
       }
     }
-    onPostSignup(post_input);
+    props.onPostSignup(post_input);
   };
   return (
-    <Jumbotron className="container">
-    <div><h2><b>SIGN UP!</b></h2></div>
+    <div>
     <div><b>당신은 누구인가요?</b></div>
-
-    <InputGroup>
-    <InputGroupAddon addonType="prepend">ID</InputGroupAddon>
-    <Input placeholder="로그인에 사용될 아이디" ref={node => {username = node;}}/>
-    </InputGroup>
-
-    <InputGroup>
-    <InputGroupAddon addonType="prepend">PASSWORD</InputGroupAddon>
-    <Input placeholder="비밀번호" ref={node => {password = node;}}/>
-    </InputGroup>
-
-    <InputGroup>
-    <InputGroupAddon addonType="prepend">NICKNAME</InputGroupAddon>
-    <Input placeholder="프로필에 표시될 닉네임"/>
-    </InputGroup>
-
-    <InputGroup>
-    <InputGroupAddon addonType="prepend">EMAIL</InputGroupAddon>
-    <Input placeholder="이메일 형식(aaa@bbb.ccc)을 잘 지켜주세요"/>
-    </InputGroup>
-
+    아이디 <input ref={node => {username = node;}}/> <button>중복확인</button><br/>
+    비밀번호 <input ref={node => {password = node;}} type="password"/><br/>
+    닉네임 <input ref={node => {profile.nickname = node;}}/> <button>중복확인</button><br/>
+    이메일 <input ref={node => {profile.email = node;}}/><br />
     나이
     <select onChange={(node) => { profile.age = node.target }}>
     <option value='10'>10대</option>
@@ -281,12 +226,7 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
     <div><b>당신의 반려동물♥에 대해 소개해 주세요</b></div>
     사진이나 동영상을 첨부해 주세요!<br/>
     <input type="file"/><br/>
-
-    <InputGroup>
-    <InputGroupAddon addonType="prepend">COMPANION NAME</InputGroupAddon>
-    <Input placeholder="반려동물의 이름"/>
-    </InputGroup>
-
+    반려동물 이름 <input ref={node => { companion.name = node; }}/><br/>
     성별
     <select onChange={(node) => { companion.sex = node.target.value }}>
     <option value='male'>수컷</option>
@@ -534,17 +474,9 @@ export const SignUp = ({ statefunction, onPostSignup }) => {
     <option value='medium'>중형견</option>
     <option value='large'>대형견</option>
     </select><br/><br/>
-    <form action="localhost:3000/intro">
-    </form>
-    <Button tag={Link} to='/intro'>다 했어요!</Button>
-    </Jumbotron>
+    <button id="submit" type="submit" onClick={onSubmit}>다 했어요♡</button>
+    </div>
   )
 }
 
-SignUp.propTypes = {
-  //reverse: PropTypes.bool,
-  //children: PropTypes.node,
-}
-
 export default SignUp
-*/

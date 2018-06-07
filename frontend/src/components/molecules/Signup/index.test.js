@@ -2,19 +2,23 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import SignUp from '.'
 
-it('renders', () => {
-  const wrap = (props = {}) => shallow(<SignUp {...props} />)
-})
-
-/*
 const wrap = (props = {}) => shallow(<SignUp {...props} />)
 
-it('renders children when passed in', () => {
-  const wrapper = wrap({ children: 'test' })
-  expect(wrapper.contains('test')).toBe(true)
-})
+describe('Signup test with JEST', () => {
+    it('complete rendering', () => {
+        const wrapper = shallow(<SignUp />);
+        expect(wrapper.length).toBe(1);
+    })
 
-it('renders props when passed in', () => {
-  const wrapper = wrap({ id: 'foo' })
-  expect(wrapper.find({ id: 'foo' })).toHaveLength(1)
-})*/
+    it('click submit', () => {
+        const wrapper = shallow(<SignUp />);
+        wrapper.find('#submit').simulate('click');
+        //expect(wrapper.profile.age).toBeLessThan(100);
+    })
+
+    /*
+    it('', () => {
+        ...
+    })
+    */
+});

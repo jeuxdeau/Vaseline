@@ -1,22 +1,19 @@
-import React from 'react'
 import { connect } from 'react-redux'
-import SignupPage from '../components/molecules/Signup'
-import { postSignup } from '../store/actions/signup'
+import Signup from "../components/molecules/Signup"
+import { signup } from '../store/actions/auth'
 
-const Signup = (props) => {
-	return (
-		<div className="signup-page">
-			<SignupPage {...props} />
-		</div>
-	)
-}
+const mapStateToProps = (state) => {
+  return {
+    statefunction : state
+  }
+};
 
-const mapStateToProps = (state) => ({
-	statefunction : state
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	onPostSignup: (username, userpwd) => { dispatch(postSignup(username, userpwd)) }
-})
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPostSignup: (input) => {
+    	dispatch(signup(input))
+    }
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup)

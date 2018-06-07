@@ -50,7 +50,7 @@ class DesiredMate(models.Model):
     breed = MultiSelectField(choices = BreedsDesiredMate, default = ['beagle', 'sapsal'])
     sex = EnumChoiceField(SexDesiredMate, default=SexDesiredMate.male)
     size = EnumChoiceField(SizeDesiredMate, default=SizeDesiredMate.small)
-    personality = models.OneToOneField(PersonalityDesiredMate, on_delete=models.CASCADE) 
+    personality = models.OneToOneField(PersonalityDesiredMate, on_delete=models.CASCADE)
 
 #Companion
 class Companion(models.Model):
@@ -79,3 +79,8 @@ class Message(models.Model):
     message = models.TextField(null=False)
     date_sent = models.DateTimeField(default=datetime.datetime.now)
     is_read = models.BooleanField(default=False)
+
+class File(models.Model):
+    file = models.FileField(blank=False, null=False)
+    remark = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
