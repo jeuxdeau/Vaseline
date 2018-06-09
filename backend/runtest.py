@@ -169,7 +169,7 @@ for i in range(0, userCreate):
     desired_mate_i = {"personality":personality_desired_mate_i, "breed":breed_desired_mate_i, "sex":sex_desired_mate_i, "size":size_desired_mate_i}
     personality_i = {"affinity_with_human": affinity_with_human_i, "affinity_with_dog": affinity_with_dog_i, "shyness": shyness_i, "activity": activity_i, "loudness": loudness_i, "aggression": aggression_i, "etc": etc_i}
     mating_season_i = {"season_start": season_start_i, "season_end": season_end_i}
-    companion_i ={"name": name_i, "sex": sex_companion_i, "birth_year": birth_year_i, "breed": breed_companion_i, "size": size_companion_i, "desired_mate":desired_mate_i, "personality":personality_i, "mating_season":mating_season_i, "like_sent": [], "like_received": [], "proposal_sent": [], "proposal_received": [], "message_sent": [], "message_received": []}
+    companion_i ={"name": name_i, "sex": sex_companion_i, "birth_year": birth_year_i, "breed": breed_companion_i, "size": size_companion_i, "desired_mate":desired_mate_i, "personality":personality_i, "mating_season":mating_season_i, "media":[], "like_sent": [], "like_received": [], "proposal_sent": [], "proposal_received": [], "message_sent": [], "message_received": []}
     profile_i = {"nickname": nickname_i,"first_address": first_address_i, "second_address": second_address_i, "age": age_i, "gender": gender_i, "email": email_i}
     
     userinfo_for_store = {"username": username_i, "password": password_i, "companion":companion_i, "profile":profile_i} 

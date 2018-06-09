@@ -61,7 +61,7 @@ class CompanionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Companion
         fields = '__all__'
-        read_only_fields = ('like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
+        read_only_fields = ('media', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
 
 
     def create(self, validated_data):
@@ -71,8 +71,6 @@ class CompanionSerializer(serializers.ModelSerializer):
         personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
         mating_season_data = validated_data.pop('mating_season')
         mating_season = MatingSeasonSerializer.create(MatingSeasonSerializer(), mating_season_data)
-        media_data = validated_data.pop('media')
-        media = FileSerializer.create(FileSerializer(), media_data)
         companion = Companion.objects.create(
             user = validated_data['user'],
             name = validated_data['name'],
