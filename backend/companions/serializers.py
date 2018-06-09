@@ -42,7 +42,7 @@ class DesiredMateSerializer(serializers.ModelSerializer):
 
 
 class FileSerializer(serializers.ModelSerializer):
-    class Meta():
+    class Meta:
         model = File
         fields = '__all__'
 
@@ -50,7 +50,7 @@ class CompanionSerializer(serializers.ModelSerializer):
     desired_mate = DesiredMateSerializer(required=True)
     personality = PersonalitySerializer(required=True)
     mating_season = MatingSeasonSerializer(required=True)
-    #media = FileSerializer(required=True)
+    media = serializers.PrimaryKeyRelatedField(many=True, queryset=File.objects.all())
     like_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
     like_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
     proposal_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
@@ -71,8 +71,8 @@ class CompanionSerializer(serializers.ModelSerializer):
         personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
         mating_season_data = validated_data.pop('mating_season')
         mating_season = MatingSeasonSerializer.create(MatingSeasonSerializer(), mating_season_data)
-        #media_data = validated_data.pop('media')
-        #media = FileSerializer.create(FileSerializer(), media_data)
+        media_data = validated_data.pop('media')
+        media = FileSerializer.create(FileSerializer(), media_data)
         companion = Companion.objects.create(
             user = validated_data['user'],
             name = validated_data['name'],
