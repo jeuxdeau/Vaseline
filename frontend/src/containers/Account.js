@@ -1,19 +1,27 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import Account from "../components/molecules/Account"
-import { account } from '../store/actions/auth'
 
-const mapStateToProps = (state) => {
-  return {
-    statefunction : state
-  }
-};
+import AccountMolecule from '../components/molecules/Account'
+import { user } from '../store/actions/user'
+import { userID, userInfo } from '../store/reducers'
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onPostSignup: (input) => {
-    	dispatch(signup(input))
-    }
-  }
-};
+const Account = (props) => {
+	return (
+		<div className="account">
+			<AccountMolecule {...props}/>
+		</div>
+	)
+}
+
+const mapStateToProps = (state) => ({
+	user_id: userID(state),
+	user: userInfo(state)
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	get_user_info: (id) => {
+		dispatch(user(id))
+	}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account)

@@ -66,7 +66,7 @@ ReactDOM.render((
         <Switch>
           <Route exact path="/signin/" component={Signin} />
           <Route exact path="/signup/" component={SignUp} />
-	  <Route exact path="/account/" component={Account} />
+	  <PrivateRoute exact path="/account/" component={Account} />
           <Route exact path="/intro/" component={IntroPage} />
           <PrivateRoute path="/detail/:name" component={Detail} />
           <PrivateRoute path="/" component={List} />
