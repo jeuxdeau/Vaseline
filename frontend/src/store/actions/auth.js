@@ -10,9 +10,10 @@ export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
 
 export const LOGOUT = '@@auth/LOGOUT'
 
-export const SIGNUP_REQUEST = '@@auth/SIGNUP_REQUEST'
-export const SIGNUP_SUCCESS = '@@auth/SIGNUP_SUCCESS'
-export const SIGNUP_FAILURE = '@@auth/SIGNUP_FAILURE'
+export const ACCOUNT_REQUEST = '@@auth/ACCOUNT_REQUEST'
+export const ACCOUNT_SUCCESS = '@@auth/ACCOUNT_SUCCESS'
+export const ACCOUNT_FAILURE = '@@auth/ACCOUNT_FAILURE'
+
 
 const ProcUserInfo = (input) => ({
   "username": input.username,

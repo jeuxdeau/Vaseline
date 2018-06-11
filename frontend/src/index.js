@@ -49,7 +49,7 @@ import List from './containers/List'
 import Detail from './containers/Detail'
 import SignUp from './containers/Signup'
 import IntroPage from './components/pages/IntroPage'
-
+import Account from './containers/Account'
 import PrivateRoute from './containers/PrivateRoute'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -66,6 +66,7 @@ ReactDOM.render((
         <Switch>
           <Route exact path="/signin/" component={Signin} />
           <Route exact path="/signup/" component={SignUp} />
+	  <Route exact path="/account/" component={Account} />
           <Route exact path="/intro/" component={IntroPage} />
           <PrivateRoute path="/detail/:name" component={Detail} />
           <PrivateRoute path="/" component={List} />
