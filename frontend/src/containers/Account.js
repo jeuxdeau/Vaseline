@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import AccountMolecule from '../components/molecules/Account'
 import { user } from '../store/actions/user'
-import { userInfo } from '../store/reducers'
+import { userInfo, userID } from '../store/reducers'
 
 const Account = (props) => {
 	return (
@@ -14,7 +14,8 @@ const Account = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-	user_info : userInfo(state)
+	user_info : userInfo(state),
+	user_id : userID(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,7 +4,7 @@ import { Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap
 
 class Account extends Component {
 	componentDidMount() {
-		this.props.get_user_info(1)
+		this.props.get_user_info(this.props.user_id)
 	}
         render() {
 		const user_info = this.props.user_info
@@ -13,7 +13,7 @@ class Account extends Component {
                 	return (
                         	<Card>
                                 	<CardBody>
-                                        	<CardTitle>{user_info.id}</CardTitle>
+                                        	<CardTitle>user_id : {this.props.user_id}</CardTitle>
                                         	<CardText>username : {user_info.username}</CardText>
                                         	<CardText>password : {user_info.password}</CardText>
                                 	</CardBody>

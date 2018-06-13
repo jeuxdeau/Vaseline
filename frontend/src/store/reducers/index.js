@@ -38,6 +38,8 @@ export const currentCompanionList =
 	state => fromList.companionList(state.list)
 export const listErrors = 
 	state => fromList.errors(state.list)
+export const userID =
+	state => fromAuth.userID(state.auth)
 export const userInfo =
 	state => fromUser.userInfo(state.user)
 
