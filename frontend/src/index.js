@@ -50,6 +50,7 @@ import Detail from './containers/Detail'
 import SignUp from './containers/Signup'
 import IntroPage from './components/pages/IntroPage'
 import Account from './containers/Account'
+import AccountUser from './containers/AccountUser'
 import PrivateRoute from './containers/PrivateRoute'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -67,6 +68,7 @@ ReactDOM.render((
           <Route exact path="/signin/" component={Signin} />
           <Route exact path="/signup/" component={SignUp} />
 	  <PrivateRoute exact path="/account/" component={Account} />
+	  <PrivateRoute path="/account/user/" component={AccountUser} />
           <Route exact path="/intro/" component={IntroPage} />
           <PrivateRoute path="/detail/:name" component={Detail} />
           <PrivateRoute path="/" component={List} />
