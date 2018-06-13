@@ -4,6 +4,9 @@ import { Jumbotron, Alert, CardDeck, Card, Button, CardImg, CardTitle, CardText,
 import CompanionUpdateBlock from '../../atoms/CompanionUpdateBlock'
 
 class Account extends Component {
+	onSignoutBtnClick() {
+                this.props.post_signout()
+        }
 	componentDidMount() {
 		this.props.get_companion_list()
 		this.props.get_user_info(this.props.user_id)
@@ -14,7 +17,6 @@ class Account extends Component {
 		const companion_list = this.props.companion_list
 		const my_companion_list_key = []
 
-		console.log(companion_list)
 		console.log(user_info)
 		if(user_info) {
 			let companion_update_block_list = []
@@ -25,18 +27,29 @@ class Account extends Component {
 
                 	return (
 				<Jumbotron className="container">
+				<h1>
+                                	VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
+                              	</h1>
+
                         	<Card>
                                 	<CardBody>
-                                        	<CardTitle>user_id : {this.props.user_id}</CardTitle>
-                                        	<CardText>username : {user_info.username}</CardText>
-                                        	<CardText>password : {user_info.password}</CardText>
-						<Button outline color="info" tag={Link} to={"/account/user/"}>Visit</Button>
+						<h2>User Info</h2>
+                                        	<Jumbotron className="container">
+						<CardTitle>user_id : {this.props.user_id}</CardTitle>
+                                        	<CardTitle>username : {user_info.username}</CardTitle>
+						<CardTitle>profile : {user_info.username}</CardTitle>
+						<CardText>age : {user_info.profile.age}</CardText>
+						<CardText>email : {user_info.profile.email}</CardText>
+						<CardText>gender : {user_info.profile.gender}</CardText>
+						<CardText>first_address : {user_info.profile.first_address}</CardText>
+						<CardText>second_address : {user_info.profile.second_address}</CardText>
+						<Button outline color="primary" tag={Link} to={"/account/user/"}>Update?</Button>
+						</Jumbotron>
                                 	</CardBody>
                         	</Card>
 				<CardDeck>
 					{companion_update_block_list}
 				</CardDeck>
-				)
 				</Jumbotron>
                 	)
 		}

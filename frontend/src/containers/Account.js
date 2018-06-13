@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import AccountMolecule from '../components/molecules/Account'
+import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
 import { user } from '../store/actions/user'
 import { userInfo, userID } from '../store/reducers'
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
 	get_companion_list: () => {
                 dispatch(list())
         },
+	post_signout: () => {
+                dispatch(logout())
+        }
 
 })
 

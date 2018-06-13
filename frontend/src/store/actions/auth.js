@@ -14,10 +14,22 @@ export const SIGNUP_REQUEST = '@@auth/SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = '@@auth/SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = '@@auth/SIGNUP_FAILURE'
 
-export const ACCOUNT_REQUEST = '@@auth/ACCOUNT_REQUEST'
-export const ACCOUNT_SUCCESS = '@@auth/ACCOUNT_SUCCESS'
-export const ACCOUNT_FAILURE = '@@auth/ACCOUNT_FAILURE'
+export const ACCOUNT_USER_REQUEST = '@@auth/ACCOUNT_REQUEST'
+export const ACCOUNT_USER_SUCCESS = '@@auth/ACCOUNT_SUCCESS'
+export const ACCOUNT_USER_FAILURE = '@@auth/ACCOUNT_FAILURE'
 
+const ProcUserUpdateInfo = (input) => ({
+	"username":input.username,
+	"password":input.password,
+	"profile":{
+        	"nickname": input.nickname,
+        	"first_address": input.first_address,
+        	"second_address": input.second_address,
+        	"age": input.age,
+        	"gender": input.gender,
+        	"email": input.email
+	}
+})
 
 const ProcUserInfo = (input) => ({
   "username": input.username,
@@ -95,7 +107,7 @@ export const logout = () => ({
 
 export const signup = (input) => ({
 	[RSAA]: {
-		endpoint: 'api/users/',
+		endpoint: '/api/users/',
 		method: 'POST',
 		body: JSON.stringify(ProcUserInfo(input)),
 		headers: {'Content-type': 'application/json'},
@@ -103,4 +115,16 @@ export const signup = (input) => ({
 			SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE
 		]
 	}
+})
+
+export const account_user = (input, user_id) => ({
+        [RSAA]: {
+		endpoint: '/api/users/update/'+user_id,
+                method: 'PUT',
+                body: JSON.stringify(ProcUserUpdateInfo(input)),
+                headers: {'Content-type': 'application/json'},
+                types: [
+                        ACCOUNT_USER_REQUEST, ACCOUNT_USER_SUCCESS, ACCOUNT_USER_FAILURE
+                ]
+        }
 })

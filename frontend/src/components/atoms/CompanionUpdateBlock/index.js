@@ -19,7 +19,7 @@ class CompanionUpdateBlock extends Component {
 					<CardText>age : {companion.age}</CardText>
 					<CardText>sex : {companion.sex}</CardText>
 					<Button outline color="info" tag={Link} to={btn_visit_url}>Visit</Button>
-					<Button outline color="red" tag={Link} to={btn_update_url}>Update?</Button>
+					<Button outline color="primary" tag={Link} to={btn_update_url}>Update?</Button>
 				</CardBody>
 			</Card>
 		)
