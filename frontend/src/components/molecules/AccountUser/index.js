@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
+import { Jumbotron, Alert, Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
 
 class AccountUser extends Component {
 	componentDidMount() {
@@ -11,6 +11,7 @@ class AccountUser extends Component {
 		console.log(user_info)
 		if(user_info) {
                 	return (
+				<Jumbotron className="container">
                         	<Card>
                                 	<CardBody>
 						<CardTitle>You can update your data!</CardTitle>
@@ -19,6 +20,7 @@ class AccountUser extends Component {
                                         	<CardText>password : {user_info.password}</CardText>
                                 	</CardBody>
                         	</Card>
+				</Jumbotron>
                 	)
 		}
 		else {
