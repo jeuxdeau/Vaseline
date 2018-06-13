@@ -36,8 +36,9 @@ class Account extends Component {
 						<h2>User Info</h2>
                                         	<Jumbotron className="container">
 						<CardTitle>user_id : {this.props.user_id}</CardTitle>
-                                        	<CardTitle>username : {user_info.username}</CardTitle>
+						<CardTitle>username : {user_info.username}</CardTitle>
 						<CardTitle>profile : {user_info.username}</CardTitle>
+						<CardText>nickname : {user_info.profile.nickname}</CardText>
 						<CardText>age : {user_info.profile.age}</CardText>
 						<CardText>email : {user_info.profile.email}</CardText>
 						<CardText>gender : {user_info.profile.gender}</CardText>

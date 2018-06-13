@@ -33,12 +33,22 @@ class AccountUser extends Component {
         onSubmit = (event) => {
                 event.preventDefault()
 		console.log("!!")
+		for (var key in this.state){
+			if(this.state[key] == undefined)
+			{
+				if(this.props.user_info[key] == undefined)
+					this.state[key]=this.props.user_info.profile[key]
+				else
+					this.state[key] = this.props.user_info[key]
+				
+			}
+		}
+		console.log(this.state)
                 this.props.onSubmit(this.state, this.props.user_id)
         }
 	
 	render() {
                 const errors = this.props.errors || {}
-		console.log(this.state)
 		const user_info = this.props.user_info
 		if(user_info){
                 	return (
@@ -56,9 +66,10 @@ class AccountUser extends Component {
                                         <TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} placeholder={user_info.username}/>
                                         <TextInput name="password" label="Password" error={errors.password} type="password"
                                                                 onChange={this.handleInputChange} />
+					<TextInput name="nickname" label="Nickname" error={errors.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/>
 					<TextInput name="age" label="Age" error={errors.age} onChange={this.handleInputChange} placeholder={user_info.profile.age}/>
 					<TextInput name="email" label="Email" error={errors.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/>
-					<TextInput name="profile.gender" label="Gender" error={errors.gender} onChange={this.handleInputChange} placeholder={user_info.profile.gender}/>
+					<TextInput name="gender" label="Gender" error={errors.gender} onChange={this.handleInputChange} placeholder={user_info.profile.gender}/>
 					<TextInput name="first_address" label="First_address" error={errors.first_address} onChange={this.handleInputChange} placeholder={user_info.profile.first_address}/>
 					<TextInput name="second_address" label="Second_address" error={errors.second_address} onChange={this.handleInputChange} placeholder={user_info.profile.second_address}/>
                                         <Button type="submit" color="danger" size="lg">
