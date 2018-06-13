@@ -7,7 +7,7 @@ class CompanionBlock extends Component {
 		const companion = this.props.companion
 		const name = companion.name
 		const btn_url = "/detail/" + name
-
+		
 		return (
 			<Card>
 				<CardImg 	top width="100%" 
