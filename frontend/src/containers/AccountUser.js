@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import AccountUserMolecule from '../components/molecules/AccountUser'
 import { account_user_password, account_user_profile } from '../store/actions/auth'
+import { logout } from '../store/actions/auth'
 import { user } from '../store/actions/user'
 import { userInfo, userID, userErrors } from '../store/reducers'
 
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
 	get_user_info: (id) => {
 		dispatch(user(id))
 	},
+	post_signout: () => {
+                dispatch(logout())
+        },
 	onSubmitPassword: (input, user_id) => {
                 dispatch(account_user_password(input, user_id))
         },

@@ -14,13 +14,17 @@ export const SIGNUP_REQUEST = '@@auth/SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = '@@auth/SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = '@@auth/SIGNUP_FAILURE'
 
-export const ACCOUNT_USER_PASSWORD_REQUEST = '@@auth/ACCOUNT_PASSWORD_REQUEST'
-export const ACCOUNT_USER_PASSWORD_SUCCESS = '@@auth/ACCOUNT_PASSWORD_SUCCESS'
-export const ACCOUNT_USER_PASSWORD_FAILURE = '@@auth/ACCOUNT_PASSWORD_FAILURE'
+export const ACCOUNT_USER_PASSWORD_REQUEST = '@@auth/ACCOUNT_USER_PASSWORD_REQUEST'
+export const ACCOUNT_USER_PASSWORD_SUCCESS = '@@auth/ACCOUNT_USER_PASSWORD_SUCCESS'
+export const ACCOUNT_USER_PASSWORD_FAILURE = '@@auth/ACCOUNT_USER_PASSWORD_FAILURE'
 
-export const ACCOUNT_USER_PROFILE_REQUEST = '@@auth/ACCOUNT_PROFILE_REQUEST'
-export const ACCOUNT_USER_PROFILE_SUCCESS = '@@auth/ACCOUNT_PROFILE_SUCCESS'
-export const ACCOUNT_USER_PROFILE_FAILURE = '@@auth/ACCOUNT_PROFILE_FAILURE'
+export const ACCOUNT_USER_PROFILE_REQUEST = '@@auth/ACCOUNT_USER_PROFILE_REQUEST'
+export const ACCOUNT_USER_PROFILE_SUCCESS = '@@auth/ACCOUNT_USER_PROFILE_SUCCESS'
+export const ACCOUNT_USER_PROFILE_FAILURE = '@@auth/ACCOUNT_USER_PROFILE_FAILURE'
+
+export const ACCOUNT_COMPANION_REQUEST = '@@auth/ACCOUNT_COMPANION_REQUEST'
+export const ACCOUNT_COMPANION_SUCCESS = '@@auth/ACCOUNT_COMPANION_SUCCESS'
+export const ACCOUNT_COMPANION_FAILURE = '@@auth/ACCOUNT_COMPANION_FAILURE'
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -37,6 +41,10 @@ const ProcUserProfileUpdateInfo = (input) => (
                 "email": input.email
         }
 })
+
+const ProcCompanionUpdateInfo = (input) => ({
+})
+
 
 const ProcUserInfo = (input) => ({
   "username": input.username,
@@ -148,3 +156,14 @@ export const account_user_profile = (input, user_id) => ({
         }
 })
 
+export const account_companion = (input, companion_id) => ({
+        [RSAA]: {
+                endpoint: '/api/companions/'+companion_id+'/',
+                method: 'PUT',
+                body: JSON.stringify(ProcCompanionUpdateInfo(input)),
+                headers: {'Content-type': 'application/json'},
+                types: [
+                        ACCOUNT_COMPANION_REQUEST, ACCOUNT_COMPANION_SUCCESS, ACCOUNT_COMPANION_FAILURE
+                ]
+        }
+})
