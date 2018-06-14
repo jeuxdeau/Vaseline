@@ -73,7 +73,7 @@ class AccountUser extends Component {
 					<TextInput name="first_address" label="First_address" error={errors.first_address} onChange={this.handleInputChange} placeholder={user_info.profile.first_address}/>
 					<TextInput name="second_address" label="Second_address" error={errors.second_address} onChange={this.handleInputChange} placeholder={user_info.profile.second_address}/>
                                         <Button type="submit" color="danger" size="lg">
-                                                Log in
+                                                Update
                                         </Button>
                                 </Form>
                         </Jumbotron>
@@ -82,8 +82,8 @@ class AccountUser extends Component {
                         return (
                                 <Card>
                                         <CardTitle>{1}</CardTitle>
-                                        <CardText>age : {2}</CardText>
-                                        <CardText>sex : {3}</CardText>
+                                        <CardText>not : {2}</CardText>
+                                        <CardText>start : {3}</CardText>
                                 </Card>
                         )
                 }

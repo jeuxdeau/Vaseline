@@ -210,7 +210,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # if password input is null, no change
-        if validated_data['password'] is None:
+        if validated_data['password'] is not None:
             password = validated_data['password']
             instance.set_password(password)
         profile_data = validated_data['profile']

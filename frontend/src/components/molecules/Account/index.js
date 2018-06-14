@@ -16,7 +16,7 @@ class Account extends Component {
 		const user_info = this.props.user_info
 		const companion_list = this.props.companion_list
 		const my_companion_list_key = []
-
+		// my_companion list to Companion_update_block_list
 		console.log(user_info)
 		if(user_info) {
 			let companion_update_block_list = []
@@ -58,8 +58,8 @@ class Account extends Component {
                         return (
 				<Card>
 					<CardTitle>{1}</CardTitle>
-					<CardText>age : {2}</CardText>
-					<CardText>sex : {3}</CardText>
+					<CardText>not : {2}</CardText>
+					<CardText>start : {3}</CardText>
 				</Card>
                         )
                 }

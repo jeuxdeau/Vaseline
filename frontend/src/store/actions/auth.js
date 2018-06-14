@@ -119,7 +119,7 @@ export const signup = (input) => ({
 
 export const account_user = (input, user_id) => ({
         [RSAA]: {
-		endpoint: '/api/users/update/'+user_id,
+		endpoint: '/api/users/update/'+user_id+'/',
                 method: 'PUT',
                 body: JSON.stringify(ProcUserUpdateInfo(input)),
                 headers: {'Content-type': 'application/json'},
