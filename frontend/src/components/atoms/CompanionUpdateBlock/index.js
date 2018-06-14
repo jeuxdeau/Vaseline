@@ -7,7 +7,7 @@ class CompanionUpdateBlock extends Component {
 		const companion = this.props.companion
 		const name = companion.name
 		const btn_visit_url = "/detail/" + name
-		const btn_update_url = "/account/user"
+		const btn_update_url = "/account/companion/"
 		
 		return (
 			<Card>
@@ -19,7 +19,7 @@ class CompanionUpdateBlock extends Component {
 					<CardText>age : {companion.age}</CardText>
 					<CardText>sex : {companion.sex}</CardText>
 					<Button outline color="info" tag={Link} to={btn_visit_url}>Visit</Button>
-					<Button outline color="primary" tag={Link} to={btn_update_url}>Update?</Button>
+					<Button outline color="primary" tag={Link} to={btn_update_url+companion.id+"/"}>Update?</Button>
 				</CardBody>
 			</Card>
 		)
