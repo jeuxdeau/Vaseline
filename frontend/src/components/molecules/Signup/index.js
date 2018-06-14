@@ -100,7 +100,7 @@ export const SignUp = (props) => {
 
       const firstLevelOptions = Object.keys(this.props.options).map(renderOption)
       const secondLevelOptions = this.props.options[this.state.firstLevel].map(renderOption)
-
+      console.log(Object.keys(this.props.options).map(renderOption))
       return (
         <div>
         거주지

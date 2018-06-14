@@ -71,6 +71,19 @@ class AccountCompanion extends Component {
                                         }
                                         <CardDeck>
                                         <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					//<TextInput name="sex" label="sex" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<TextInput name="birth_year" label="birth_year" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<TextInput name="breed" label="breed" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<TextInput name="size" label="size" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+
+					<h2>Desired_mate</h2>
+					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+                                        <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+                                        <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+                                        <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+                                        <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
                                         <Button type="submit" color="danger" size="lg">
                                                 Update Companion
                                         </Button>
