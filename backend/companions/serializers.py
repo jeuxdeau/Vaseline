@@ -201,11 +201,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'password', 'companion', 'profile')
 
-class UserUpdateSerializer(serializers.ModelSerializer):
-    profile = ProfileUpdateSerializer(required=True)
+class UserPasswordUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'profile')
+        fields = ('id', 'username', 'password')
         read_only_fields = ('username',)
 
     def update(self, instance, validated_data):
@@ -213,6 +212,19 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         if validated_data['password'] is not None:
             password = validated_data['password']
             instance.set_password(password)
+        instance.save()
+        return instance
+
+
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    profile = ProfileUpdateSerializer(required=True)
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'profile')
+        read_only_fields = ('username',)
+
+    def update(self, instance, validated_data):
+        # if password input is null, no change
         profile_data = validated_data['profile']
         profile = instance.profile
         profile.nickname = profile_data['nickname']

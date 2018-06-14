@@ -14,21 +14,28 @@ export const SIGNUP_REQUEST = '@@auth/SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = '@@auth/SIGNUP_SUCCESS'
 export const SIGNUP_FAILURE = '@@auth/SIGNUP_FAILURE'
 
-export const ACCOUNT_USER_REQUEST = '@@auth/ACCOUNT_REQUEST'
-export const ACCOUNT_USER_SUCCESS = '@@auth/ACCOUNT_SUCCESS'
-export const ACCOUNT_USER_FAILURE = '@@auth/ACCOUNT_FAILURE'
+export const ACCOUNT_USER_PASSWORD_REQUEST = '@@auth/ACCOUNT_PASSWORD_REQUEST'
+export const ACCOUNT_USER_PASSWORD_SUCCESS = '@@auth/ACCOUNT_PASSWORD_SUCCESS'
+export const ACCOUNT_USER_PASSWORD_FAILURE = '@@auth/ACCOUNT_PASSWORD_FAILURE'
 
-const ProcUserUpdateInfo = (input) => ({
-	"username":input.username,
+export const ACCOUNT_USER_PROFILE_REQUEST = '@@auth/ACCOUNT_PROFILE_REQUEST'
+export const ACCOUNT_USER_PROFILE_SUCCESS = '@@auth/ACCOUNT_PROFILE_SUCCESS'
+export const ACCOUNT_USER_PROFILE_FAILURE = '@@auth/ACCOUNT_PROFILE_FAILURE'
+
+const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
-	"profile":{
-        	"nickname": input.nickname,
-        	"first_address": input.first_address,
-        	"second_address": input.second_address,
-        	"age": input.age,
-        	"gender": input.gender,
-        	"email": input.email
-	}
+})
+
+const ProcUserProfileUpdateInfo = (input) => (
+	{
+        "profile":{
+                "nickname": input.nickname,
+                "first_address": input.first_address,
+                "second_address": input.second_address,
+                "age": input.age,
+                "gender": input.gender,
+                "email": input.email
+        }
 })
 
 const ProcUserInfo = (input) => ({
@@ -117,14 +124,27 @@ export const signup = (input) => ({
 	}
 })
 
-export const account_user = (input, user_id) => ({
+export const account_user_password = (input, user_id) => ({
         [RSAA]: {
-		endpoint: '/api/users/update/'+user_id+'/',
+		endpoint: '/api/users/update/password/'+user_id+'/',
                 method: 'PUT',
-                body: JSON.stringify(ProcUserUpdateInfo(input)),
+                body: JSON.stringify(ProcUserPasswordUpdateInfo(input)),
                 headers: {'Content-type': 'application/json'},
                 types: [
-                        ACCOUNT_USER_REQUEST, ACCOUNT_USER_SUCCESS, ACCOUNT_USER_FAILURE
+                        ACCOUNT_USER_PASSWORD_REQUEST, ACCOUNT_USER_PASSWORD_SUCCESS, ACCOUNT_USER_PASSWORD_FAILURE
                 ]
         }
 })
+
+export const account_user_profile = (input, user_id) => ({
+        [RSAA]: {
+                endpoint: '/api/users/update/profile/'+user_id+'/',
+                method: 'PUT',
+                body: JSON.stringify(ProcUserProfileUpdateInfo(input)),
+                headers: {'Content-type': 'application/json'},
+                types: [
+                        ACCOUNT_USER_PROFILE_REQUEST, ACCOUNT_USER_PROFILE_SUCCESS, ACCOUNT_USER_PROFILE_FAILURE
+                ]
+        }
+})
+
