@@ -24,7 +24,8 @@ class AccountCompanion extends Component {
                 const target = event.target
                 const value = target.type === 'checkbox' ? target.checked : target.value
                 const name = target.name
-
+		console.log("!!!!!!!!!!!!!!!!!!!")
+		console.log(target)
                 this.setState({
                         [name]: value
                 })
@@ -56,7 +57,7 @@ class AccountCompanion extends Component {
                 	const errors = this.props.errors || {}
 			if(companion_list){
 				const companion = companion_list[companion_id-1]
-				console.log(companion)
+				console.log(companion.desired_mate)
                 		return (
 					<Jumbotron className="container">
 	                                <h1>
@@ -71,14 +72,17 @@ class AccountCompanion extends Component {
                                         }
                                         <CardDeck>
                                         <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					//<TextInput name="sex" label="sex" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					<TextInput name="birth_year" label="birth_year" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					<TextInput name="breed" label="breed" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					<TextInput name="size" label="size" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-
+					<TextInput name="sex" label="sex" error={errors.name} onChange={this.handleInputChange} placeholder={companion.sex}/>
+					<TextInput name="birth_year" label="birth_year" error={errors.name} onChange={this.handleInputChange} placeholder={companion.birth_year}/>
+					<TextInput name="breed" label="breed" error={errors.name} onChange={this.handleInputChange} placeholder={companion.breed}/>
+					<TextInput name="size" label="size" error={errors.name} onChange={this.handleInputChange} placeholder={companion.size}/>
+					<CardDeck>
 					<h2>Desired_mate</h2>
-					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
+					<CardDeck>
+					<h3>Personality</h3>
+					<CardDeck>
+					<TextInput name="affinity_with_human" label="affinity_with_human" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.affinity_with_human}/>
+					<TextInput name="affinity_with_dog" label="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
 					<TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
                                         <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
                                         <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
@@ -87,6 +91,9 @@ class AccountCompanion extends Component {
                                         <Button type="submit" color="danger" size="lg">
                                                 Update Companion
                                         </Button>
+					</CardDeck>
+					</CardDeck>
+					</CardDeck>
                                         </CardDeck>
                                 </Form>
 

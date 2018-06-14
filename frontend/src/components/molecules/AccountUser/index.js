@@ -219,8 +219,6 @@ class AccountUser extends Component {
         				</select>
         				</div>
 
-					<TextInput name="first_address" label="First_address" error={errors.first_address} onChange={this.handleInputChange} placeholder={user_info.profile.first_address}/>
-					<TextInput name="second_address" label="Second_address" error={errors.second_address} onChange={this.handleInputChange} placeholder={user_info.profile.second_address}/>
                                         <Button type="submit" color="danger" size="lg">
                                                 Update Profile
                                         </Button>
