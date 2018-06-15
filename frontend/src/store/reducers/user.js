@@ -23,5 +23,5 @@ export default (state=initialState, action) => {
 	}
 }
 
-export const user = (state) => (state.user)
+export const userInfo = (state) => (state.user)
 export const errors = (state) => (state.errors)

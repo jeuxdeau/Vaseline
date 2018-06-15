@@ -2,10 +2,13 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth'
 import list, * as fromList from './list'
+import userAction, * as fromUser from './user'
+//import * as fromUser from './user'
 
 export default combineReducers ({
 	auth: auth,
 	list: list,
+	user: userAction,
 	router: routerReducer,
 })
 
@@ -35,3 +38,10 @@ export const currentCompanionList =
 	state => fromList.companionList(state.list)
 export const listErrors = 
 	state => fromList.errors(state.list)
+export const userErrors =
+	state => fromUser.errors(state.user)
+export const userID =
+	state => fromAuth.userID(state.auth)
+export const userInfo =
+	state => fromUser.userInfo(state.user)
+

@@ -6,7 +6,6 @@ export default class ListPage extends Component {
 	onSignoutBtnClick() {
 		this.props.post_signout()
 	}
-
 	componentDidMount() {
 		this.props.get_companion_list()
 	}
@@ -14,7 +13,7 @@ export default class ListPage extends Component {
 	render() {
 		const companion_list = this.props.companion_list
 		const errors = this.props.errors || {}
-		
+		console.log(this.props)
 		if(companion_list) {
 			return (
 				<Jumbotron className="container">
