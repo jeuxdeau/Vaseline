@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
-import { PageHeader, Alert, Button, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Row, Col } from 'reactstrap'
+import { PageHeader, Alert, Button, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Label, Input, Row, Col } from 'reactstrap'
 import { options } from './address.js'
 
 import TextInput from '../../atoms/TextInput'
@@ -203,8 +203,24 @@ export const SignupPage = (props) => {
         <TextInput name="password" placeholder="password"/>
         <TextInput name="nickname" placeholder="nickname"/>
         <TextInput name="email" placeholder="e-mail"/>
-        나이 드랍다운
-        성별 드랍다운
+        <FormGroup>
+          <Label for="age">나이</Label>
+          <Input type="select" name="age" id="ageselect" onChange={(node) => { profile.age = node.target }}>
+            <option value='10'>10대</option>
+            <option value='20'>20대</option>
+            <option value='30'>30대</option>
+            <option value='40'>40대</option>
+            <option value='50'>50대</option>
+            <option value='60'>60대 이상</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="gender">성별</Label>
+          <Input type="select" name="gender" id="genderselect" onChange={(node) => { profile.gender = node.target }}>
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+          </Input>
+        </FormGroup>
         주소 드랍다운<p/>
 
       <b>반려동물 정보</b>  여러분의 반려동물에 대해서 알려주세요.<p/>
