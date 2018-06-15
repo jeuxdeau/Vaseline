@@ -196,7 +196,7 @@ export const SignupPage = (props) => {
       </p>
       </Jumbotron>
 
-
+      <Jumbotron>
       <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
       <Form onSubmit={onSubmit}>
         <TextInput name="id" placeholder="id"/>
@@ -222,15 +222,67 @@ export const SignupPage = (props) => {
           </Input>
         </FormGroup>
         주소 드랍다운<p/>
-
       <b>반려동물 정보</b>  여러분의 반려동물에 대해서 알려주세요.<p/>
       가장 잘 나타내는 사진 또는 동영상을 첨부해 주세요!<br/>
       <input type="file"/><br/>
       <TextInput name="companion.name" placeholder="name of your companion animal"/>
 
+      <FormGroup>
+        <Label for="sex">성별</Label>
+        <Input type="select" name="sex" id="sexselect" onChange={(node) => { companion.sex = node.target }}>
+          <option value="female">암컷</option>
+          <option value="male">수컷</option>
+        </Input>
+      </FormGroup>
+      <FormGroup>
+        <Label for="breed">품종</Label>
+        <Input type="select" name="breed" id="breedselect" onChange={(node) => { companion.breed = node.target }}>
+          <option value='mix'>믹스</option>
+          <option value='dachshund'>닥스훈트</option>
+          <option value='dalmatian'>달마시안</option>
+          <option value='retriever'>리트리버</option>
+          <option value='malamute'>말라뮤트</option>
+          <option value='maltese'>말티즈</option>
+          <option value='miniature_pinscher'>미니핀</option>
+          <option value='bulldog'>불독</option>
+          <option value='beagle'>비글</option>
+          <option value='bichon_frise'>비숑프리제</option>
+          <option value='samoyed'>사모예드</option>
+          <option value='shar_pei'>샤페이</option>
+          <option value='shepherd'>세퍼트</option>
+          <option value='sapsal'>삽살</option>
+          <option value='sheepdog'>쉽독</option>
+          <option value='spitz'>스피츠</option>
+          <option value='siberian_husky'>시베리안 허스키</option>
+          <option value='shih_tzu'>시츄</option>
+          <option value='yorkshire_terrier'>요크셔 테리어</option>
+          <option value='welsh_corgi'>웰시코기</option>
+          <option value='jindo_dog'>진돗개</option>
+          <option value='chihuahua'>치와와</option>
+          <option value='cocker_spaniel'>코카스파니엘</option>
+          <option value='collie'>콜리</option>
+          <option value='toy_poodle'>토이푸들</option>
+          <option value='papillon'>파피용</option>
+          <option value='pug'>퍼그</option>
+          <option value='pekingese'>페키니즈</option>
+          <option value='pomeranian'>포메라니안</option>
+          <option value='poodle'>푸들</option>
+          <option value='pyrenees'>피레니즈</option>
+          <option value='hound'>하운드</option>
+          <option value='etc'>기타</option>
+        </Input>
+      </FormGroup>
+      <FormGroup>
+        <Label for="size">성별</Label>
+        <Input type="select" name="size" id="sizeselect" onChange={(node) => { companion.sex = node.target }}>
+          <option value="female">암컷</option>
+          <option value="male">수컷</option>
+        </Input>
+      </FormGroup>
 
         <center><Button type="submit" color="info">다 했어요!</Button></center>
       </Form>
+    </Jumbotron>
     </Container>
 
 
