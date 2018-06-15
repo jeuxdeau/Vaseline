@@ -49,6 +49,7 @@ import List from './containers/List'
 import Detail from './containers/Detail'
 import SignUp from './containers/Signup'
 import IntroPage from './components/pages/IntroPage'
+import Fileupload from './components/molecules/Fileupload'
 
 import PrivateRoute from './containers/PrivateRoute'
 
@@ -67,6 +68,7 @@ ReactDOM.render((
           <Route exact path="/signin/" component={Signin} />
           <Route exact path="/signup/" component={SignUp} />
           <Route exact path="/intro/" component={IntroPage} />
+		  <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />
           <PrivateRoute path="/" component={List} />
         </Switch>

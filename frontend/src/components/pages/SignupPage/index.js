@@ -11,7 +11,7 @@ font-family: ${font('primary')};
 color: ${palette('grayscale', 0)};
 `
 
-export const SignUp = (props) => {
+export const SignupPage = (props) => {
   /* SIGNUP POST */
   // USER info
   let username, password;
@@ -496,4 +496,4 @@ export const SignUp = (props) => {
   )
 }
 
-export default SignUp
+export default SignupPage
