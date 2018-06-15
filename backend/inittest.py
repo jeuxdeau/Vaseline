@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from companions.models import DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Companion, Profile, Like, Proposal, Message
+from companions.models import DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Companion, RepresentCompanion, Profile, Like, Proposal, Message
 import promtest
 import json
 import requests
@@ -66,5 +66,12 @@ for (sender, receiver, message, date_sent) in promtest.create_messages(N+1):
     message_receiver = Companion.objects.get(pk=receiver)
     message = Message.objects.create(sender=message_sender, receiver=message_receiver, message=message, date_sent=date_sent)
     print("\tCreated Message {0}".format(message))
+
+for i in range(1, N+1):
+    user = User.objects.get(pk=i)
+    companion = Companion.objects.get(pk=i)
+    represent_companion = RepresentCompanion.objects.create(user=user, represent_companion=companion)
+    print("\tCreated RepresentCompanion {0}".format(represent_companion))
+
 
 print("Initialization Successful!")

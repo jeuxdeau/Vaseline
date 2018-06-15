@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^api/total/(?P<pk>[0-9]+)/$', views.UserTotalInfoDetail.as_view()),
     url(r'^api/users/update/password/(?P<pk>[0-9]+)/$', views.UserPasswordUpdateDetail.as_view()),
     url(r'^api/users/update/profile/(?P<pk>[0-9]+)/$', views.UserProfileUpdateDetail.as_view()),
+    url(r'^api/users/represent/(?P<pk>[0-9]+)/$', views.RepresentCompanionDetail.as_view()),
     url(r'^api/profiles/$', views.ProfileList.as_view()),
     url(r'^api/profiles/(?P<pk>[0-9]+)/$', views.ProfileDetail.as_view()),
     url(r'^api/upload/$', FileView.as_view(), name='file-upload'),

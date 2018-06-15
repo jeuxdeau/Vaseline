@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import fields, serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
-from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File
+from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 import sys, os
 sys.path.insert(0, os.getcwd()+'/companions/model')
 from breeds import *
@@ -147,6 +147,7 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
+        read_only_fields = ('user',)
 
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -181,6 +182,29 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
         read_only_fields = ('user',)
+
+class RepresentCompanionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RepresentCompanion
+        fields = '__all__'
+
+    def update(self, instance, validated_data):
+        # if password input is null, no change
+        user = instance.user
+        companion = instance.represent_companion
+        companion_update = validated_data['represent_companion']
+        print(user.id)
+        companion_list = None
+        try:
+            companion_list = Companion.objects.filter(user=user.id).get(id=companion_update.id)
+        except Companion.DoesNotExist:
+            companion_list = None
+        if(companion_list is None):
+            return instance
+        instance.represent_companion = companion_update
+        instance.save()
+        return instance
+
 
 class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
