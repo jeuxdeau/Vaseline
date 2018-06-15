@@ -30,8 +30,8 @@ const Fileupload = ({ children, ...props }) => {
 }
 
 Fileupload.propTypes = {
-  reverse: PropTypes.bool,
-  children: PropTypes.node,
+  //reverse: PropTypes.bool,
+  //children: PropTypes.node,
 }
 
 export default Fileupload

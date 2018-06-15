@@ -166,6 +166,7 @@ export const account_companion = (input, companion_id) => ({
                         ACCOUNT_COMPANION_REQUEST, ACCOUNT_COMPANION_SUCCESS, ACCOUNT_COMPANION_FAILURE
                 ]
         }
+})
 
 export const search = () => ({
 })
