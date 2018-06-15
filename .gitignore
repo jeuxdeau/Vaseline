@@ -1,4 +1,8 @@
 ## IGNORE REDUNDANT FILES
 
 # pyc files created from backend server run command
-*.pyc
+backend/__pycache__/*.pyc
+backend/backend/__pycache__/*.pyc
+backend/companions/__pycache__/*.pyc
+backend/companions/migrations/__pycache__/*.pyc
+backend/companions/model/__pycache__/*.pyc
