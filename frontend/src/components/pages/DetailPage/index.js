@@ -44,9 +44,10 @@ export default class DetailPage extends Component {
 						<Button size="sm" outline color="primary">결혼해요</Button>
 						<MessageApp messageAppOpen={this.state.messageAppActivated}
 									messageSender={this.props.user_id} 
-									messageReceiverName={name} 
-									messageReceiverId='1' 
-									messageToggle={()=>this.onSendMessageBtnClick()}/>
+									messageReceiverName={companion.name} 
+									messageReceiverId={companion.id}
+									messageToggle={()=>this.onSendMessageBtnClick()}
+									messageSend={this.props.post_interaction}/>
 					</h1>
 					{
 						errors.get_list_errors?

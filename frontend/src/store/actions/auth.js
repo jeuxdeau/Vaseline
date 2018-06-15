@@ -134,7 +134,7 @@ export const signup = (input) => ({
 
 export const account_user_password = (input, user_id) => ({
         [RSAA]: {
-		endpoint: '/api/users/update/password/'+user_id+'/',
+		            endpoint: '/api/users/update/password/'+user_id+'/',
                 method: 'PUT',
                 body: JSON.stringify(ProcUserPasswordUpdateInfo(input)),
                 headers: {'Content-type': 'application/json'},
