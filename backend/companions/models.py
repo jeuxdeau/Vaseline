@@ -64,6 +64,10 @@ class Companion(models.Model):
     personality = models.OneToOneField(Personality, on_delete=models.CASCADE)
     mating_season = models.OneToOneField(MatingSeason, on_delete=models.CASCADE)
 
+class RepresentCompanion(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    represent_companion = models.OneToOneField(Companion, on_delete=models.CASCADE)
+
 class Like(models.Model):
     sender = models.ForeignKey(Companion, related_name='like_sent', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Companion, related_name='like_received', on_delete=models.CASCADE)
