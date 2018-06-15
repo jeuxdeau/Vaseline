@@ -187,6 +187,7 @@ class RepresentCompanionSerializer(serializers.ModelSerializer):
     class Meta:
         model = RepresentCompanion
         fields = '__all__'
+        read_only_fields = ('user',)
 
     def update(self, instance, validated_data):
         # if password input is null, no change
