@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Alert, Button, Jumbotron, Form } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 import TextInput from '../../atoms/TextInput'
 
@@ -37,10 +38,14 @@ export default class SigninPage extends Component {
 							</Alert>: ""
 					}
 					<TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} />
-					<TextInput name="password" label="Password" error={errors.password} type="password" 
+					<TextInput name="password" label="Password" error={errors.password} type="password"
 								onChange={this.handleInputChange} />
-					<Button type="submit" color="danger" size="lg">
+					<Button type="submit" color="secondary" size="lg">
 						Log in
+					</Button>
+					&nbsp;
+					<Button color="info" size="lg" tag={Link} to='/signup'>
+						Sign Up
 					</Button>
 				</Form>
 			</Jumbotron>
