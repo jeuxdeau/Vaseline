@@ -18,6 +18,14 @@ export default class DetailPage extends Component {
 		})
 	}
 
+	onSendLikeBtnClick(sender, receiver) {
+		this.props.post_like(sender, receiver)
+	}
+
+	onSendProposalBtnClick(sender, receiver) {
+		this.props.post_proposal(sender, receiver)
+	}
+
 	onSignoutBtnClick() {
 		this.props.post_signout()
 	}
@@ -39,15 +47,15 @@ export default class DetailPage extends Component {
 					<h1>
 						VASELINE 
 						<Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
-						<Button size="sm" outline color="primary">좋아요</Button>{' '}
+						<Button size="sm" outline color="primary" onClick={()=>this.onSendLikeBtnClick(this.props.user_id, companion.id)}>좋아요</Button>{' '}
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
-						<Button size="sm" outline color="primary">결혼해요</Button>
+						<Button size="sm" outline color="primary" onClick={()=>this.onSendProposalBtnClick(this.props.user_id, companion.id)}>결혼해요</Button>
 						<MessageApp messageAppOpen={this.state.messageAppActivated}
 									messageSender={this.props.user_id} 
 									messageReceiverName={companion.name} 
 									messageReceiverId={companion.id}
 									messageToggle={()=>this.onSendMessageBtnClick()}
-									messageSend={this.props.post_interaction}/>
+									messageSend={this.props.post_message}/>
 					</h1>
 					{
 						errors.get_list_errors?
