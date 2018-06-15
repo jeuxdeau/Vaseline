@@ -44,7 +44,7 @@ export default class SigninPage extends Component {
 						Log in
 					</Button>
 					&nbsp;
-					<Button color="info" size="lg" tag={Link} to='/signup'>
+					<Button className="btn float-right" color="info" size="lg" tag={Link} to='/signup'>
 						Sign Up
 					</Button>
 				</Form>
