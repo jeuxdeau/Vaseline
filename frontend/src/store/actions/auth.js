@@ -69,7 +69,7 @@ export const login = (username, password) => ({
 		types: [
 			LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE
 		]
-	}	
+	}
 })
 
 export const refreshAccessToken = (token) => ({
@@ -98,4 +98,8 @@ export const signup = (input) => ({
 			SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE
 		]
 	}
+})
+
+export const search = () => ({
+
 })
