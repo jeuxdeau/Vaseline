@@ -49,9 +49,14 @@ import List from './containers/List'
 import Detail from './containers/Detail'
 import SignUp from './containers/Signup'
 import IntroPage from './components/pages/IntroPage'
+
 import Account from './containers/Account'
 import AccountUser from './containers/AccountUser'
 import AccountCompanion from './containers/AccountCompanion'
+
+import Fileupload from './components/molecules/Fileupload'
+import Search from './containers/Search'
+
 import PrivateRoute from './containers/PrivateRoute'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -68,11 +73,13 @@ ReactDOM.render((
         <Switch>
           <Route exact path="/signin/" component={Signin} />
           <Route exact path="/signup/" component={SignUp} />
-	  <PrivateRoute exact path="/account/" component={Account} />
-	  <PrivateRoute path="/account/user/" component={AccountUser} />
-	  <PrivateRoute path="/account/companion/:id" component={AccountCompanion} />
+	        <PrivateRoute exact path="/account/" component={Account} />
+	        <PrivateRoute path="/account/user/" component={AccountUser} />
+	        <PrivateRoute path="/account/companion/:id" component={AccountCompanion} />
           <Route exact path="/intro/" component={IntroPage} />
+		      <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />
+		      <PrivateRoute path="/search/" component={Search} />
           <PrivateRoute path="/" component={List} />
         </Switch>
       </ConnectedRouter>

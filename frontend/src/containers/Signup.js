@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Signup from "../components/molecules/Signup"
+import SignupPage from '../components/pages/SignupPage'
 import { signup } from '../store/actions/auth'
 
 const mapStateToProps = (state) => {
@@ -16,4 +16,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupPage)

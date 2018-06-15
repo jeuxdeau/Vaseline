@@ -40,10 +40,17 @@ class DesiredMateSerializer(serializers.ModelSerializer):
         )
         return desired_mate
 
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = '__all__'
+
 class CompanionSerializer(serializers.ModelSerializer):
     desired_mate = DesiredMateSerializer(required=True)
     personality = PersonalitySerializer(required=True)
     mating_season = MatingSeasonSerializer(required=True)
+    media = serializers.PrimaryKeyRelatedField(many=True, queryset=File.objects.all())
     like_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
     like_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Like.objects.all())
     proposal_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
@@ -54,7 +61,7 @@ class CompanionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Companion
         fields = '__all__'
-        read_only_fields = ('like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
+        read_only_fields = ('media', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
 
 
     def create(self, validated_data):
@@ -269,8 +276,3 @@ class UserTotalInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'companion')
-
-class FileSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = File
-        fields = ('file', 'remark', 'timestamp')

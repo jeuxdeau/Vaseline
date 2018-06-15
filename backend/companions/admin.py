@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, RepresentCompanion
+from .models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 
 admin.site.register(Companion)
 admin.site.register(DesiredMate)
@@ -11,3 +11,4 @@ admin.site.register(Proposal)
 admin.site.register(Message)
 admin.site.register(Profile)
 admin.site.register(RepresentCompanion)
+admin.site.register(File)

@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^api/likes/$', views.LikeList.as_view()),
     url(r'^api/proposals/$', views.ProposalList.as_view()),
     url(r'^api/messages/$', views.MessageList.as_view()),
+    url(r'^api/files/$', views.FileList.as_view()),
     url(r'^api/users/$', views.UserListAndSignUp.as_view()),
     url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     url(r'^api/total/(?P<pk>[0-9]+)/$', views.UserTotalInfoDetail.as_view()),

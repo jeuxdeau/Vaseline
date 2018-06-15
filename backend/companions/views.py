@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
-from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, RepresentCompanion
+from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer
@@ -143,3 +143,11 @@ class FileView(APIView):
             return Response(file_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+<<<<<<< HEAD
+=======
+
+class FileList(generics.ListAPIView):
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
+
+>>>>>>> master
