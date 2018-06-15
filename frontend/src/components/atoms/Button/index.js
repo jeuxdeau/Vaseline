@@ -61,14 +61,14 @@ const Button = ({ type, ...props }) => {
 }
 
 Button.propTypes = {
-  disabled: PropTypes.bool,
+  /*disabled: PropTypes.bool,
   palette: PropTypes.string,
   transparent: PropTypes.bool,
   reverse: PropTypes.bool,
   height: PropTypes.number,
   type: PropTypes.string,
   to: PropTypes.string,
-  href: PropTypes.string,
+  href: PropTypes.string,*/
 }
 
 Button.defaultProps = {
