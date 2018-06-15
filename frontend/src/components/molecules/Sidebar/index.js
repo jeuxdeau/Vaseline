@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
 
 	componentDidMount() {
 		this.props.get_user_info(this.props.user_id)
-		//this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, 3000)
+		this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, 3000)
 	}
 
 	toggle() {
