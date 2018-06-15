@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -86,13 +86,21 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         else:
             return Response(companion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         companion = Companion.objects.get(user=user.id)
+        print("111111111")
         represent_companion_data = QueryDict('', mutable=True)
+        print("22222222222")
         represent_companion_data.update({"user":user.id, "represent_companion":companion.id})
+        print("333333333333")
+        print(represent_companion_data)
         represent_companion_serializer = RepresentCompanionSerializer(data=represent_companion_data)
+        print("444444444444")
         if represent_companion_serializer.is_valid():
+            print("5555")
             represent_companion_serializer.save()
         else:
+            print("66666666666")
             return Response(represent_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print("!!!!!!!!!!!!!!!!")
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
         profile_serializer = ProfileSerializer(data=profile_data)
@@ -130,9 +138,13 @@ class UserTotalInfoDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserTotalInfoSerializer
 
-class RepresentCompanionDetail(generics.RetrieveUpdateAPIView):
+class RepresentCompanionList(generics.ListAPIView):
     queryset = RepresentCompanion.objects.all()
     serializer_class = RepresentCompanionSerializer
+
+class RepresentCompanionUpdateDetail(generics.RetrieveUpdateAPIView):
+    queryset = RepresentCompanion.objects.all()
+    serializer_class = RepresentCompanionUpdateSerializer
 
 class FileView(APIView):
     parser_classes = (MultiPartParser, FormParser)

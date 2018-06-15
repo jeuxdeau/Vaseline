@@ -24,7 +24,6 @@ class MatingSeasonSerializer(serializers.ModelSerializer):
 
 class DesiredMateSerializer(serializers.ModelSerializer):
     personality = PersonalityDesiredMateSerializer(required=True)
-    breed = fields.MultipleChoiceField(choices=BreedsDesiredMate)
     class Meta:
         model = DesiredMate
         fields = '__all__'
@@ -194,6 +193,11 @@ class RepresentCompanionSerializer(serializers.ModelSerializer):
     class Meta:
         model = RepresentCompanion
         fields = '__all__'
+
+class RepresentCompanionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RepresentCompanion
+        fields = '__all__'
         read_only_fields = ('user',)
 
     def update(self, instance, validated_data):
@@ -201,7 +205,6 @@ class RepresentCompanionSerializer(serializers.ModelSerializer):
         user = instance.user
         companion = instance.represent_companion
         companion_update = validated_data['represent_companion']
-        print(user.id)
         companion_list = None
         try:
             companion_list = Companion.objects.filter(user=user.id).get(id=companion_update.id)

@@ -47,7 +47,8 @@ class MatingSeason(models.Model):
 
 #DesiredMate (Can select many breeds)
 class DesiredMate(models.Model):
-    breed = MultiSelectField(choices = BreedsDesiredMate, default = ['beagle', 'sapsal'])
+    breed = models.CharField(choices = Breeds, default = 'beagle', max_length=100)
+    #breed = MultiSelectField(choices = BreedsDesiredMate, default = ['beagle', 'sapsal'])
     sex = EnumChoiceField(SexDesiredMate, default=SexDesiredMate.male)
     size = EnumChoiceField(SizeDesiredMate, default=SizeDesiredMate.small)
     personality = models.OneToOneField(PersonalityDesiredMate, on_delete=models.CASCADE)
