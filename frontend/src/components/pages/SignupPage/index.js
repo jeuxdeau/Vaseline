@@ -85,13 +85,15 @@ export const SignupPage = (props) => {
       console.log(Object.keys(this.props.options).map(renderOption))
       return (
         <div>
-        거주지
-        <select onChange={this.handleFirstLevelChange} value={this.state.firstLevel}>
+        <Label for="address">
+          거주지
+        </Label>
+        <Input type="select" onChange={this.handleFirstLevelChange} value={this.state.firstLevel}>
         {firstLevelOptions}
-        </select>
-        <select onChange={this.handleSecondLevelChange} value={this.state.secondLevel}>
+        </Input>
+        <Input type="select" onChange={this.handleSecondLevelChange} value={this.state.secondLevel}>
         {secondLevelOptions}
-        </select>
+        </Input>
         </div>
       )
     }
@@ -197,12 +199,12 @@ export const SignupPage = (props) => {
       </Jumbotron>
 
       <Jumbotron>
-        <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
+        <h2>유저 정보</h2>  당신에 대해서 알려주세요.<p/>
       <Form onSubmit={onSubmit}>
-        <TextInput name="id" placeholder="id"/>
-        <TextInput name="password" placeholder="password"/>
-        <TextInput name="nickname" placeholder="nickname"/>
-        <TextInput name="email" placeholder="e-mail"/>
+        <TextInput name="id" placeholder="id" />
+        <TextInput name="password" placeholder="password" />
+        <TextInput name="nickname" placeholder="nickname" />
+        <TextInput name="email" placeholder="e-mail" />
         <FormGroup>
           <Label for="age">나이</Label>
           <Input type="select" name="age" id="ageselect" onChange={(node) => { profile.age = node.target }}>
@@ -221,9 +223,9 @@ export const SignupPage = (props) => {
             <option value="female">여성</option>
           </Input>
         </FormGroup>
-        주소 드랍다운<p/>
-      <b>반려동물 정보</b>  여러분의 반려동물에 대해서 알려주세요.<p/>
-      가장 잘 나타내는 사진 또는 동영상을 첨부해 주세요!<br/>
+      <MyForm options={options} /><br/>
+      <h2>반려동물 정보</h2>  여러분의 반려동물에 대해서 알려주세요.<p/>
+      가장 잘 나타내는 사진 또는 동영상을 첨부해 주세요!<br /><br />
       <input type="file"/><br/>
       <TextInput name="companion.name" placeholder="name of your companion animal"/>
 
@@ -315,59 +317,59 @@ export const SignupPage = (props) => {
           </Col>
         </Row>
       </FormGroup>
-      <b>조금 더 알려주세요!</b><br /><br />
+      <h2>조금 더 알려주세요!</h2><br />
       <p>사람을 좋아해요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.affinity_with_human = 1; }}>1</Button>
+        <Button onClick={node => { companion.personality.affinity_with_human = 2; }}>2</Button>
+        <Button onClick={node => { companion.personality.affinity_with_human = 3; }}>3</Button>
+        <Button onClick={node => { companion.personality.affinity_with_human = 4; }}>4</Button>
+        <Button onClick={node => { companion.personality.affinity_with_human = 5; }}>5</Button>
       </ButtonGroup><hr />
 
       <p>강아지 친구들과 친하게 지내요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.affinity_with_dog= 1; }}>1</Button>
+        <Button onClick={node => { companion.personality.affinity_with_dog= 2; }}>2</Button>
+        <Button onClick={node => { companion.personality.affinity_with_dog= 3; }}>3</Button>
+        <Button onClick={node => { companion.personality.affinity_with_dog= 4; }}>4</Button>
+        <Button onClick={node => { companion.personality.affinity_with_dog= 5; }}>5</Button>
       </ButtonGroup><hr />
 
       <p>수줍음이 많아요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.shyness= 1; }}>1</Button>
+        <Button onClick={node => { companion.personality.shyness= 2; }}>2</Button>
+        <Button onClick={node => { companion.personality.shyness= 3; }}>3</Button>
+        <Button onClick={node => { companion.personality.shyness= 4; }}>4</Button>
+        <Button onClick={node => { companion.personality.shyness= 5; }}>5</Button>
       </ButtonGroup><hr />
 
       <p>활동적이에요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.activity = 1; }} >1</Button>
+        <Button onClick={node => { companion.personality.activity = 2; }} >2</Button>
+        <Button onClick={node => { companion.personality.activity = 3; }} >3</Button>
+        <Button onClick={node => { companion.personality.activity = 4; }} >4</Button>
+        <Button onClick={node => { companion.personality.activity = 5; }} >5</Button>
       </ButtonGroup><hr />
 
       <p>많이 짖어요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.loudness = 1; }} >1</Button>
+        <Button onClick={node => { companion.personality.loudness = 2; }} >2</Button>
+        <Button onClick={node => { companion.personality.loudness = 3; }} >3</Button>
+        <Button onClick={node => { companion.personality.loudness = 4; }} >4</Button>
+        <Button onClick={node => { companion.personality.loudness = 5; }} >5</Button>
       </ButtonGroup><hr />
 
       <p>공격적인 편이에요</p>
       <ButtonGroup>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+        <Button onClick={node => { companion.personality.aggression = 1; }} >1</Button>
+        <Button onClick={node => { companion.personality.aggression = 2; }} >2</Button>
+        <Button onClick={node => { companion.personality.aggression = 3; }} >3</Button>
+        <Button onClick={node => { companion.personality.aggression = 4; }} >4</Button>
+        <Button onClick={node => { companion.personality.aggression = 5; }} >5</Button>
       </ButtonGroup><hr />
 
       <FormGroup>
@@ -431,15 +433,13 @@ export const SignupPage = (props) => {
       </Input>
     </FormGroup>
 
-
-
-        <center><Button type="submit" color="info">다 했어요!</Button></center>
+        <center><Button type="submit" color="info" onClick={onSubmit}>다 했어요!</Button></center>
       </Form>
-    </Jumbotron>
+      </Jumbotron>
     </Container>
 
 
-
+    {/*
     <div><b>당신은 누구인가요?</b></div>
     아이디 <input ref={node => {username = node;}}/> <button>중복확인</button><br/>
     비밀번호 <input ref={node => {password = node;}} type="password"/><br/>
@@ -459,7 +459,6 @@ export const SignupPage = (props) => {
     <option value='female'>여성</option>
     <option value='male'>남성</option>
     </select><br/>
-    <MyForm options={options} /><br/>
 
     <div><b>당신의 반려동물♥에 대해 소개해 주세요</b></div>
     사진이나 동영상을 첨부해 주세요!<br/>
@@ -713,6 +712,7 @@ export const SignupPage = (props) => {
     <option value='large'>대형견</option>
     </select><br/><br/>
     <button id="submit" type="submit" onClick={onSubmit}>다 했어요♡</button>
+    */}
     </div>
   )
 }
