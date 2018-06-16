@@ -1,10 +1,21 @@
+/* eslint no-console: 0*/
 import React, { Component } from 'react'
 import { Jumbotron, Alert, Button, CardDeck, Input, Label, Container, Row, Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 export default class IntroPage extends Component {
+  state = {
+    buttondisabled: true
+  }
+   handleInputChange = (event) => {
+      this.setState({
+        buttondisabled: !event.target.checked,
+      })
+    }
+
   render() {
-    return (
+    let chunsim = this.state.buttondisabled
+       return (
         <div>
         <Jumbotron className = "container">
             <h1>본 사이트 이용법</h1>
@@ -30,9 +41,9 @@ export default class IntroPage extends Component {
             교배 뒤 3주 간은 목욕이나 무리한 운동을 금해 주세요. 하지만 한 달 후에는 오히려 적절한 운동을 시켜주는 것이 좋습니다.<p/>
 
             <Alert color="warning">
-                <Input type="checkbox" />{' '}본 내용을 숙지하였고 따를 것에 동의합니다.
+              <Input type="checkbox" onChange={this.handleInputChange} />{' '}본 내용을 숙지하였고 따를 것에 동의합니다.
             </Alert>
-            <Button size="lg" tag={Link} to='/'>확인</Button>
+            <Button name="button" color="danger" disabled={chunsim} size="lg" tag={Link} to='/'>확인</Button>
         </Container>
         </div>
     )
