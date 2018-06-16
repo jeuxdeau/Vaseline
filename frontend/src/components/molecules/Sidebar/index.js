@@ -11,7 +11,7 @@ export default class Sidebar extends Component {
 	}
 
 	updateUserInfo(get_user_news, userID, user) {
-		console.log("Update user news information...")
+		//console.log("Update user news information...")
 		get_user_news(userID)
 	}
 
