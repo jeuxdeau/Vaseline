@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Jumbotron, Alert, Button, CardDeck } from 'reactstrap'
+import { Jumbotron, Alert, Button, CardDeck, Container, Row, Col } from 'reactstrap'
 import CompanionBlock from '../../atoms/CompanionBlock'
 
 export default class ListPage extends Component {
@@ -28,10 +28,13 @@ export default class ListPage extends Component {
 							:""
 					}
 					<CardDeck>
-						{companion_list.map((companion, index) => 
+						{companion_list.map((companion, index) =>
 							{ return 	(
+											<Col xs="4">
 											<CompanionBlock companion={companion}
 															key={index} />
+											<p />
+											</Col>
 										)
 										//(<ul key={companion.name}>{companion.name}
 										//	<li>age : {companion.age}</li>
@@ -44,10 +47,10 @@ export default class ListPage extends Component {
 		}
 		else {
 			return (
-				<Jumbotron className="container"> 
+				<Jumbotron className="container">
 				</Jumbotron>
 			)
 		}
-		
+
 	}
 }
