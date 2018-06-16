@@ -10,9 +10,9 @@ export default class Sidebar extends Component {
 		}, interval)
 	}
 
-	updateUserInfo(get_user_info, userID) {
+	updateUserInfo(get_user_news, userID, user) {
 		console.log("Update user information...")
-		get_user_info(userID)
+		get_user_news(userID)
 	}
 
 	constructor(props) {
@@ -26,8 +26,8 @@ export default class Sidebar extends Component {
 	}
 
 	componentDidMount() {
-		this.props.get_user_info(this.props.user_id)
-		this.createInterval(this.updateUserInfo, this.props.get_user_info, this.state.userID, 3000)
+		this.props.get_user_news(this.props.user_id)
+		this.createInterval(this.updateUserInfo, this.props.get_user_news, this.state.userID, 3000)
 	}
 
 	toggle() {
@@ -37,7 +37,8 @@ export default class Sidebar extends Component {
 	}
 
 	render() {
-		const userName = (this.props.user == undefined) ? "Undefined" : this.props.user.profile.nickname
+		console.log(this.props.user_news)
+		const userName = (this.props.user_news == undefined) ? "Undefined" : this.props.user_news.username
 		return(
 			<div>
 				<Navbar color="info" light expand="md">

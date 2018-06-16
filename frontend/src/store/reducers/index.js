@@ -44,4 +44,5 @@ export const userID =
 	state => fromAuth.userID(state.auth)
 export const userInfo =
 	state => fromUser.userInfo(state.user)
-
+export const userNews =
+	state => fromUser.userNews(state.user)
