@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Jumbotron, Alert, CardDeck, Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
+import { Table, Jumbotron, Badge, Alert, CardDeck, Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
 import CompanionUpdateBlock from '../../atoms/CompanionUpdateBlock'
 
 class Account extends Component {
@@ -34,18 +34,22 @@ class Account extends Component {
                         	<Card>
                                 	<CardBody>
 						<h2>User Info</h2>
-                                        	<Jumbotron className="container">
-						<CardTitle>user_id : {this.props.user_id}</CardTitle>
-						<CardTitle>username : {user_info.username}</CardTitle>
-						<CardTitle>profile : {user_info.username}</CardTitle>
-						<CardText>nickname : {user_info.profile.nickname}</CardText>
-						<CardText>age : {user_info.profile.age}</CardText>
-						<CardText>email : {user_info.profile.email}</CardText>
-						<CardText>gender : {user_info.profile.gender}</CardText>
-						<CardText>first_address : {user_info.profile.first_address}</CardText>
-						<CardText>second_address : {user_info.profile.second_address}</CardText>
-						<Button outline color="primary" tag={Link} to={"/account/user/"}>Update?</Button>
-						</Jumbotron>
+						<Table>
+						<thead>
+						<tr><th><center>#</center></th><th><center>Info</center></th></tr>
+						</thead>
+						<tbody>
+						<tr><th scope="row"><center>User ID</center></th><th><center>{this.props.user_id}</center></th></tr>
+						<tr><th><center>Username</center></th><th><center>{user_info.username}</center></th></tr>
+						<tr><th><center>Nickname</center></th><th><center>{user_info.profile.nickname}</center></th></tr>
+						<tr><th><center>Age</center></th><th><center>{user_info.profile.age}</center></th></tr>
+						<tr><th><center>Email</center></th><th><center>{user_info.profile.email}</center></th></tr>
+                                                <tr><th><center>Gender</center></th><th><center>{user_info.profile.gender}</center></th></tr>
+                                                <tr><th><center>FirstAddress</center></th><th><center>{user_info.profile.first_address}</center></th></tr>
+						<tr><th><center>SecondAddress</center></th><th><center>{user_info.profile.second_address}</center></th></tr>
+						</tbody>
+						</Table>
+						<center><Button outline color="primary" tag={Link} to={"/account/user/"}>Update User Info?</Button></center>
                                 	</CardBody>
                         	</Card>
 				<CardDeck>

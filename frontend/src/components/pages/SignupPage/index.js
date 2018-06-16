@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
-import { PageHeader, Alert, Button, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Row, Col } from 'reactstrap'
+import { PageHeader, Alert, Button, ButtonGroup, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Label, Input, Row, Col } from 'reactstrap'
 import { options } from './address.js'
 
 import TextInput from '../../atoms/TextInput'
@@ -196,25 +196,188 @@ export const SignupPage = (props) => {
       </p>
       </Jumbotron>
 
-
-      <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
+      <Jumbotron>
+        <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
       <Form onSubmit={onSubmit}>
         <TextInput name="id" placeholder="id"/>
         <TextInput name="password" placeholder="password"/>
         <TextInput name="nickname" placeholder="nickname"/>
         <TextInput name="email" placeholder="e-mail"/>
-        나이 드랍다운
-        성별 드랍다운
+        <FormGroup>
+          <Label for="age">나이</Label>
+          <Input type="select" name="age" id="ageselect" onChange={(node) => { profile.age = node.target }}>
+            <option value='10'>10대</option>
+            <option value='20'>20대</option>
+            <option value='30'>30대</option>
+            <option value='40'>40대</option>
+            <option value='50'>50대</option>
+            <option value='60'>60대 이상</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="gender">성별</Label>
+          <Input type="select" name="gender" id="genderselect" onChange={(node) => { profile.gender = node.target }}>
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+          </Input>
+        </FormGroup>
         주소 드랍다운<p/>
-
       <b>반려동물 정보</b>  여러분의 반려동물에 대해서 알려주세요.<p/>
       가장 잘 나타내는 사진 또는 동영상을 첨부해 주세요!<br/>
       <input type="file"/><br/>
       <TextInput name="companion.name" placeholder="name of your companion animal"/>
 
+      <FormGroup>
+        <Label for="sex">성별</Label>
+        <Input type="select" name="sex" id="sexselect" onChange={(node) => { companion.sex = node.target }}>
+          <option value="female">암컷</option>
+          <option value="male">수컷</option>
+        </Input>
+      </FormGroup>
+      <FormGroup>
+        <Label for="breed">품종</Label>
+        <Input type="select" name="breed" id="breedselect" onChange={(node) => { companion.breed = node.target }}>
+          <option value='mix'>믹스</option>
+          <option value='dachshund'>닥스훈트</option>
+          <option value='dalmatian'>달마시안</option>
+          <option value='retriever'>리트리버</option>
+          <option value='malamute'>말라뮤트</option>
+          <option value='maltese'>말티즈</option>
+          <option value='miniature_pinscher'>미니핀</option>
+          <option value='bulldog'>불독</option>
+          <option value='beagle'>비글</option>
+          <option value='bichon_frise'>비숑프리제</option>
+          <option value='samoyed'>사모예드</option>
+          <option value='shar_pei'>샤페이</option>
+          <option value='shepherd'>세퍼트</option>
+          <option value='sapsal'>삽살</option>
+          <option value='sheepdog'>쉽독</option>
+          <option value='spitz'>스피츠</option>
+          <option value='siberian_husky'>시베리안 허스키</option>
+          <option value='shih_tzu'>시츄</option>
+          <option value='yorkshire_terrier'>요크셔 테리어</option>
+          <option value='welsh_corgi'>웰시코기</option>
+          <option value='jindo_dog'>진돗개</option>
+          <option value='chihuahua'>치와와</option>
+          <option value='cocker_spaniel'>코카스파니엘</option>
+          <option value='collie'>콜리</option>
+          <option value='toy_poodle'>토이푸들</option>
+          <option value='papillon'>파피용</option>
+          <option value='pug'>퍼그</option>
+          <option value='pekingese'>페키니즈</option>
+          <option value='pomeranian'>포메라니안</option>
+          <option value='poodle'>푸들</option>
+          <option value='pyrenees'>피레니즈</option>
+          <option value='hound'>하운드</option>
+          <option value='etc'>기타</option>
+        </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="size">사이즈</Label>
+        <Input type="select" name="size" id="sizeselect" onChange={(node) => { companion.size = node.target }}>
+          <option value="small">소형견</option>
+          <option value="medium">중형견</option>
+          <option value="latge">대형견</option>
+        </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="companionage">출생년도</Label>
+        <Input type="select" name="size" id="companionageselect" onChange={(node) => { companion.age = node.target }}>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+          <option value="2013">2013</option>
+          <option value="2012">2012</option>
+          <option value="2011">2011</option>
+          <option value="2010">2010</option>
+          <option value="2009">2009</option>
+          <option value="2008">2008</option>
+          <option value="2007">2007</option>
+          <option value="2006">2006</option>
+          <option value="2005">2005</option>
+          <option value="2004">2004년 이전</option>
+        </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="date">원하는 만남 시간</Label>
+          <Row>
+          <Col sm="3">
+            <Input ref={node => { companion.mating_season.season_start = node; }} type="date" placeholder="부터" />
+            <Col><Label>부터</Label></Col>
+          </Col><Col sm="3">
+          <Input ref={node => { companion.mating_season.season_end= node; }} type="date" placeholder="까지" />
+          까지
+          </Col>
+        </Row>
+      </FormGroup>
+      <b>조금 더 알려주세요!</b><br /><br />
+      <p>사람을 좋아해요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>강아지 친구들과 친하게 지내요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>수줍음이 많아요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>활동적이에요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>많이 짖어요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>공격적인 편이에요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <FormGroup>
+        <Label>더 알려주고 싶은 것들은요...</Label><br />
+        <Input type="textarea" ref={node => { companion.personality.etc = node; }} rows="5" />
+      </FormGroup>
 
         <center><Button type="submit" color="info">다 했어요!</Button></center>
       </Form>
+    </Jumbotron>
     </Container>
 
 
@@ -292,7 +455,7 @@ export const SignupPage = (props) => {
     <option value='large'>대형견</option>
     </select><br/>
     출생년도
-    <select onChange={(node) => { companion.birth_year = node.target.value }}>
+    <select xs='3' onChange={(node) => { companion.birth_year = node.target.value }}>
     <option value ='2018'>2018</option>
     <option value ='2017'>2017</option>
     <option value ='2016'>2016</option>
