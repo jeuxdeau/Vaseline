@@ -11,8 +11,32 @@ export default class Sidebar extends Component {
 	}
 
 	updateUserInfo(get_user_news, userID, user) {
-		console.log("Update user information...")
+		console.log("Update user news information...")
 		get_user_news(userID)
+	}
+
+	// get number of unread news
+	uNews(user_news) {
+		const companions = user_news.companion
+		let num = 0
+		var i
+		for(i = 0; i < companions.length; i++) {
+			const message = companions[i].message_received
+			const like = companions[i].like_received
+			const proposal = companions[i].proposal_received
+
+			var j
+			for(j = 0; j < message.length; j++) {
+				if(message[j].is_read == false) num++
+			}
+			for(j = 0; j < like.length; j++) {
+				if(like[j].is_read == false) num++
+			}
+			for(j = 0; j < proposal.length; j++) {
+				if(proposal[j].is_read == false) num++
+			}
+		}
+		return num
 	}
 
 	constructor(props) {
@@ -37,8 +61,9 @@ export default class Sidebar extends Component {
 	}
 
 	render() {
-		console.log(this.props.user_news)
-		const userName = (this.props.user_news == undefined) ? "Undefined" : this.props.user_news.username
+		const news = this.props.user_news
+		const uNewsNum = (news == undefined)? 0 : this.uNews(news)
+		const userName = (news == undefined) ? "Undefined" : news.username
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
@@ -55,6 +80,9 @@ export default class Sidebar extends Component {
 							</NavItem>
 							<NavItem>
 								<NavLink href="/detail/companion1">News</NavLink>
+							</NavItem>
+							<NavItem>
+								{uNewsNum}
 							</NavItem>
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav caret>
