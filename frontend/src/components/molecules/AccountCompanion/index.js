@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
+import { Table, Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
 import TextInput from '../../atoms/TextInput'
 import  MultiSelectReact  from 'multi-select-react'
 
@@ -75,6 +75,7 @@ class AccountCompanion extends Component {
 	                                <h1>
         	                                VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
                 	                </h1>
+
 					<Form onSubmit={this.onSubmitPassword}>
                                         {
                                                 errors.non_field_errors?
@@ -83,24 +84,35 @@ class AccountCompanion extends Component {
                                                         </Alert>: ""
                                         }
                                         <CardDeck>
-                                        <TextInput name="name" label="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/>
-					<TextInput name="sex" label="sex" error={errors.name} onChange={this.handleInputChange} placeholder={companion.sex}/>
-					<TextInput name="birth_year" label="birth_year" error={errors.name} onChange={this.handleInputChange} placeholder={companion.birth_year}/>
-					<TextInput name="breed" label="breed" error={errors.name} onChange={this.handleInputChange} placeholder={companion.breed}/>
-					<TextInput name="size" label="size" error={errors.name} onChange={this.handleInputChange} placeholder={companion.size}/>
-					<CardDeck>
+					<Table>
+                                        <thead>
+                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr><th><center>Name</center></th><th><center><TextInput name="name" error={errors.name} onChange={this.handleInputChange} placeholder={companion.name}/></center></th></tr>
+					<tr><th><center>Sex</center></th><th><center><TextInput name="sex" error={errors.name} onChange={this.handleInputChange} placeholder={companion.sex}/></center></th></tr>
+					<tr><th><center>BirthYear</center></th><th><center><TextInput name="birth_year" error={errors.name} onChange={this.handleInputChange} placeholder={companion.birth_year}/></center></th></tr>
+					<tr><th><center>Breed</center></th><th><center><TextInput name="breed" error={errors.name} onChange={this.handleInputChange} placeholder={companion.breed}/></center></th></tr>
+					<tr><th><center>Size</center></th><th><center><TextInput name="size" error={errors.name} onChange={this.handleInputChange} placeholder={companion.size}/></center></th></tr>
+					</tbody>
+					</Table>
 					<h2>Desired_mate</h2>
-					<CardDeck>
 					<h3>Personality</h3>
-					<CardDeck>
-					<TextInput name="affinity_with_human" label="affinity_with_human" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.affinity_with_human}/>
-					<TextInput name="affinity_with_dog" label="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.affinity_with_dog}/>
-					<TextInput name="shyness" label="shyness" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.shyness}/>
-					<TextInput name="activity" label="activity" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.activity}/>
+					
+					<Table>
+                                        <thead>
+                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+                                        </thead>
+                                        <tbody>
+					<tr><th><center>Affinity_with_human</center></th><th><center><TextInput name="affinity_with_human" label="affinity_with_human" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.affinity_with_human}/></center></th></tr>
+					<tr><th><center>Affinity_with_dog</center></th><th><center><TextInput name="affinity_with_dog" label="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.affinity_with_dog}/></center></th></tr>
+					<tr><th><center>Shyness</center></th><th><center><TextInput name="shyness" label="shyness" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.shyness}/></center></th></tr>
+					<tr><th><center>Activity</center></th><th><center><TextInput name="activity" label="activity" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.activity}/></center></th></tr>
 					<TextInput name="loudness" label="loudness" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.loudness}/>
 					<TextInput name="aggression" label="aggression" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.aggression}/>
 					<TextInput name="etc" label="etc" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.etc}/>
-						
+					</tbody>
+					</Table>
 					<MultiSelectReact 
       						options={this.state.desired_mate_breed}
       						optionClicked={this.optionClicked.bind(this)}
@@ -117,9 +129,6 @@ class AccountCompanion extends Component {
                                         <Button type="submit" color="danger" size="lg">
                                                 Update Companion
                                         </Button>
-					</CardDeck>
-					</CardDeck>
-					</CardDeck>
                                         </CardDeck>
                                 </Form>
 

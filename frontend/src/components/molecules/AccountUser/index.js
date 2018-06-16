@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
+import { Input, Table, Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
 import TextInput from '../../atoms/TextInput'
 
 const options = [
@@ -191,37 +191,53 @@ class AccountUser extends Component {
                                                         </Alert>: ""
                                         }
 					<CardDeck>
-                                        <TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} placeholder={user_info.username}/>
-                                        <TextInput name="password" label="Password" error={errors.password} type="password" onChange={this.handleInputChange} />
-					<Button type="submit" color="danger" size="lg">
-                                                Update Password
-                                        </Button>
+					<h2>User Info</h2>
+                                        <Table>
+                                       	<thead>
+                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+					</thead>
+					<tbody>
+					<tr><th><center>Username</center></th><th><center><TextInput name="username" error={errors.username} onChange={this.handleInputChange} placeholder={user_info.username}/></center></th></tr>
+                                        <tr><th><center>Password</center></th><th><center><TextInput name="password" error={errors.password} type="password" onChange={this.handleInputChange} /></center></th></tr>
+					</tbody>
+					<center><Button type="submit" color="danger" size="lg">Update Password</Button></center>
+					</Table>
 					</CardDeck>
 				</Form>
 				<Form onSubmit={this.onSubmitProfile}>
+					<h1></h1>
 					<h2>Profile</h2>
 					<CardDeck>
-					<TextInput name="nickname" label="Nickname" error={errors.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/>
-					<h3>gender</h3>
-					<select name="gender" value={gender_imsi} onChange={this.handleInputChange} selected={gender_imsi}>
-                                        <option value='female'>여성</option>
+                                        
+					<Table>
+                                        <thead>
+                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+                                        </thead>
+                                        <tbody>
+					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/></center></th></tr>
+					<tr><th><center>Gender</center></th><th><center>
+					<Input type="select" name="selectMulti" id="exampleSelectMulti">
+					<option value='female'>여성</option>
                                         <option value='male'>남성</option>
-                                        </select>
-					<TextInput name="email" label="Email" error={errors.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/>
+					</Input>
+                                        </center></th></tr>
+					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/></center></th></tr>
 					
-					<div>
-				        거주지
-        				<select name="first_address" onChange={this.handleInputChange} value={first_address_imsi}>
-        				{firstLevelOptions}
-        				</select>
-        				<select name="second_address" onChange={this.handleInputChange} value={second_address_imsi}>
-        				{secondLevelOptions}
-        				</select>
-        				</div>
-
-                                        <Button type="submit" color="danger" size="lg">
+					<tr><th><center>거주지</center></th><th><center><div>
+        				<Input type="select" name="selectMulti" id="exampleSelectMulti">
+                                        <option value='female'>서울</option>
+                                        <option value='male'>남성</option>
+                                        </Input>
+					<Input type="select" name="selectMulti" id="exampleSelectMulti">
+                                        <option value='female'>강남구</option>
+                                        <option value='male'>남성</option>
+                                        </Input>
+					</div></center></th></tr>
+					</tbody>
+					<center><Button type="submit" color="danger" size="lg">
                                                 Update Profile
-                                        </Button>
+                                        </Button></center>
+                                        </Table>
 					</CardDeck>
                                 </Form>
                         </Jumbotron>
