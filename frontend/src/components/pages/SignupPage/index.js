@@ -375,6 +375,64 @@ export const SignupPage = (props) => {
         <Input type="textarea" ref={node => { companion.personality.etc = node; }} rows="5" />
       </FormGroup>
 
+      <b>이런 짝꿍을 찾고 있어요!</b>
+     <FormGroup>
+      <Label for="sex">성별</Label>
+      <Input type="select" name="sex" id="sexselect" onChange={(node) => { companion.desired_mate.sex = node.target }}>
+        <option value="female">남자친구</option>
+        <option value="male">여자친</option>
+      </Input>
+    </FormGroup>
+    <FormGroup>
+      <Label for="breed">품종</Label>
+      <Input type="select" name="breed" id="breedselect" onChange={(node) => { companion.desired_mate.breed = node.target }}>
+        <option value='mix'>믹스</option>
+        <option value='dachshund'>닥스훈트</option>
+        <option value='dalmatian'>달마시안</option>
+        <option value='retriever'>리트리버</option>
+        <option value='malamute'>말라뮤트</option>
+        <option value='maltese'>말티즈</option>
+        <option value='miniature_pinscher'>미니핀</option>
+        <option value='bulldog'>불독</option>
+        <option value='beagle'>비글</option>
+        <option value='bichon_frise'>비숑프리제</option>
+        <option value='samoyed'>사모예드</option>
+        <option value='shar_pei'>샤페이</option>
+        <option value='shepherd'>세퍼트</option>
+        <option value='sapsal'>삽살</option>
+        <option value='sheepdog'>쉽독</option>
+        <option value='spitz'>스피츠</option>
+        <option value='siberian_husky'>시베리안 허스키</option>
+        <option value='shih_tzu'>시츄</option>
+        <option value='yorkshire_terrier'>요크셔 테리어</option>
+        <option value='welsh_corgi'>웰시코기</option>
+        <option value='jindo_dog'>진돗개</option>
+        <option value='chihuahua'>치와와</option>
+        <option value='cocker_spaniel'>코카스파니엘</option>
+        <option value='collie'>콜리</option>
+        <option value='toy_poodle'>토이푸들</option>
+        <option value='papillon'>파피용</option>
+        <option value='pug'>퍼그</option>
+        <option value='pekingese'>페키니즈</option>
+        <option value='pomeranian'>포메라니안</option>
+        <option value='poodle'>푸들</option>
+        <option value='pyrenees'>피레니즈</option>
+        <option value='hound'>하운드</option>
+        <option value='etc'>기타</option>
+      </Input>
+    </FormGroup>
+
+    <FormGroup>
+      <Label for="size">사이즈</Label>
+      <Input type="select" name="size" id="sizeselect" onChange={(node) => { companion.desired_mate.size = node.target }}>
+        <option value="small">소형견</option>
+        <option value="medium">중형견</option>
+        <option value="latge">대형견</option>
+      </Input>
+    </FormGroup>
+
+
+
         <center><Button type="submit" color="info">다 했어요!</Button></center>
       </Form>
     </Jumbotron>
