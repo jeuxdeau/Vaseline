@@ -77,6 +77,16 @@ export const SignupPage = (props) => {
       profile.second_address = event.target.value;
     }
 
+    handleInputChange(event) {
+      const target = event.target
+      const value = target.type === "checkbox" ? target.checked : target.value
+      const name = target.name
+
+      this.setState({
+        [name]:value
+      })
+    }
+
     render() {
       const renderOption = item => <option value={item}>{item}</option>
 
