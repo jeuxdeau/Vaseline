@@ -52,6 +52,9 @@ export default class Sidebar extends Component {
 							<NavItem>
 								<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
 							</NavItem>
+							<NavItem>
+								<NavLink href="/detail/companion1">News</NavLink>
+							</NavItem>
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav caret>
 									options
