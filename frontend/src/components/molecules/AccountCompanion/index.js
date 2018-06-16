@@ -38,15 +38,11 @@ class AccountCompanion extends Component {
 	constructor(props) {
                 super(props)
                 this.state = {
-                        username: undefined,
-                        password: undefined,
-                        nickname: undefined,
-                        first_address: undefined,
-                        second_address: undefined,
-			birth_year: undefined,
+			name: undefined,
+                       	birth_year: undefined,
                         sex: undefined,
-                        email: undefined,
 			size: undefined,
+			breed: undefined,
 			desired_mate_sex: undefined,
 			desired_mate_breed: undefined,
 			desired_mate_size: undefined,
@@ -54,14 +50,18 @@ class AccountCompanion extends Component {
 			desired_mate_affinity_with_dog: undefined,
 			desired_mate_shyness: undefined,
 			desired_mate_activity: undefined,
+			desired_mate_aggression: undefined,
 			desired_mate_loudness: undefined,
 			desired_mate_etc: undefined,
 			affinity_with_human: undefined,
 			affinity_with_dog: undefined,
 			shyness: undefined,
 			activity: undefined,
+			aggression: undefined,
 			loudness: undefined,
 			etc: undefined,
+			season_start:undefined,
+			season_end:undefined,
                 }
         }
         handleInputChange = (event) => {
@@ -111,13 +111,84 @@ class AccountCompanion extends Component {
                         agression_imsi = target.value
                 else if(name == "etc")
                         etc_imsi = target.value
+		else if(name == "season_start")
+			season_start_imsi = target.value
+		else if(name == "season_end")
+			season_end_imsi = target.value
 
 		this.setState({
                         [name]: value
                 })
         }
+	onSubmit = (event) => {
+                event.preventDefault()
+                console.log("??")
+                let companion_info = {
+			name: this.state.name,
+                        birth_year: this.state.birth_year,
+                        sex: this.state.sex,
+                        size: this.state.size,
+                        breed: this.state.breed
+		}
+		for (var key in companion_info){
+                        if(companion_info[key] == undefined)
+                                companion_info[key]=this.props.companion_list[this.props.match.params.id-1][key]
+		}
+		let desired_mate_personality = {
+			affinity_with_human: this.state.desired_mate_affinity_with_human,
+                        affinity_with_dog: this.state.desired_mate_affinity_with_dog,
+                        shyness: this.state.desired_mate_shyness,
+                        activity: this.state.desired_mate_activity,
+                        aggression: this.state.desired_mate_aggression,
+                        loudness: this.state.desired_mate_loudness,
+                        etc: this.state.desired_mate_etc
+		}
+		for (var key in desired_mate_personality){
+                        if(desired_mate_personality[key] == undefined)
+                                desired_mate_personality[key]=this.props.companion_list[this.props.match.params.id-1].desired_mate.personality[key]
+                }
+		let desired_mate = {
+			sex: this.state.desired_mate_sex,
+                        breed: this.state.desired_mate_breed,
+                        size: this.state.desired_mate_size
+		}
+		for (var key in desired_mate){
+                        if(desired_mate[key] == undefined)
+                                desired_mate[key]=this.props.companion_list[this.props.match.params.id-1].desired_mate[key]
+                }
+		let personality = {
+			affinity_with_human: this.state.affinity_with_human,
+                        affinity_with_dog: this.state.affinity_with_dog,
+                        shyness: this.state.shyness,
+                        activity: this.state.activity,
+                        aggression: this.state.aggression,
+                        loudness: this.state.loudness,
+                        etc: this.state.etc
+		}
+		for (var key in personality){
+                        if(personality[key] == undefined)
+                                personality[key]=this.props.companion_list[this.props.match.params.id-1].personality[key]
+                }
+		let mating_season = {
+			season_start:this.state.season_start,
+                        season_end:this.state.season_end
+		}
+		for (var key in mating_season){
+                        if(mating_season[key] == undefined)
+                                mating_season[key]=this.props.companion_list[this.props.match.params.id-1].mating_season[key]
+                }
+		let information = {
+			companion_info:companion_info,
+			desired_mate_personality:desired_mate_personality,
+			desired_mate:desired_mate,
+			personality:personality,
+			mating_season, mating_season
+		}
+		console.log(information)
+                this.props.onSubmit(information, this.props.match.params.id)
+        }
 
-		render() {
+	render() {
 			const selectedOptionsStyles = {
         			color: "#3c763d",
             			backgroundColor: "#dff0d8"
@@ -133,7 +204,7 @@ class AccountCompanion extends Component {
                 	const errors = this.props.errors || {}
 			if(companion_list){
 				const companion = companion_list[companion_id-1]
-				console.log(this.state.desired_mate_breed)
+				console.log(companion)
 				if(!setting){
 					sex_imsi = companion.sex
   	                        	breed_imsi = companion.breed
@@ -166,7 +237,7 @@ class AccountCompanion extends Component {
         	                                VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
                 	                </h1>
 					<CompanionBlock companion={companion} key={companion.id} />
-					<Form onSubmit={this.onSubmitPassword}>
+					<Form onSubmit={this.onSubmit}>
                                         {
                                                 errors.non_field_errors?
                                                         <Alert color="danger">

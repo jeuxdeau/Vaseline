@@ -26,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
         },
         post_signout: () => {
                 dispatch(logout())
+        },
+	onSubmit: (input, companion_id) => {
+                dispatch(account_companion(input, companion_id))
         }
 })
 
