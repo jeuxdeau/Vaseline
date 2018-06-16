@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
-import { PageHeader, Alert, Button, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Label, Input, Row, Col } from 'reactstrap'
+import { PageHeader, Alert, Button, ButtonGroup, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Label, Input, Row, Col } from 'reactstrap'
 import { options } from './address.js'
 
 import TextInput from '../../atoms/TextInput'
@@ -197,7 +197,7 @@ export const SignupPage = (props) => {
       </Jumbotron>
 
       <Jumbotron>
-      <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
+        <b>유저 정보</b>  당신에 대해서 알려주세요.<p/>
       <Form onSubmit={onSubmit}>
         <TextInput name="id" placeholder="id"/>
         <TextInput name="password" placeholder="password"/>
@@ -272,12 +272,107 @@ export const SignupPage = (props) => {
           <option value='etc'>기타</option>
         </Input>
       </FormGroup>
+
       <FormGroup>
-        <Label for="size">성별</Label>
-        <Input type="select" name="size" id="sizeselect" onChange={(node) => { companion.sex = node.target }}>
-          <option value="female">암컷</option>
-          <option value="male">수컷</option>
+        <Label for="size">사이즈</Label>
+        <Input type="select" name="size" id="sizeselect" onChange={(node) => { companion.size = node.target }}>
+          <option value="small">소형견</option>
+          <option value="medium">중형견</option>
+          <option value="latge">대형견</option>
         </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="companionage">출생년도</Label>
+        <Input type="select" name="size" id="companionageselect" onChange={(node) => { companion.age = node.target }}>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2014</option>
+          <option value="2013">2013</option>
+          <option value="2012">2012</option>
+          <option value="2011">2011</option>
+          <option value="2010">2010</option>
+          <option value="2009">2009</option>
+          <option value="2008">2008</option>
+          <option value="2007">2007</option>
+          <option value="2006">2006</option>
+          <option value="2005">2005</option>
+          <option value="2004">2004년 이전</option>
+        </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="date">원하는 만남 시간</Label>
+          <Row>
+          <Col sm="3">
+            <Input ref={node => { companion.mating_season.season_start = node; }} type="date" placeholder="부터" />
+            <Col><Label>부터</Label></Col>
+          </Col><Col sm="3">
+          <Input ref={node => { companion.mating_season.season_end= node; }} type="date" placeholder="까지" />
+          까지
+          </Col>
+        </Row>
+      </FormGroup>
+      <b>조금 더 알려주세요!</b><br /><br />
+      <p>사람을 좋아해요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>강아지 친구들과 친하게 지내요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>수줍음이 많아요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>활동적이에요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>많이 짖어요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <p>공격적인 편이에요</p>
+      <ButtonGroup>
+        <Button>1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+        <Button>4</Button>
+        <Button>5</Button>
+      </ButtonGroup><hr />
+
+      <FormGroup>
+        <Label>더 알려주고 싶은 것들은요...</Label><br />
+        <Input type="textarea" ref={node => { companion.personality.etc = node; }} rows="5" />
       </FormGroup>
 
         <center><Button type="submit" color="info">다 했어요!</Button></center>
@@ -360,7 +455,7 @@ export const SignupPage = (props) => {
     <option value='large'>대형견</option>
     </select><br/>
     출생년도
-    <select onChange={(node) => { companion.birth_year = node.target.value }}>
+    <select xs='3' onChange={(node) => { companion.birth_year = node.target.value }}>
     <option value ='2018'>2018</option>
     <option value ='2017'>2017</option>
     <option value ='2016'>2016</option>
