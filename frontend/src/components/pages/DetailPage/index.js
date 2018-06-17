@@ -51,7 +51,7 @@ export default class DetailPage extends Component {
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendProposalBtnClick(this.props.user_id, companion.id)}>결혼해요</Button>
 						<MessageApp messageAppOpen={this.state.messageAppActivated}
-									messageSender={this.props.user_id} 
+									messageSenderId={this.props.user_id} 
 									messageReceiverName={companion.name} 
 									messageReceiverId={companion.id}
 									messageToggle={()=>this.onSendMessageBtnClick()}

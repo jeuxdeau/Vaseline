@@ -18,14 +18,14 @@ class MessageApp extends Component {
 
 	render() {
 		const messageAppOpen = this.props.messageAppOpen
-		const messageSender = this.props.messageSender
+		const messageSenderId = this.props.messageSenderId
 		const messageReceiverName = this.props.messageReceiverName
 		const messageReceiverId = this.props.messageReceiverId
 		const messageToggle = this.props.messageToggle
 
 		return (
 				<Modal isOpen={messageAppOpen} toggle={messageToggle} centered={true} size="lg">
-					<ModalHeader>받는 친구 : {messageReceiverId} Sender : {messageSender}</ModalHeader>
+					<ModalHeader>받는 친구 : {messageReceiverName}</ModalHeader>
 					<ModalBody>
 						<Form>
 							<FormGroup>
@@ -37,7 +37,7 @@ class MessageApp extends Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button size="lg" outline color="primary" 
-						onClick={()=>this.onSendBtnClick(this.state.message, messageSender, messageReceiverId)}>보내기</Button>
+						onClick={()=>this.onSendBtnClick(this.state.message, messageSenderId, messageReceiverId)}>보내기</Button>
 					</ModalFooter>
 				</Modal>
 		)		
