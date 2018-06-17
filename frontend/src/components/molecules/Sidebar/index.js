@@ -79,7 +79,7 @@ export default class Sidebar extends Component {
 								<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink href="/detail/companion1">News</NavLink>
+								<NavLink href="/notification">News</NavLink>
 							</NavItem>
 							<NavItem>
 								{uNewsNum}

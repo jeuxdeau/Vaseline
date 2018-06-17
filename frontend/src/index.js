@@ -59,6 +59,8 @@ import Search from './containers/Search'
 
 import PrivateRoute from './containers/PrivateRoute'
 
+import NotiPage from './components/pages/NotiPage'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { PersistGate } from 'redux-persist/es/integration/react'
@@ -80,6 +82,7 @@ ReactDOM.render((
 		      <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />
 		      <PrivateRoute path="/search/" component={Search} />
+          <PrivateRoute path="/notification" component={NotiPage} />
           <PrivateRoute path="/" component={List} />
         </Switch>
       </ConnectedRouter>
