@@ -59,7 +59,7 @@ import Search from './containers/Search'
 
 import PrivateRoute from './containers/PrivateRoute'
 
-import NotiPage from './components/pages/NotiPage'
+import Notification from './containers/Notification'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -82,7 +82,7 @@ ReactDOM.render((
 		      <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />
 		      <PrivateRoute path="/search/" component={Search} />
-          <PrivateRoute path="/notification" component={NotiPage} />
+          <PrivateRoute path="/notification" component={Notification} />
           <PrivateRoute path="/" component={List} />
         </Switch>
       </ConnectedRouter>

@@ -8,9 +8,32 @@ const likeDoggy = "https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q
 const proposalDoggy = "https://broadly-images.vice.com/images/2017/02/10/can-dogs-fall-in-love-body-image-1486692574.jpg?resize=1024:*"
 
 export default class NotiPage extends Component {
-	
-	
+
+	MakeMessageListItem(sender, receiver, body) {
+		return (
+			<ListGroupItem>
+				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
+				<ListGroupItemText> {body} </ListGroupItemText>
+				<Badge href="#" color="primary">자세히보기</Badge>
+			</ListGroupItem>
+		)
+	}
+
 	 render() {
+	 	const news = this.props.user_news
+	 	if(news == undefined) return null
+
+	 	// get whole notifications of this user
+	 	let wMessage = [], wLike = [], wProposal = []
+	 	var i
+	 	console.log(news)
+	 	for(i = 0; i < news.companion.length; i++) {
+	 		const comp = news.companion[i]
+	 		wMessage = wMessage.concat(comp.message_received)
+	 		wLike = wLike.concat(comp.like_received)
+	 		wProposal = wProposal.concat(comp.proposal_received)
+	 	}
+
 	 	return (
             <div>
             <h3><p /><center> 알림장 <Badge color="success">New!</Badge></center></h3>
@@ -37,9 +60,11 @@ export default class NotiPage extends Component {
             <h6><Badge color="secondary">편지를 눌러서 확인하고 답장을 보내주세요!</Badge></h6><p/ >
             
             <ListGroup>
-            <ListGroupItem>
-            <ListGroupItemHeading></ListGroupItemHeading>
-            </ListGroupItem>
+            {wMessage.map((messageItem, index) => {
+            	return (
+            				this.MakeMessageListItem(messageItem.sender, messageItem.receiver, messageItem.message)
+            			)
+            })}
             </ListGroup>
             
             </CardText>
