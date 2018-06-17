@@ -8,35 +8,50 @@ const likeDoggy = "https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q
 const proposalDoggy = "https://broadly-images.vice.com/images/2017/02/10/can-dogs-fall-in-love-body-image-1486692574.jpg?resize=1024:*"
 
 export default class NotiPage extends Component {
+	MakeBadgeForNewItem(item) {
+		if(!item.is_read) {
+			return (
+				<Badge color="danger">신규</Badge>
+			)
+		}
+	}
 
-	MakeMessageListItem(sender, receiver, body) {
+	MakeMessageListItem(messageItem) {
+		const sender = messageItem.sender
+		const receiver = messageItem.receiver
 		return (
 			<ListGroupItem>
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
-				<ListGroupItemText> {body} </ListGroupItemText>
 				<div align="right">
+					{this.MakeBadgeForNewItem(messageItem)}
 					<Badge href="#" color="primary">자세히보기</Badge>
 				</div>
 			</ListGroupItem>
 		)
 	}
 
-	MakeLikeListItem(sender, receiver) {
+	MakeLikeListItem(likeItem) {
+		const sender = likeItem.sender
+		const receiver = likeItem.receiver
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 관심이 있어요! </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
+					{this.MakeBadgeForNewItem(likeItem)}
 					<Badge href="#" color="primary">방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)
 	}
 
-	MakeProposalListItem(sender, receiver) {
+	MakeProposalListItem(proposalItem) {
+		const sender = proposalItem.sender
+		const receiver = proposalItem.receiver
 		return (
 			<ListGroupItem>
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 청혼해요!(부끄) </ListGroupItemHeading>
 				<div align="right">
+					{this.MakeBadgeForNewItem(proposalItem)}
 					<Badge href="#" color="primary">방문하기</Badge>
 				</div>
 			</ListGroupItem>
@@ -56,6 +71,22 @@ export default class NotiPage extends Component {
 	 	return {mess: wMessage, like: wLike, prop: wProposal}
 	}
 
+/*	GetOnlyNewNotifications(notifications) {
+		// get only new notifications from given notifications object
+		var i
+		let nMessage = [], nLike = [], nProposal = []
+		for(i = 0; i < notifications.mess.length; i++) {
+			if(!notifications.mess[i].is_read) nMessage = nMessage.concat(notifications.mess[i])
+		}
+		for(i = 0; i < notifications.like.length; i++) {
+			if(!notifications.like[i].is_read) nLike = nLike.concat(notifications.like[i])
+		}
+		for(i = 0; i < notifications.prop.length; i++) {
+			if(!notifications.prop[i].is_read) nProp = nProp.concat(notifications.prop[i])
+		}
+		return {mess: nMessage, like: nLike, prop: nProposal}
+	}
+*/
 	 render() {
 	 	const news = this.props.user_news
 	 	if(news == undefined) return null
@@ -88,7 +119,7 @@ export default class NotiPage extends Component {
             <ListGroup>
             {notifications.mess.map((messageItem, index) => {
             	return (
-            				this.MakeMessageListItem(messageItem.sender, messageItem.receiver, messageItem.message)
+            				this.MakeMessageListItem(messageItem)
             			)
             })}
             </ListGroup>
@@ -101,7 +132,7 @@ export default class NotiPage extends Component {
             <CardImg top width="100%" src="https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q=70&fit=crop&crop=entropy&w=808&h=500" alt="Card image cap" />
             <CardBody>
             <CardTitle>당신을 좋아하는 친구가 생겼어요!</CardTitle>
-            <CardSubtitle><b>친절하게 응답해주면 더 좋아질지도...?</b></CardSubtitle>
+            <CardSubtitle><b>친절하게 응답해주면 더 좋아할지도...?</b></CardSubtitle>
             <CardText>
             <p />
             <h6><Badge color="secondary">친구에게 방문하여 서로를 알아가세요!</Badge></h6><p/ >
@@ -109,7 +140,7 @@ export default class NotiPage extends Component {
             <ListGroup>
             {notifications.like.map((likeItem, index) => {
             	return (
-            				this.MakeLikeListItem(likeItem.sender, likeItem.receiver)
+            				this.MakeLikeListItem(likeItem)
             			)
             })}
             </ListGroup>
@@ -132,7 +163,7 @@ export default class NotiPage extends Component {
             <ListGroup>
             {notifications.prop.map((proposalItem, index) => {
             	return (
-            				this.MakeProposalListItem(proposalItem.sender, proposalItem.receiver)
+            				this.MakeProposalListItem(proposalItem)
             			)
             })}
             </ListGroup>
