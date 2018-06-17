@@ -62,8 +62,9 @@ export default class Sidebar extends Component {
 
 	render() {
 		const news = this.props.user_news
-		const uNewsNum = (news == undefined)? 0 : this.uNews(news)
-		const userName = (news == undefined) ? "Undefined" : news.username
+		if(news == undefined) return null
+		const uNewsNum = this.uNews(news)
+		const userName = news.username
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
