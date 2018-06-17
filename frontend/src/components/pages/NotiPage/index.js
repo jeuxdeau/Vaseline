@@ -14,7 +14,9 @@ export default class NotiPage extends Component {
 			<ListGroupItem>
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
 				<ListGroupItemText> {body} </ListGroupItemText>
-				<Badge href="#" color="primary">자세히보기</Badge>
+				<div align="right">
+					<Badge href="#" color="primary">자세히보기</Badge>
+				</div>
 			</ListGroupItem>
 		)
 	}
@@ -23,7 +25,20 @@ export default class NotiPage extends Component {
 		return (
 			<ListGroupItem>
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 관심이 있어요! </ListGroupItemHeading>
-				<Badge href="#" color="primary">방문하기</Badge>
+				<div align="right">
+					<Badge href="#" color="primary">방문하기</Badge>
+				</div>
+			</ListGroupItem>
+		)
+	}
+
+	MakeProposalListItem(sender, receiver) {
+		return (
+			<ListGroupItem>
+				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 청혼해요!(부끄) </ListGroupItemHeading>
+				<div align="right">
+					<Badge href="#" color="primary">방문하기</Badge>
+				</div>
 			</ListGroupItem>
 		)
 	}
@@ -109,15 +124,16 @@ export default class NotiPage extends Component {
             <p />
             잘 고민해서 결정하세요! 메시지를 충분히 주고 받은 후에, 개인 정보를 교환하도록 해요.
             <p />
-            시/도 <Input type="select">
-                <option>서울시</option>
-            </Input><br/>
-            시/군/구 <Input type="select">
-                <option>서초구</option>
-            </Input><br/>
-            <div align="right">
-                <Button align="right">새로 검색하기</Button>
-            </div>
+            <h6><Badge color="secondary">이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
+            
+            <ListGroup>
+            {wProposal.map((proposalItem, index) => {
+            	return (
+            				this.MakeProposalListItem(proposalItem.sender, proposalItem.receiver)
+            			)
+            })}
+            </ListGroup>
+            
             </CardText>
             </CardBody>
             </Card>
