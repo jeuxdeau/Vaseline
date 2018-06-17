@@ -53,12 +53,6 @@ let firstLevelOptions = undefined
 let secondLevelOptions = undefined
 
 
-
-const genders = {
-	'female': '여성', 
-	'male': '남성'
-}
-
 class AccountUser extends Component {
 	onSignoutBtnClick() {
                 this.props.post_signout()
@@ -67,7 +61,6 @@ class AccountUser extends Component {
 	componentDidMount() {
 		this.props.get_user_info(this.props.user_id)
 		if(this.props.user_info){
-			gender_imsi = this.props.user_info
 			firstLevelOptions = options.map(renderOption)
 			secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
 			console.log(firstLevelOptions)
@@ -216,9 +209,9 @@ class AccountUser extends Component {
                                         <tbody>
 					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/></center></th></tr>
 					<tr><th><center>Gender</center></th><th><center>
-					<Input type="select" name="selectMulti" id="exampleSelectMulti">
+					<Input type="select" name="gender" onChange={this.handleInputChange} value={gender_imsi}>
 					<option value='female'>여성</option>
-                                        <option value='male'>남성</option>
+					<option value='male'>남성</option>
 					</Input>
                                         </center></th></tr>
 					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/></center></th></tr>
