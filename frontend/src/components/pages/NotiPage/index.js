@@ -43,11 +43,8 @@ export default class NotiPage extends Component {
 		)
 	}
 
-	 render() {
-	 	const news = this.props.user_news
-	 	if(news == undefined) return null
-
-	 	// get whole notifications of this user
+	GetWholeNotifications(news) {
+		// get whole notifications of this user
 	 	let wMessage = [], wLike = [], wProposal = []
 	 	var i
 	 	for(i = 0; i < news.companion.length; i++) {
@@ -56,7 +53,13 @@ export default class NotiPage extends Component {
 	 		wLike = wLike.concat(comp.like_received)
 	 		wProposal = wProposal.concat(comp.proposal_received)
 	 	}
+	 	return {mess: wMessage, like: wLike, prop: wProposal}
+	}
 
+	 render() {
+	 	const news = this.props.user_news
+	 	if(news == undefined) return null
+	 	const notifications = this.GetWholeNotifications(news)
 	 	return (
             <div>
             <h3><p /><center> 알림장 <Badge color="success">New!</Badge></center></h3>
@@ -83,7 +86,7 @@ export default class NotiPage extends Component {
             <h6><Badge color="secondary">편지를 눌러서 확인하고 답장을 보내주세요!</Badge></h6><p/ >
             
             <ListGroup>
-            {wMessage.map((messageItem, index) => {
+            {notifications.mess.map((messageItem, index) => {
             	return (
             				this.MakeMessageListItem(messageItem.sender, messageItem.receiver, messageItem.message)
             			)
@@ -104,7 +107,7 @@ export default class NotiPage extends Component {
             <h6><Badge color="secondary">친구에게 방문하여 서로를 알아가세요!</Badge></h6><p/ >
             
             <ListGroup>
-            {wLike.map((likeItem, index) => {
+            {notifications.like.map((likeItem, index) => {
             	return (
             				this.MakeLikeListItem(likeItem.sender, likeItem.receiver)
             			)
@@ -127,7 +130,7 @@ export default class NotiPage extends Component {
             <h6><Badge color="secondary">이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
             
             <ListGroup>
-            {wProposal.map((proposalItem, index) => {
+            {notifications.prop.map((proposalItem, index) => {
             	return (
             				this.MakeProposalListItem(proposalItem.sender, proposalItem.receiver)
             			)
