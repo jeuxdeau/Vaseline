@@ -2,12 +2,23 @@ import React, { Component } from 'react'
 import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table,
     ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import ViewMessageApp from '../../atoms/ViewMessageApp'
 
 const messageDoggy = "http://images.gawker.com/18m86puxpfjasjpg/original.jpg"
 const likeDoggy = "https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q=70&fit=crop&crop=entropy&w=808&h=500"
 const proposalDoggy = "https://broadly-images.vice.com/images/2017/02/10/can-dogs-fall-in-love-body-image-1486692574.jpg?resize=1024:*"
 
 export default class NotiPage extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			viewMessageAppActivated: false,
+			viewMessageAppObject: {},
+		}
+
+		this.onBtnReadMessage = this.onBtnReadMessage.bind(this)
+	}
+
 	MakeBadgeForNewItem(item) {
 		if(!item.is_read) {
 			return (
@@ -24,7 +35,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
-					<Badge href="#" color="primary">자세히보기</Badge>
+					<Badge href="#" color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -69,6 +80,17 @@ export default class NotiPage extends Component {
 	 		wProposal = wProposal.concat(comp.proposal_received)
 	 	}
 	 	return {mess: wMessage, like: wLike, prop: wProposal}
+	}
+
+	onBtnReadMessage(messageItem) {
+		const mSender = messageItem.sender
+		const mReceiver = messageItem.receiver
+		const mBody = messageItem.message
+		this.setState({
+			viewMessageAppActivated: !this.state.viewMessageAppActivated,
+			viewMessageAppObject: {sender: mSender, receiver: mReceiver, body: mBody},
+		})
+		console.log(this.state)
 	}
 
 /*	GetOnlyNewNotifications(notifications) {
