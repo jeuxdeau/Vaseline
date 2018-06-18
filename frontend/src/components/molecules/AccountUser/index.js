@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Input, Table, Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
 import TextInput from '../../atoms/TextInput'
+import { Redirect } from 'react-router-dom'
 
 const options = [
 	'서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
@@ -77,12 +78,13 @@ class AccountUser extends Component {
                 	second_address: undefined,
                 	gender: undefined,
                 	email: undefined,
+			redirect: false,
 		}
 	}
-
+	
         handleInputChange = (event) => {
                 const target = event.target
-                const value = target.type === 'checkbox' ? target.checked : target.value
+		const value = target.type === 'checkbox' ? target.checked : target.value
                 const name = target.name
 		if(name == "gender")
 		{
@@ -98,11 +100,11 @@ class AccountUser extends Component {
 			console.log("first_address")
 			console.log(target.value)
 		}
-		else if(name == "second_address")
+		else if(name == "second_address"){
 			second_address_imsi = target.value
 			firstLevelOptions = options.map(renderOption)
                         secondLevelOptions = options2[first_address_imsi].map(renderOption)	
-                 
+		}
 		this.setState({
                         [name]: value
                 })
@@ -134,6 +136,7 @@ class AccountUser extends Component {
 				password_info[key] = this.props.user_info[key]
 		}
 		console.log(password_info)
+		this.setState({redirect:true})
                 this.props.onSubmitPassword(password_info, this.props.user_id)
         }
 	onSubmitProfile = (event) => {
@@ -152,14 +155,20 @@ class AccountUser extends Component {
                         	profile_info[key]=this.props.user_info.profile[key]
                 }
                 console.log(profile_info)
+		this.setState({redirect:true})
                 this.props.onSubmitProfile(profile_info, this.props.user_id)
         }
-
 	
-	render() {
-                const errors = this.props.errors || {}
+		render() {
+                const errors_account_user_password = this.props.errors_account_user_password || {}
+		const errors_account_user_profile = this.props.errors_account_user_profile || {}
 		const user_info = this.props.user_info
 		console.log(this.state)
+		console.log("@@@@@@@@@@@@@@@@@")
+		console.log(this.props.errors_account_user_profile)
+		if(this.state.redirect){
+			return <Redirect to='/account'/>
+		}
 		if(user_info){
 			if(!setting){
 				gender_imsi = this.props.user_info.profile.gender
@@ -169,28 +178,28 @@ class AccountUser extends Component {
                         	secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
 				setting = true
 				console.log("*****************")
-				console.log(gender_imsi)
+				console.log(this.state)
+				console.log(this.props.error_account_user_profile)
 			}
 			return (
                         <Jumbotron className="container">
-                                <h1>
+				<h1>
                                         VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
                                 </h1>
 				{
-					errors.non_field_errors?
+					errors_account_user_password.non_field_errors?
                                         	<Alert color="danger">
-                                                                {errors.non_field_errors}
+                                                                {errors_account_user_password.non_field_errors}
                                 		</Alert>: ""
 				}
-
+				{
+					errors_account_user_profile.non_field_errors?
+                                                <Alert color="danger">
+                                                                {errors_account_user_profile.non_field_errors}
+                                                </Alert>: ""
+				}
 				<Form onSubmit={this.onSubmitPassword}>
-                                        {
-                                                errors.non_field_errors?
-                                                        <Alert color="danger">
-                                                                {errors.non_field_errors}
-                                                        </Alert>: ""
-                                        }
-					<CardDeck>
+                                        <CardDeck>
 					<h2>User Info</h2>
                                         <Table>
                                        	<thead>
@@ -198,7 +207,7 @@ class AccountUser extends Component {
 					</thead>
 					<tbody>
 					<tr><th><center>Username</center></th><th><center>{user_info.username}</center></th></tr>
-                                        <tr><th><center>Password</center></th><th><center><TextInput name="password" error={errors.password} type="password" onChange={this.handleInputChange} /></center></th></tr>
+                                        <tr><th><center>Password</center></th><th><center><TextInput name="password" error={errors_account_user_password.password} type="password" onChange={this.handleInputChange} /></center></th></tr>
 					</tbody>
 					<center><Button type="submit" color="danger" size="lg">Update Password</Button></center>
 					</Table>
@@ -214,14 +223,14 @@ class AccountUser extends Component {
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/></center></th></tr>
+					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors_account_user_profile.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/></center></th></tr>
 					<tr><th><center>Gender</center></th><th><center>
 					<Input type="select" name="gender" onChange={this.handleInputChange} value={gender_imsi}>
 					<option value='female'>여성</option>
 					<option value='male'>남성</option>
 					</Input>
                                         </center></th></tr>
-					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/></center></th></tr>
+					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors_account_user_profile.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/></center></th></tr>
 					
 					<tr><th><center>거주지</center></th><th><center><div>
         				<Input type="select" name="first_address" onChange={this.handleInputChange} value={first_address_imsi}>

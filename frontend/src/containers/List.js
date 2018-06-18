@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import ListPage from '../components/pages/ListPage'
 import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
-import { currentCompanionList, listErrors } from '../store/reducers'
+import { address_list } from '../store/actions/auth'
+import { currentCompanionAddressList, currentCompanionList, listErrors } from '../store/reducers'
 
 const List = (props) => {
 	return (
@@ -16,6 +17,7 @@ const List = (props) => {
 
 const mapStateToProps = (state) => ({
 	companion_list: currentCompanionList(state),
+	companion_address_list: currentCompanionAddressList(state),
 	errors: listErrors(state)	
 })
 
@@ -25,7 +27,10 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	post_signout: () => {
 		dispatch(logout())
-	}
+	},
+	get_companion_address_list: () => {
+		dispatch(address_list())
+	},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

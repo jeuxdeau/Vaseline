@@ -297,3 +297,22 @@ class UserTotalInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'companion')
+
+class ProfileAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('first_address', 'second_address')
+
+class UserAddressSerializer(serializers.ModelSerializer):
+    profile = ProfileAddressSerializer(required=True)
+    class Meta:
+        model = User
+        fields = ('profile',)
+
+class CompanionAddressSerializer(serializers.ModelSerializer):
+    user = UserAddressSerializer(required=True)
+    class Meta:
+        model = Companion
+        fields = ('id', 'user',)
+
+

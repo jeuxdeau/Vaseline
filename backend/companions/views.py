@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer, LikeUpdateSerializer, ProposalUpdateSerializer, MessageUpdateSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer, LikeUpdateSerializer, ProposalUpdateSerializer, MessageUpdateSerializer, ProfileAddressSerializer, UserAddressSerializer, CompanionAddressSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -171,3 +171,8 @@ class FileView(APIView):
 class FileList(generics.ListAPIView):
     queryset = File.objects.all()
     serializer_class = FileSerializer
+
+class CompanionAddressList(generics.ListAPIView):
+    queryset = Companion.objects.all()
+    serializer_class = CompanionAddressSerializer
+

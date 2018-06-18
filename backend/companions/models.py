@@ -67,6 +67,8 @@ class Companion(models.Model):
 
 class File(models.Model):
     file = models.FileField(blank=False, null=False)
+    remark = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
     media = models.ForeignKey(Companion, related_name='media', on_delete=models.CASCADE)
 
 class RepresentCompanion(models.Model):

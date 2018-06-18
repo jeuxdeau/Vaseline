@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Input, Table, Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTitle, CardText, CardBody, Form } from 'reactstrap'
 import TextInput from '../../atoms/TextInput'
 import CompanionBlock from '../../atoms/CompanionBlock'
+import { Redirect } from 'react-router-dom'
+
 
 let breed_imsi = 'toy_poodle'
 let name_imsi = "companion_name"
@@ -38,6 +40,7 @@ class AccountCreateCompanion extends Component {
 	constructor(props) {
                 super(props)
                 this.state = {
+			redirect:false,
 			name: name_imsi,
                        	birth_year: birth_year_imsi,
                         sex: sex_imsi,
@@ -187,10 +190,15 @@ class AccountCreateCompanion extends Component {
 			mating_season, mating_season
 		}
 		console.log(information)
+		this.setState({redirect:true})
                 this.props.onSubmit(information, this.props.user_id)
         }
 
 	render() {
+			if(this.state.redirect){
+   	                     return <Redirect to='/account'/>
+         	       }
+
 			const selectedOptionsStyles = {
         			color: "#3c763d",
             			backgroundColor: "#dff0d8"

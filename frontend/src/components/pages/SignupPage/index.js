@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
 import { PageHeader, Alert, Button, ButtonGroup, Dropdown, MenuItem, Jumbotron, InputGroup, Form, FormGroup, FormControl, ControlLabel, Container, Label, Input, Row, Col } from 'reactstrap'
 import { options } from './address.js'
+import { Link } from 'react-router-dom'
 
 import TextInput from '../../atoms/TextInput'
 
@@ -227,8 +228,6 @@ export default class SignupPage extends Component {
             </FormGroup>
 
             <h2>반려동물 정보</h2>  여러분의 반려동물에 대해서 알려주세요.<p/>
-            가장 잘 나타내는 사진 또는 동영상을 첨부해 주세요!<br /><br />
-            <input type="file"/><p/>
             <Label>반려동물 이름</Label>
             <TextInput name="companion__name" placeholder="반려동물 이름" onChange={this.handleInputChange} />
 
@@ -436,7 +435,7 @@ export default class SignupPage extends Component {
             </Input>
             </FormGroup>
 
-            <center><Button type="submit" color="info" onClick={this.onSubmit}>다 했어요!</Button></center>
+            <center><Button type="submit" color="info" onClick={this.onSubmit} tag={Link} to='/upload'>다 했어요!</Button></center>
             </Form>
             </Jumbotron>
             </Container>
