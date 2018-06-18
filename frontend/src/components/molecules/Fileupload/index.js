@@ -1,13 +1,8 @@
-import React, { PropTypes } from 'react'
-import styled from 'styled-components'
-import { font, palette } from 'styled-theme'
+import React, { PropTypes, Component } from 'react'
+import Dropzone from 'react-dropzone'
+import request from 'superagent'
 
-const Wrapper = styled.div`
-font-family: ${font('primary')};
-color: ${palette('grayscale', 0)};
-`
-
-const Fileupload = (props) => {
+/*const Fileupload = (props) => {
     let uploadfile;
     const fileChangedHandler = (event) => {
         const target = event.target
@@ -29,6 +24,29 @@ const Fileupload = (props) => {
         <button onClick={uploadHandler}>Upload!</button>
         </div>
     )
+}*/
+
+class Fileupload extends Component {
+    onDrop(files) {
+        var file = new FormData()
+        file.append('name', files[0])
+        var req=request
+                    .post('/api/images/')
+                    .send(file);
+        req.end(function(err, response) {
+            console.log("upload done!!!!");
+        });
+    }
+
+    render() {
+        return (
+        <div>
+            <Dropzone onDrop={this.onDrop}>
+                <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
+        </div>
+        )
+    }
 }
 
 export default Fileupload
