@@ -98,9 +98,14 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                 [name]: target.value
             })
         }
-        onClickButton = (event) => {
-            event.preventDefault()
-            this.setState({search_companion_list:this.props.companion_list})
+	onClickButton = (event) => {
+                event.preventDefault()
+		let result = []
+		for (var key in this.props.companion_list)
+		{
+			console.log(this.props.companion_list[key])
+		}
+                this.setState({search_companion_list:this.props.companion_list})
         }
         search_result_atom = (companion, index) => {
             return (

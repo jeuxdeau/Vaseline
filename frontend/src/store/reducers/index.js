@@ -54,3 +54,5 @@ export const userInfo =
 	state => fromUser.userInfo(state.user)
 export const userNews =
 	state => fromUser.userNews(state.user)
+export const userRepr =
+	state => fromUser.userRepr(state.user)
