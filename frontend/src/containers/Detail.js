@@ -6,7 +6,7 @@ import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
 import { mSend, lSend, pSend } from '../store/actions/interaction'
 
-import { userID, userRepr, currentCompanionList, listErrors } from '../store/reducers'
+import { userID, userRepr, userNews, currentCompanionList, listErrors } from '../store/reducers'
 
 const Detail = (props) => {
 	return (
@@ -19,14 +19,12 @@ const Detail = (props) => {
 const mapStateToProps = (state) => ({
 	user_id: userID(state),
 	user_repr: userRepr(state),
+	user_news: userNews(state),
 	companion_list: currentCompanionList(state),
 	errors: listErrors(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	get_companion_list: () => {
-		dispatch(list())
-	},
 	post_signout: () => {
 		dispatch(logout())
 	},
