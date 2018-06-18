@@ -115,27 +115,26 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                 </Col>)
             }
             search_result = (companion_list) => {
+		    console.log(companion_list)
                 if(companion_list){
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index, companion_list[index].user.profile.first_address, companion_list[index].user.profile.second_address))
+                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address))
                 }
             }
-
-
 
             render() {
                 if(this.props.companion_list && this.props.companion_address_list) {
                     if(!setting){
                         companion = this.props.companion_list[0]
 			let companion_all_list = this.props.companion_list
+			console.log(companion_all_list)
 			for (var key in companion_all_list){
 				console.log("tttttttttttttt")
-				console.log(this.props.companion_address_list)
 				companion_all_list[key].first_address = this.props.companion_address_list[key].user.profile.first_address
 				companion_all_list[key].second_address = this.props.companion_address_list[key].user.profile.second_address
+				console.log(companion_all_list)
 			}
-			console.log("@@@@@@@@@")
 			console.log(companion_all_list)
 
                         user = this.props.user_info
@@ -154,7 +153,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             desired_mate_etc: companion.desired_mate.personality.etc,
                             desired_mate_first_address: user.profile.first_address,
                             desired_mate_second_address: user.profile.second_address,
-		            companion_all_list:companion_all_list
+			    companion_all_list:companion_all_list
                         })
                         setting = true
                     }
