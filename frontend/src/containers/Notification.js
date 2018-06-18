@@ -2,8 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { mSend, mRead, lRead, pRead } from '../store/actions/interaction'
+import { list } from '../store/actions/list'
 import NotiPage from '../components/pages/NotiPage'
 import { userNews } from '../store/reducers'
+import { currentCompanionList } from '../store/reducers'
+
 
 const Notification = (props) => {
 	return (
@@ -14,7 +17,8 @@ const Notification = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-	user_news: userNews(state)
+	user_news: userNews(state),
+	companion_list: currentCompanionList(state), 
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,6 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	read_proposal: (id, granted)=> {
 		dispatch(pRead(id, granted))
+	},
+	get_companion_list: () => {
+		dispatch(list())
 	},
 })
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table,
     ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { Link } from 'react-router-dom'
 import ViewMessageApp from '../../atoms/ViewMessageApp'
 import MessageApp from '../../atoms/MessageApp'
 
@@ -20,6 +21,10 @@ export default class NotiPage extends Component {
 		}
 
 		this.onBtnReadMessage = this.onBtnReadMessage.bind(this)
+	}
+
+	componentDidMount() {
+		this.props.get_companion_list()
 	}
 
 	/*componentDidMount() {
@@ -49,11 +54,12 @@ export default class NotiPage extends Component {
 	}
 
 	MakeMessageListItem(messageItem) {
-		const sender = messageItem.sender
-		const receiver = messageItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == messageItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == messageItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
 					<Badge color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
@@ -63,14 +69,15 @@ export default class NotiPage extends Component {
 	}
 
 	MakeLikeListItem(likeItem) {
-		const sender = likeItem.sender
-		const receiver = likeItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == likeItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == likeItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구를 좋아해요! </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(likeItem)}
-					<Badge color="primary">방문하기</Badge>
+					<Badge color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)
