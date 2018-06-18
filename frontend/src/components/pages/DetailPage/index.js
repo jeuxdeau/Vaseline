@@ -36,21 +36,20 @@ export default class DetailPage extends Component {
 		if(companion_list == undefined || user_repr == undefined) return null
 		const name = this.props.match.params.name
 		const errors = this.props.errors || {}
-		
+
 		if(companion_list) {
 			const companion = companion_list.find((element) => (element.name == name))
 			return (
 				<div>
 				<Jumbotron className="container">
 					<h1>
-						VASELINE 
-						<Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
+						VASELINE
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendLikeBtnClick(user_repr.represent_companion, companion.id)}>좋아요</Button>{' '}
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendProposalBtnClick(user_repr.represent_companion, companion.id)}>결혼해요</Button>
 						<MessageApp messageAppOpen={this.state.messageAppActivated}
-									messageSenderId={user_repr.represent_companion} 
-									messageReceiverName={companion.name} 
+									messageSenderId={user_repr.represent_companion}
+									messageReceiverName={companion.name}
 									messageReceiverId={companion.id}
 									messageToggle={()=>this.onSendMessageBtnClick()}
 									messageSend={this.props.post_message}/>
@@ -69,7 +68,7 @@ export default class DetailPage extends Component {
 		}
 		else {
 			return (
-				<Jumbotron className="container"> 
+				<Jumbotron className="container">
 				</Jumbotron>
 			)
 		}
