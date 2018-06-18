@@ -281,9 +281,12 @@ export const filePost = (fileData) => ({
                 endpoint: '/api/upload/',
                 method: 'POST',
                 body: JSON.stringify(fileData),
-                headers: withAuth({'Content-type': 'application/json'}),
+	            headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}
                 types: [
-                        ACCOUNT_CREATE_COMPANION_REQUEST, ACCOUNT_CREATE_COMPANION_SUCCESS, ACCOUNT_CREATE_COMPANION_FAILURE
+                        FILE_REQUEST, FILE_SUCCESS, FILE_FAILURE
                 ]
         }
 })
