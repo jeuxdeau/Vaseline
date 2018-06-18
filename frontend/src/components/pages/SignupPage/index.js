@@ -24,20 +24,20 @@ export default class SignupPage extends Component {
         firstLevel: Object.keys(options)[0],
         secondLevel: Object.keys(options)[0][0],
 
-        username: '',
-        password: '',
+        username: 'vaseline2344',
+        password: 'vaselin32',
 
         //profile
-        profile__nickname: '',
+        profile__nickname: 'xxxx',
         profile__postal_code: 0,
         profile__rough_address: '서울',
         profile__detailed_address: '강남구',
         profile__age: 10,
         profile__gender: 'male',
-        profile__email: '',
+        profile__email: 'xxxxx',
 
         //companion
-        companion__name: '',
+        companion__name: 'yyyy',
         companion__sex: 'female',
         companion__birth_year: 2018,
         companion__breed: 'mix',
@@ -49,19 +49,19 @@ export default class SignupPage extends Component {
         desired_mate__size: 'small',
 
         //persoanlity
-        persoanlity__affinity_with_human: 0,
-        persoanlity__affinity_with_dog: 0,
-        persoanlity__shyness: 0,
-        persoanlity__activity: 0,
-        persoanlity__loudness: 0,
-        persoanlity__aggression: 0,
-        persoanlity__etc: '',
+        personality__affinity_with_human: 0,
+        personality__affinity_with_dog: 0,
+        personality__shyness: 0,
+        personality__activity: 0,
+        personality__loudness: 0,
+        personality__aggression: 0,
+        personality__etc: 'yuu',
 
         //mating_season
-        mating_season__season_start: '',
-        mating_season__season_end: '',
+        mating_season__season_start: '2018-06-15',
+        mating_season__season_end: '2018-06-25',
 
-        etcinfo: ''
+        etcinfo: 'ddd'
     }
 
     handleInputChange = (event) => {
