@@ -100,6 +100,11 @@ class SearchPage extends Component {
         }
 	onClickButton = (event) => {
                 event.preventDefault()
+		let result = []
+		for (var key in this.props.companion_list)
+		{
+			console.log(this.props.companion_list[key])
+		}
                 this.setState({search_companion_list:this.props.companion_list})
         }
 	search_result_atom = (companion, index) => {
