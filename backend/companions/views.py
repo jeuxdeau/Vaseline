@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer, LikeUpdateSerializer, ProposalUpdateSerializer, MessageUpdateSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -60,6 +60,18 @@ class ProposalList(generics.ListCreateAPIView):
 class MessageList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+class LikeDetail(generics.RetrieveUpdateAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeUpdateSerializer
+
+class ProposalDetail(generics.RetrieveUpdateAPIView):
+    queryset = Proposal.objects.all()
+    serializer_class = ProposalUpdateSerializer
+
+class MessageDetail(generics.RetrieveUpdateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageUpdateSerializer
 
 class UserListAndSignUp(generics.ListCreateAPIView):
     queryset = User.objects.all()

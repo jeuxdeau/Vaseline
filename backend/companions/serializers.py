@@ -64,12 +64,14 @@ class CompanionSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
+        print("!!!!!!!!!!!!!!!")
         desired_mate_data = validated_data.pop('desired_mate')
         desired_mate = DesiredMateSerializer.create(DesiredMateSerializer(), desired_mate_data)
         personality_data = validated_data.pop('personality')
         personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
         mating_season_data = validated_data.pop('mating_season')
         mating_season = MatingSeasonSerializer.create(MatingSeasonSerializer(), mating_season_data)
+        print("!!!!!!!!!!!!!!@@")
         companion = Companion.objects.create(
             user = validated_data['user'],
             name = validated_data['name'],
@@ -153,19 +155,35 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
-        read_only_fields = ('user',)
 
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
         fields = '__all__'
-        read_only_fields = ('granted',)
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
         read_only_fields = ('date_sent',)
+
+class LikeUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver',)
+
+class ProposalUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proposal
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver',)
+
+class MessageUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver', 'date_sent', 'message')
 
 class CompanionTotalInfoSerializer(serializers.ModelSerializer):
     message_sent = MessageSerializer(read_only=True, many=True)

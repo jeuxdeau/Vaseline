@@ -3,6 +3,7 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table,
     ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import ViewMessageApp from '../../atoms/ViewMessageApp'
+import MessageApp from '../../atoms/MessageApp'
 
 const messageDoggy = "http://images.gawker.com/18m86puxpfjasjpg/original.jpg"
 const likeDoggy = "https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q=70&fit=crop&crop=entropy&w=808&h=500"
@@ -14,6 +15,8 @@ export default class NotiPage extends Component {
 		this.state = {
 			viewMessageAppActivated: false,
 			viewMessageAppObject: {},
+			sendMessageAppActivated: false,
+			sendMessageAppObject: {},
 		}
 
 		this.onBtnReadMessage = this.onBtnReadMessage.bind(this)
@@ -35,7 +38,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
-					<Badge href="#" color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
+					<Badge color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -87,10 +90,36 @@ export default class NotiPage extends Component {
 		const mReceiver = messageItem.receiver
 		const mBody = messageItem.message
 		this.setState({
+			...this.state,
 			viewMessageAppActivated: !this.state.viewMessageAppActivated,
 			viewMessageAppObject: {sender: mSender, receiver: mReceiver, body: mBody},
 		})
-		console.log(this.state)
+	}
+
+	// Toggle apps : tApp could be "vMessage" for message view app, "sMessage" for message send app
+	appToggle(tApp) {
+		if(tApp == "vMessage") {
+			this.setState({
+				...this.state, 
+				viewMessageAppActivated: !this.state.viewMessageAppActivated,
+			})
+		}
+		else if(tApp == "sMessage") {
+			this.setState({
+				...this.state,
+				sendMessageAppActivated: !this.state.sendMessageAppActivated,
+			})
+		}
+	}
+
+	// When user clicks "answer" button on view message app, close the app and open send message app
+	answerMessage(mSender, mReceiver) {
+		this.setState({
+			...this.state,
+			viewMessageAppActivated: false,
+			sendMessageAppActivated: true,
+			sendMessageAppObject: {sender: mSender, receiver: mReceiver}
+		})
 	}
 
 /*	GetOnlyNewNotifications(notifications) {
@@ -115,6 +144,20 @@ export default class NotiPage extends Component {
 	 	const notifications = this.GetWholeNotifications(news)
 	 	return (
             <div>
+
+            <ViewMessageApp vMessageAppOpen={this.state.viewMessageAppActivated} 
+                            vMessageSenderId={this.state.viewMessageAppObject.sender}
+                            vMessageReceiverId={this.state.viewMessageAppObject.receiver}
+                            vMessageBody={this.state.viewMessageAppObject.body}
+                            vMessageToggle={()=>this.appToggle("vMessage")}
+                            vMessageAnswer={()=>this.answerMessage(this.state.viewMessageAppObject.receiver, 
+                            	                                   this.state.viewMessageAppObject.sender )} />
+            <MessageApp messageAppOpen={this.state.sendMessageAppActivated}
+            			messageSenderId={this.state.sendMessageAppObject.sender}
+            			messageReceiverId={this.state.sendMessageAppObject.receiver}
+            			messageToggle={()=>this.appToggle("sMessage")}
+            			messageSend={this.props.post_message} />
+
             <h3><p /><center> 알림장 <Badge color="success">New!</Badge></center></h3>
             <Col>
             <Alert color="success">

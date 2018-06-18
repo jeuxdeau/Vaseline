@@ -1,4 +1,5 @@
 import { RSAA } from 'redux-api-middleware'
+import { withAuth } from '../reducers'
 
 export const LOGIN_REQUEST = '@@auth/LOGIN_REQUEST'
 export const LOGIN_SUCCESS = '@@auth/LOGIN_SUCCESS'
@@ -25,6 +26,11 @@ export const ACCOUNT_USER_PROFILE_FAILURE = '@@auth/ACCOUNT_USER_PROFILE_FAILURE
 export const ACCOUNT_COMPANION_REQUEST = '@@auth/ACCOUNT_COMPANION_REQUEST'
 export const ACCOUNT_COMPANION_SUCCESS = '@@auth/ACCOUNT_COMPANION_SUCCESS'
 export const ACCOUNT_COMPANION_FAILURE = '@@auth/ACCOUNT_COMPANION_FAILURE'
+
+export const ACCOUNT_CREATE_COMPANION_REQUEST = '@@auth/ACCOUNT_CREATE_COMPANION_REQUEST'
+export const ACCOUNT_CREATE_COMPANION_SUCCESS = '@@auth/ACCOUNT_CREATE_COMPANION_SUCCESS'
+export const ACCOUNT_CREATE_COMPANION_FAILURE = '@@auth/ACCOUNT_CREATE_COMPANION_FAILURE'
+
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -81,6 +87,50 @@ const ProcCompanionUpdateInfo = (input) => ({
 	"birth_year":input.companion_info.birth_year,
 	"breed":input.companion_info.breed,
 	"size":input.companion_info.size
+})
+
+
+const ProcCompanionCreateInfo = (input, user_id) => ({
+	"desired_mate":{
+		"personality":{
+			"affinity_with_human":input.desired_mate_personality.affinity_with_human,
+			"affinity_with_dog": input.desired_mate_personality.affinity_with_dog,
+                        "shyness": input.desired_mate_personality.shyness,
+                        "activity": input.desired_mate_personality.activity,
+                        "aggression": input.desired_mate_personality.aggression,
+                        "loudness": input.desired_mate_personality.loudness,
+                        "etc": input.desired_mate_personality.etc
+		},
+		"breed":input.desired_mate.breed,
+		"sex":input.desired_mate.sex,
+		"size":input.desired_mate.size
+	},
+	"personality":{
+		"affinity_with_human":input.personality.affinity_with_human,
+        	"affinity_with_dog": input.personality.affinity_with_dog,
+               	"shyness": input.personality.shyness,
+               	"activity": input.personality.activity,
+                "aggression": input.personality.aggression,
+                "loudness": input.personality.loudness,
+                "etc": input.personality.etc
+	},
+	"mating_season":{
+		"season_start":input.mating_season.season_start,
+		"season_end":input.mating_season.season_end
+	},
+	"media":[],
+	"like_sent": [],
+    	"like_received": [],
+    	"proposal_sent": [],
+    	"proposal_received": [],
+    	"message_sent": [],
+    	"message_received": [],
+	"name":input.companion_info.name,
+	"sex":input.companion_info.sex,
+	"birth_year":input.companion_info.birth_year,
+	"breed":input.companion_info.breed,
+	"size":input.companion_info.size,
+	"user":user_id
 })
 
 
@@ -205,6 +255,19 @@ export const account_companion = (input, companion_id) => ({
                 ]
         }
 })
+
+export const account_create_companion = (input, user_id) => ({
+        [RSAA]: {
+                endpoint: '/api/companions/',
+                method: 'POST',
+                body: JSON.stringify(ProcCompanionCreateInfo(input, user_id)),
+                headers: withAuth({'Content-type': 'application/json'}),
+                types: [
+                        ACCOUNT_CREATE_COMPANION_REQUEST, ACCOUNT_CREATE_COMPANION_SUCCESS, ACCOUNT_CREATE_COMPANION_FAILURE
+                ]
+        }
+})
+
 
 export const search = () => ({
 })

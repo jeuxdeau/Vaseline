@@ -4,6 +4,7 @@ import { Label, Form, FormGroup, Input, Button, Modal, ModalHeader, ModalBody, M
 class MessageApp extends Component {
 	onSendBtnClick(message, sender, receiver) {
 		this.props.messageSend(sender, receiver, message)
+		this.props.messageToggle()
 	}	
 
 	handleInputChange = (event) => {

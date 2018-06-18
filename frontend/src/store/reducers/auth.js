@@ -5,12 +5,37 @@ const initialState = {
 	access: undefined,
 	refresh: undefined,
 	errors: {},
+	errors_account_user_password:{},
+	errors_account_user_profile:{},
+	errors_account_companion:{},
+	errors_account_create_companion:{}
 }
 
 export default (state=initialState, action) => {
 	switch(action.type) {
+		case auth.ACCOUNT_USER_PASSWORD_FAILURE:
+                        return {
+				...state,
+				errors_account_user_password: action.payload.response || {'non_field_errors': action.payload.statusText},
+                        }
+		case auth.ACCOUNT_USER_PROFILE_FAILURE:
+			return {
+				...state,
+				errors_account_user_profile: action.payload.response || {'non_field_errors': action.payload.statusText},
+			}
+		case auth.ACCOUNT_COMPANION_FAILURE:
+			return {
+				...state,
+				errors_account_user_password: action.payload.response || {'non_field_errors': action.payload.statusText},
+			}
+		case auth.ACCOUNT_CREATE_COMPANION_FAILURE:
+			return {
+				...state,
+				errors_account_user_password: action.payload.response || {'non_field_errors': action.payload.statusText},
+			}
 		case auth.LOGIN_SUCCESS:
 			return {
+				...state,
 				access: {
 					token: action.payload.access,
 					...jwtDecode(action.payload.access)

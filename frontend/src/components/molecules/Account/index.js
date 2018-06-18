@@ -50,6 +50,7 @@ class Account extends Component {
 						</tbody>
 						</Table>
 						<center><Button outline color="primary" tag={Link} to={"/account/user/"}>Update User Info?</Button></center>
+						<center><Button outline color="primary" tag={Link} to={"/account/companion_create/"}>Create Companion?</Button></center>
                                 	</CardBody>
                         	</Card>
 				<CardDeck>
