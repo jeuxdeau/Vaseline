@@ -72,7 +72,8 @@ class File(models.Model):
     media = models.ForeignKey(Companion, related_name='media', on_delete=models.CASCADE)
 
 class ImageUploader(models.Model):
-    name=models.ImageField(upload_to='media')
+    name = models.ImageField(upload_to='media')
+    owner = models.ForeignKey(Companion, related_name='profile_img', on_delete=models.CASCADE)
 
 class RepresentCompanion(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
