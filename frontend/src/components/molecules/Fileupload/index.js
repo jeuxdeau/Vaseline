@@ -7,24 +7,17 @@ const Wrapper = styled.div`
   color: ${palette('grayscale', 0)};
 `
 
-const Fileupload = ({ children, ...props }) => {
+const Fileupload = (props) => {
 
-  let formData = new FormData();
-  const onSubmit = () => {
-
+  let file;
+  const fileChangedHandler = () => {
+    file = event.target.files[0]
   }
 
   return (
     <div>
-        <h1>upload your photo</h1>
-        <input
-            type="file"
-            multiple={false}
-            ref={(input) => { this.inputElement = input; }}
-            accept=".jpg,.jpeg,.png"
-            onChange={this.handleChange}
-          />
-        <button onClick={this.handleSubmit}>submit</button>
+      <input type="file" onChange={fileChangedHandler} />
+      <button onClick={uploadHandler}>Upload!</button>
     </div>
   )
 }

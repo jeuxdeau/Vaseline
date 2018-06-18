@@ -31,6 +31,10 @@ export const ACCOUNT_CREATE_COMPANION_REQUEST = '@@auth/ACCOUNT_CREATE_COMPANION
 export const ACCOUNT_CREATE_COMPANION_SUCCESS = '@@auth/ACCOUNT_CREATE_COMPANION_SUCCESS'
 export const ACCOUNT_CREATE_COMPANION_FAILURE = '@@auth/ACCOUNT_CREATE_COMPANION_FAILURE'
 
+export const FILE_REQUEST = '@@auth/FILE_REQUEST'
+export const FILE_SUCCESS = '@@auth/FILE_SUCCESS'
+export const FILE_FAILURE = '@@auth/FILE_FAILURE'
+
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -270,4 +274,16 @@ export const account_create_companion = (input, user_id) => ({
 
 
 export const search = () => ({
+})
+
+export const filePost = (fileData) => ({
+        [RSAA]: {
+                endpoint: '/api/upload/',
+                method: 'POST',
+                body: JSON.stringify(fileData),
+                headers: withAuth({'Content-type': 'application/json'}),
+                types: [
+                        ACCOUNT_CREATE_COMPANION_REQUEST, ACCOUNT_CREATE_COMPANION_SUCCESS, ACCOUNT_CREATE_COMPANION_FAILURE
+                ]
+        }
 })
