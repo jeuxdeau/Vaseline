@@ -31,6 +31,10 @@ export const ACCOUNT_CREATE_COMPANION_REQUEST = '@@auth/ACCOUNT_CREATE_COMPANION
 export const ACCOUNT_CREATE_COMPANION_SUCCESS = '@@auth/ACCOUNT_CREATE_COMPANION_SUCCESS'
 export const ACCOUNT_CREATE_COMPANION_FAILURE = '@@auth/ACCOUNT_CREATE_COMPANION_FAILURE'
 
+export const FILE_REQUEST = '@@auth/FILE_REQUEST'
+export const FILE_SUCCESS = '@@auth/FILE_SUCCESS'
+export const FILE_FAILURE = '@@auth/FILE_FAILURE'
+
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -161,6 +165,7 @@ const ProcUserInfo = (input) => ({
       "season_start": input.companion.mating_season.season_start,
       "season_end": input.companion.mating_season.season_end
     },
+	"media": [],
     "like_sent": [],
     "like_received": [],
     "proposal_sent": [],
@@ -170,9 +175,8 @@ const ProcUserInfo = (input) => ({
   },
   "profile": {
     "nickname": input.profile.nickname,
-    "postal_code": input.profile.postal_code,
-    "rough_address": input.profile.rough_address,
-    "detailed_address": input.profile.detailed_address,
+    "first_address": input.profile.rough_address,
+    "second_address": input.profile.detailed_address,
     "age": input.profile.age,
     "gender": input.profile.gender,
     "email": input.profile.email
@@ -270,4 +274,16 @@ export const account_create_companion = (input, user_id) => ({
 
 
 export const search = () => ({
+})
+
+export const filePost = (fileData) => ({
+        [RSAA]: {
+                endpoint: '/api/upload/',
+                method: 'POST',
+                body: JSON.stringify(fileData),
+                headers: withAuth({'Content-type': 'application/json'}),
+                types: [
+                        ACCOUNT_CREATE_COMPANION_REQUEST, ACCOUNT_CREATE_COMPANION_SUCCESS, ACCOUNT_CREATE_COMPANION_FAILURE
+                ]
+        }
 })
