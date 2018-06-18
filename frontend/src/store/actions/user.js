@@ -9,6 +9,10 @@ export const USER_NEWS_REQUEST = '@@user/USER_NEWS_REQUEST'
 export const USER_NEWS_SUCCESS = '@@user/USER_NEWS_SUCCESS'
 export const USER_NEWS_FAILURE = '@@user/USER_NEWS_FAILURE'
 
+export const USER_REPR_COMP_REQUEST = '@@user/USER_REPR_COMP_REQUEST'
+export const USER_REPR_COMP_SUCCESS = '@@user/USER_REPR_COMP_SUCCESS'
+export const USER_REPR_COMP_FAILURE = '@@user/USER_REPR_COMP_FAILURE'
+
 export const user = (id) => ({
 	[RSAA]: {
 		endpoint: '/api/users/'+id,
@@ -29,4 +33,15 @@ export const user_news = (id) => ({
 			USER_NEWS_REQUEST, USER_NEWS_SUCCESS, USER_NEWS_FAILURE
 		]
 	}
+})
+
+export const user_repr_comp = (id) => ({
+	[RSAA]: {
+		endpoint: '/api/users/update/represent/'+ id + '/',
+		method: 'GET',
+		headers: { 'Content-type': 'application/json' },
+		types: [
+			USER_REPR_COMP_REQUEST, USER_REPR_COMP_SUCCESS, USER_REPR_COMP_FAILURE
+		]
+	}	
 })

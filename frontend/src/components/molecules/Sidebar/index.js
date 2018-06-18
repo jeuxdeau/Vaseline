@@ -74,9 +74,6 @@ export default class Sidebar extends Component {
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink href="/components/">Components</NavLink>
-							</NavItem>
-							<NavItem>
 								<NavLink href="https://github.com/jeuxdeau/Vaseline">Github</NavLink>
 							</NavItem>
 							<NavItem>
