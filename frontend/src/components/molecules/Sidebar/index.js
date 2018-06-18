@@ -76,6 +76,28 @@ export default class Sidebar extends Component {
 		return myCompanions
 	}
 
+	MakeMyCompanionDropdownItems(myCompanions) {
+		return (
+			myCompanions.map((singleCompanion, index) => 
+				{return (<DropdownItem onClick={()=>{console.log("HI")}}>{singleCompanion.name}</DropdownItem>)})
+		)
+	}
+
+	MakeMyCompanionDropdown(myCompanions, myReprCompanion) {
+		return (
+		<ButtonDropdown isOpen={this.state.compOpen} toggle={this.compToggle}>
+			<DropdownToggle size="sm" color="primary" caret>
+				{myReprCompanion.name}
+			</DropdownToggle>
+			<DropdownMenu>
+				<DropdownItem header>반려동물 바꾸기</DropdownItem>
+				<DropdownItem divider/>
+				{this.MakeMyCompanionDropdownItems(myCompanions)}
+			</DropdownMenu>
+		</ButtonDropdown>
+		)
+	}
+
 	render() {
 		const news = this.props.user_news
 		const repr = this.props.user_repr
@@ -97,15 +119,7 @@ export default class Sidebar extends Component {
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<ButtonDropdown isOpen={this.state.compOpen} toggle={this.compToggle}>
-									<DropdownToggle size="sm" color="primary" caret>
-										{myReprCompanion.name}
-									</DropdownToggle>
-									<DropdownMenu>
-										<DropdownItem header>반려동물 바꾸기</DropdownItem>
-										<DropdownItem div/>
-									</DropdownMenu>
-								</ButtonDropdown>
+								{this.MakeMyCompanionDropdown(myCompanions, myReprCompanion)}
 							</NavItem>
 							<NavItem>
 								<NavLink href="https://github.com/jeuxdeau/Vaseline">Github</NavLink>
