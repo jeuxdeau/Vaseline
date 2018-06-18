@@ -153,19 +153,35 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
-        read_only_fields = ('user',)
 
 class ProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proposal
         fields = '__all__'
-        read_only_fields = ('granted',)
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
         read_only_fields = ('date_sent',)
+
+class LikeUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver',)
+
+class ProposalUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proposal
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver',)
+
+class MessageUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
+        read_only_fields = ('sender', 'receiver', 'date_sent', 'message')
 
 class CompanionTotalInfoSerializer(serializers.ModelSerializer):
     message_sent = MessageSerializer(read_only=True, many=True)

@@ -1,4 +1,5 @@
 import { RSAA } from 'redux-api-middleware'
+import { withAuth } from '../reducers'
 
 export const LOGIN_REQUEST = '@@auth/LOGIN_REQUEST'
 export const LOGIN_SUCCESS = '@@auth/LOGIN_SUCCESS'
@@ -25,6 +26,11 @@ export const ACCOUNT_USER_PROFILE_FAILURE = '@@auth/ACCOUNT_USER_PROFILE_FAILURE
 export const ACCOUNT_COMPANION_REQUEST = '@@auth/ACCOUNT_COMPANION_REQUEST'
 export const ACCOUNT_COMPANION_SUCCESS = '@@auth/ACCOUNT_COMPANION_SUCCESS'
 export const ACCOUNT_COMPANION_FAILURE = '@@auth/ACCOUNT_COMPANION_FAILURE'
+
+export const ACCOUNT_CREATE_COMPANION_REQUEST = '@@auth/ACCOUNT_CREATE_COMPANION_REQUEST'
+export const ACCOUNT_CREATE_COMPANION_SUCCESS = '@@auth/ACCOUNT_CREATE_COMPANION_SUCCESS'
+export const ACCOUNT_CREATE_COMPANION_FAILURE = '@@auth/ACCOUNT_CREATE_COMPANION_FAILURE'
+
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -205,6 +211,19 @@ export const account_companion = (input, companion_id) => ({
                 ]
         }
 })
+
+export const account_create_companion = (input, user_id) => ({
+        [RSAA]: {
+                endpoint: '/api/companions/',
+                method: 'POST',
+                body: JSON.stringify(ProcCompanionCreateInfo(input, user_id)),
+                headers: withAuth({'Content-type': 'application/json'}),
+                types: [
+                        ACCOUNT_CREATE_COMPANION_REQUEST, ACCOUNT_CREATE_COMPANION_SUCCESS, ACCOUNT_CREATE_COMPANION_FAILURE
+                ]
+        }
+})
+
 
 export const search = () => ({
 })

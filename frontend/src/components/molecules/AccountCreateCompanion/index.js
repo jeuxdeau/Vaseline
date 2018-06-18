@@ -5,6 +5,7 @@ import TextInput from '../../atoms/TextInput'
 import CompanionBlock from '../../atoms/CompanionBlock'
 
 let breed_imsi = undefined
+let name_imsi = undefined
 let sex_imsi = undefined
 let birth_year_imsi = undefined
 let size_imsi = undefined
@@ -30,13 +31,10 @@ let season_start_imsi = undefined
 let season_end_imsi = undefined
 let setting = false
 
-class AccountCompanion extends Component {
+class AccountCreateCompanion extends Component {
 	onSignoutBtnClick() {
                 this.props.post_signout()
         }
-	componentDidMount() {
-		this.props.get_companion_list()
-	}
 	constructor(props) {
                 super(props)
                 this.state = {
@@ -73,6 +71,8 @@ class AccountCompanion extends Component {
 		console.log(target)
                 if(name == "breed")
                         breed_imsi = target.value
+		else if(name == "name")
+			name_imsi = target.value
 		else if(name == "sex")
 			sex_imsi = target.value
 		else if(name == "birth_year")
@@ -199,46 +199,15 @@ class AccountCompanion extends Component {
             			backgroundColor: "#dff0d8",
             			color: "#3c763d"
         		}
-			const companion_id = this.props.match.params.id
-			const companion_list = this.props.companion_list
-			console.log(companion_id+"!!!")
 			console.log(this.state)
+			console.log(this.props.user_id)
                 	const errors = this.props.errors || {}
-			if(companion_list){
-				const companion = companion_list[companion_id-1]
-				console.log(companion)
-				if(!setting){
-					sex_imsi = companion.sex
-  	                        	breed_imsi = companion.breed
-					birth_year_imsi = companion.birth_year
-					size_imsi = companion.size
-					desired_mate_sex_imsi = companion.desired_mate.sex
-					desired_mate_breed_imsi = companion.desired_mate.breed
-					desired_mate_size_imsi = companion.desired_mate.size
-					desired_mate_affinity_with_human_imsi = companion.desired_mate.personality.affinity_with_human
-					desired_mate_affinity_with_dog_imsi = companion.desired_mate.personality.affinity_with_dog
-					desired_mate_shyness_imsi = companion.desired_mate.personality.shyness
-					desired_mate_activity_imsi = companion.desired_mate.personality.activity
-					desired_mate_loudness_imsi = companion.desired_mate.personality.loudness
-					desired_mate_aggression_imsi = companion.desired_mate.personality.aggression
-					desired_mate_etc_imsi = companion.desired_mate.personality.etc
-
-					affinity_with_human_imsi = companion.personality.affinity_with_human
-                                        affinity_with_dog_imsi = companion.personality.affinity_with_dog
-                                        shyness_imsi = companion.personality.shyness
-                                        activity_imsi = companion.personality.activity
-                                        loudness_imsi = companion.personality.loudness
-                                        aggression_imsi = companion.personality.aggression
-                                        etc_imsi = companion.personality.etc
-					console.log(companion)
-                                	setting = true
-                        	}
-                		return (
+			if(this.props.user_id){
+				return (
 					<Jumbotron className="container">
 	                                <h1>
         	                                VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
                 	                </h1>
-					<CompanionBlock companion={companion} key={companion.id} />
 					<Form onSubmit={this.onSubmit}>
                                         {
                                                 errors.non_field_errors?
@@ -253,7 +222,9 @@ class AccountCompanion extends Component {
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-                                        <tr><th><center>Name</center></th><th><center>{companion.name}</center></th></tr>
+                                        <tr><th><center>Name</center></th><th><center>
+					<TextInput name="name" error={errors.name} onChange={this.handleInputChange}/>
+					</center></th></tr>
 					<tr><th><center>Sex</center></th><th><center>
 					
 					<Input type="select" name="sex" error={errors.name} onChange={this.handleInputChange} value={sex_imsi}>
@@ -449,7 +420,7 @@ class AccountCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>ETC</center></th><th><center>
-					<TextInput name="desired_mate_etc" error={errors.name} onChange={this.handleInputChange} placeholder={companion.desired_mate.personality.etc}/>
+					<TextInput name="desired_mate_etc" error={errors.name} onChange={this.handleInputChange}/>
 					</center></th></tr>
 					</tbody>
 					</Table>
@@ -510,7 +481,7 @@ class AccountCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>ETC</center></th><th><center>
-					<TextInput name="etc" error={errors.name} onChange={this.handleInputChange} placeholder={companion.personality.etc}/>
+					<TextInput name="etc" error={errors.name} onChange={this.handleInputChange}/>
 					</center></th></tr>
 					</tbody>
 					</Table>
@@ -521,9 +492,9 @@ class AccountCompanion extends Component {
                                         </thead>
                                         <tbody>
 					<tr><th><center>Season Start</center></th><th><center>
-					<TextInput name="season_start" error={errors.name} onChange={this.handleInputChange} placeholder={companion.mating_season.season_start}/></center></th></tr>
+					<TextInput name="season_start" error={errors.name} onChange={this.handleInputChange}/></center></th></tr>
 					<tr><th><center>Season End</center></th><th><center>
-                                        <TextInput name="season_end" error={errors.name} onChange={this.handleInputChange} placeholder={companion.mating_season.season_end}/></center></th></tr>
+                                        <TextInput name="season_end" error={errors.name} onChange={this.handleInputChange}/></center></th></tr>
                                         </tbody>
 					</Table>
 					<center><Button type="submit" color="danger" size="lg">
@@ -544,4 +515,4 @@ class AccountCompanion extends Component {
                         )}
 		}
 }
-export default AccountCompanion
+export default AccountCreateCompanion

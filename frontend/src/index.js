@@ -53,7 +53,7 @@ import IntroPage from './components/pages/IntroPage'
 import Account from './containers/Account'
 import AccountUser from './containers/AccountUser'
 import AccountCompanion from './containers/AccountCompanion'
-
+import AccountCreateCompanion from './containers/AccountCreateCompanion'
 import Fileupload from './components/molecules/Fileupload'
 import Search from './containers/Search'
 
@@ -78,6 +78,7 @@ ReactDOM.render((
 	        <PrivateRoute exact path="/account/" component={Account} />
 	        <PrivateRoute path="/account/user/" component={AccountUser} />
 	        <PrivateRoute path="/account/companion/:id" component={AccountCompanion} />
+		<PrivateRoute path="/account/companion_create/" component={AccountCreateCompanion}/>
           <Route exact path="/intro/" component={IntroPage} />
 		      <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />

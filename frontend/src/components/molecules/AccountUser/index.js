@@ -225,7 +225,8 @@ class AccountUser extends Component {
 					</Input>
 					</div></center></th></tr>
 					</tbody>
-					<center><Button type="submit" color="danger" size="lg">
+					{console.log(this.state)}
+					<center><Button type="submit" color="danger" size="lg" tag={Link} to={"/account/"}>
                                                 Update Profile
                                         </Button></center>
                                         </Table>
