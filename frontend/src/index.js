@@ -54,7 +54,7 @@ import Account from './containers/Account'
 import AccountUser from './containers/AccountUser'
 import AccountCompanion from './containers/AccountCompanion'
 import AccountCreateCompanion from './containers/AccountCreateCompanion'
-import Fileupload from './components/molecules/Fileupload'
+import Fileupload from './containers/Fileupload'
 import Search from './containers/Search'
 
 import PrivateRoute from './containers/PrivateRoute'
