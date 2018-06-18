@@ -4,31 +4,31 @@ import { Input, Table, Jumbotron, Alert, Card, CardDeck, Button, CardImg, CardTi
 import TextInput from '../../atoms/TextInput'
 import CompanionBlock from '../../atoms/CompanionBlock'
 
-let breed_imsi = undefined
-let name_imsi = undefined
-let sex_imsi = undefined
-let birth_year_imsi = undefined
-let size_imsi = undefined
-let desired_mate_sex_imsi = undefined
-let desired_mate_breed_imsi = undefined
-let desired_mate_size_imsi = undefined
-let desired_mate_affinity_with_human_imsi = undefined
-let desired_mate_affinity_with_dog_imsi = undefined
-let desired_mate_aggression_imsi = undefined
-let desired_mate_shyness_imsi = undefined
-let desired_mate_activity_imsi = undefined
-let desired_mate_loudness_imsi = undefined
-let desired_mate_etc_imsi = undefined
+let breed_imsi = 'toy_poodle'
+let name_imsi = "companion_name"
+let sex_imsi = 'female'
+let birth_year_imsi = 2018
+let size_imsi = 'small'
+let desired_mate_sex_imsi = 'male'
+let desired_mate_breed_imsi = 'toy_poodle'
+let desired_mate_size_imsi = 'small'
+let desired_mate_affinity_with_human_imsi = 0
+let desired_mate_affinity_with_dog_imsi = 0
+let desired_mate_aggression_imsi = 0
+let desired_mate_shyness_imsi = 0
+let desired_mate_activity_imsi = 0
+let desired_mate_loudness_imsi = 0
+let desired_mate_etc_imsi = "etc"
 
-let affinity_with_human_imsi = undefined
-let affinity_with_dog_imsi = undefined
-let aggression_imsi = undefined
-let shyness_imsi = undefined
-let activity_imsi = undefined
-let loudness_imsi = undefined
-let etc_imsi = undefined
-let season_start_imsi = undefined
-let season_end_imsi = undefined
+let affinity_with_human_imsi = 1
+let affinity_with_dog_imsi = 1
+let aggression_imsi = 1
+let shyness_imsi = 1
+let activity_imsi = 1
+let loudness_imsi = 1
+let etc_imsi = "etc"
+let season_start_imsi = '2018-06-25'
+let season_end_imsi = '2018-06-25'
 let setting = false
 
 class AccountCreateCompanion extends Component {
@@ -38,30 +38,30 @@ class AccountCreateCompanion extends Component {
 	constructor(props) {
                 super(props)
                 this.state = {
-			name: undefined,
-                       	birth_year: undefined,
-                        sex: undefined,
-			size: undefined,
-			breed: undefined,
-			desired_mate_sex: undefined,
-			desired_mate_breed: undefined,
-			desired_mate_size: undefined,
-			desired_mate_affinity_with_human: undefined,
-			desired_mate_affinity_with_dog: undefined,
-			desired_mate_shyness: undefined,
-			desired_mate_activity: undefined,
-			desired_mate_aggression: undefined,
-			desired_mate_loudness: undefined,
-			desired_mate_etc: undefined,
-			affinity_with_human: undefined,
-			affinity_with_dog: undefined,
-			shyness: undefined,
-			activity: undefined,
-			aggression: undefined,
-			loudness: undefined,
-			etc: undefined,
-			season_start:undefined,
-			season_end:undefined,
+			name: name_imsi,
+                       	birth_year: birth_year_imsi,
+                        sex: sex_imsi,
+			size: size_imsi,
+			breed: breed_imsi,
+			desired_mate_sex: desired_mate_sex_imsi,
+			desired_mate_breed: desired_mate_breed_imsi,
+			desired_mate_size: desired_mate_size_imsi,
+			desired_mate_affinity_with_human: desired_mate_affinity_with_human_imsi,
+			desired_mate_affinity_with_dog: desired_mate_affinity_with_dog_imsi,
+			desired_mate_shyness: desired_mate_shyness_imsi,
+			desired_mate_activity: desired_mate_activity_imsi,
+			desired_mate_aggression: desired_mate_aggression_imsi,
+			desired_mate_loudness: desired_mate_loudness_imsi,
+			desired_mate_etc: desired_mate_etc_imsi,
+			affinity_with_human: affinity_with_human_imsi,
+			affinity_with_dog: affinity_with_dog_imsi,
+			shyness: shyness_imsi,
+			activity: activity_imsi,
+			aggression: aggression_imsi,
+			loudness: loudness_imsi,
+			etc: etc_imsi,
+			season_start:season_start_imsi,
+			season_end:season_end_imsi,
                 }
         }
         handleInputChange = (event) => {
@@ -187,7 +187,7 @@ class AccountCreateCompanion extends Component {
 			mating_season, mating_season
 		}
 		console.log(information)
-                this.props.onSubmit(information, this.props.match.params.id)
+                this.props.onSubmit(information, this.props.user_id)
         }
 
 	render() {
@@ -498,7 +498,7 @@ class AccountCreateCompanion extends Component {
                                         </tbody>
 					</Table>
 					<center><Button type="submit" color="danger" size="lg">
-                                                Update Companion
+                                                Create Companion
                                         </Button></center>
                                         </CardDeck>
                                 </Form>
