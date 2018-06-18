@@ -86,7 +86,7 @@ export default class NotiPage extends Component {
 	MakeConsentFromPropItem(proposalItem) {
 		if(proposalItem.granted) {
 			return (
-				<Badge color="info">Already married!</Badge>
+				<Badge color="info">축하해요! 이메일을 확인하세요 @_@</Badge>
 			)
 		}
 		else {
