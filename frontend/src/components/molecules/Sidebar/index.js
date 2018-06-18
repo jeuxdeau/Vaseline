@@ -51,6 +51,7 @@ export default class Sidebar extends Component {
 
 	componentDidMount() {
 		this.props.get_user_news(this.props.user_id)
+		this.props.get_user_repr(this.props.user_id)
 		this.createInterval(this.updateUserInfo, this.props.get_user_news, this.state.userID, 3000)
 	}
 
@@ -62,14 +63,16 @@ export default class Sidebar extends Component {
 
 	render() {
 		const news = this.props.user_news
-		if(news == undefined) return null
+		const repr = this.props.user_repr
+		if(news == undefined || repr == undefined) return null
 		const uNewsNum = this.uNews(news)
 		const userName = news.username
+		const userRepr = repr.represent_companion
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
 					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>Welcome! {userName}</NavbarBrand>
+					<NavbarBrand>Welcome! {userName} {userRepr}</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>

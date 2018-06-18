@@ -39,16 +39,16 @@ export default (state=initialState, action) => {
 				errors:
 					action.payload.response || {'get_user_news_errors': action.payload.statusText}
 			}
-		case userAction.USER_REPR_COMP_SUCCESS:
+		case userAction.USER_REPR_SUCCESS:
 			return {
 				...state,
 				repr: action.payload,
 				errors: {}
 			}
-		case userAction.USER_NEWS_FAILURE:
+		case userAction.USER_REPR_FAILURE:
 			return {
 				...state,
-				repr: undefined
+				repr: undefined,
 				errors:
 					action.payload.response || {'get_user_repr_errors': action.payload.statusText}
 			}
