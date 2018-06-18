@@ -111,6 +111,7 @@ const ProcUserInfo = (input) => ({
       "season_start": input.companion.mating_season.season_start,
       "season_end": input.companion.mating_season.season_end
     },
+	"media": [],
     "like_sent": [],
     "like_received": [],
     "proposal_sent": [],
@@ -120,9 +121,8 @@ const ProcUserInfo = (input) => ({
   },
   "profile": {
     "nickname": input.profile.nickname,
-    "postal_code": input.profile.postal_code,
-    "rough_address": input.profile.rough_address,
-    "detailed_address": input.profile.detailed_address,
+    "first_address": input.profile.rough_address,
+    "second_address": input.profile.detailed_address,
     "age": input.profile.age,
     "gender": input.profile.gender,
     "email": input.profile.email
