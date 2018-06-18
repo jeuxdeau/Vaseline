@@ -79,17 +79,17 @@ class RepresentCompanion(models.Model):
 class Like(models.Model):
     sender = models.ForeignKey(Companion, related_name='like_sent', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Companion, related_name='like_received', on_delete=models.CASCADE)
-    is_read = models.BooleanField(default=False)
+    is_read = models.IntegerField(default=0)
 
 class Proposal(models.Model):
     sender = models.ForeignKey(Companion, related_name='proposal_sent', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Companion, related_name='proposal_received', on_delete=models.CASCADE)
     granted = models.BooleanField(default=False)
-    is_read = models.BooleanField(default=False)
+    is_read = models.IntegerField(default=0)
 
 class Message(models.Model):
     sender = models.ForeignKey(Companion, related_name='message_sent', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Companion, related_name='message_received', on_delete=models.CASCADE)
     message = models.TextField(null=False)
     date_sent = models.DateTimeField(default=datetime.datetime.now)
-    is_read = models.BooleanField(default=False)
+    is_read = models.IntegerField(default=0)

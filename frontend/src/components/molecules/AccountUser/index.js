@@ -176,6 +176,13 @@ class AccountUser extends Component {
                                 <h1>
                                         VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
                                 </h1>
+				{
+					errors.non_field_errors?
+                                        	<Alert color="danger">
+                                                                {errors.non_field_errors}
+                                		</Alert>: ""
+				}
+
 				<Form onSubmit={this.onSubmitPassword}>
                                         {
                                                 errors.non_field_errors?
@@ -226,7 +233,7 @@ class AccountUser extends Component {
 					</div></center></th></tr>
 					</tbody>
 					{console.log(this.state)}
-					<center><Button type="submit" color="danger" size="lg" tag={Link} to={"/account/"}>
+					<center><Button type="submit" color="danger" size="lg">
                                                 Update Profile
                                         </Button></center>
                                         </Table>
