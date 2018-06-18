@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import SidebarMolecule from '../components/molecules/Sidebar'
 import { list } from '../store/actions/list'
+import { logout } from '../store/actions/auth'
 import { user_news, user_repr, user_repr_update } from '../store/actions/user'
 import { userID, userNews, userRepr, currentCompanionList } from '../store/reducers'
 
@@ -34,6 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
 	put_user_repr: (userId, reprId) => {
 		dispatch(user_repr_update(userId, reprId))
 	},
+	post_signout: () => {
+		dispatch(logout())
+	}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

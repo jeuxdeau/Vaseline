@@ -4,7 +4,7 @@ import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText } f
 
 const items = [
 	{
-		src: 'http://bestpickr.com/wp-content/uploads/Worlds-Cutest-Small-Dog-Picture.jpg',
+		src: 'https://www.enesco.co.uk/graphics_cache/0/2/18155-4060859-3-600.jpg',
 		altText: 'Slide 1',
 		caption: 'Slide 1',
 		header: 'Adorable Dog'
@@ -16,7 +16,7 @@ const items = [
 		header: 'Cute Dog'
 	},
 	{
-		src: 'http://bestpickr.com/wp-content/uploads/Tiny-Cute-Pom-Pom-Yawning-Like-a-Kitten.jpg',
+		src: 'https://livestock.teghakennel.com/wp-content/uploads/2015/06/What-a-lovely-Pomeranian-600x630.jpg',
 		altText: 'Slide 3',
 		caption: 'Slide 3',
 		header: 'Lovely Dog'

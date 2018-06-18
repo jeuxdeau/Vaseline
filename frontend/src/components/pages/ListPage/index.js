@@ -19,7 +19,7 @@ export default class ListPage extends Component {
 			return (
 				<Jumbotron className="container">
 					<h1>
-						VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
+						VASELINE
 					</h1>
 					{
 						errors.get_list_errors?
