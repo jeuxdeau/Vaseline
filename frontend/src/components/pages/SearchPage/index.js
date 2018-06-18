@@ -3,8 +3,6 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
     import CompanionBlock from '../../atoms/CompanionBlock'
 
-    let companion = undefined
-    let user = undefined
     let setting = false
     const options = [
         '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','>성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
@@ -58,6 +56,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
         componentDidMount() {
             this.props.get_companion_list()
 	    this.props.get_companion_address_list()
+ 	    this.props.get_user_repr(this.props.user_id)
             this.props.get_user_info(this.props.user_id)
         }
         constructor(props) {
@@ -76,8 +75,10 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                 desired_mate_etc: undefined,
                 desired_mate_first_address:undefined,
                 desired_mate_second_address:undefined,
+		repr: undefined,
 		companion_all_list: undefined,
                 search_companion_list: undefined,
+		user:undefined
             }
         }
         handleInputChange = (event) => {
@@ -88,6 +89,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
             {
                 firstLevelOptions = options.map(renderOption)
                 secondLevelOptions = options2[target.value].map(renderOption)
+		this.setState({desired_mate_second_address:options2[target.value][0]})
                 console.log("first_address")
                 console.log(target.value)
             }
@@ -101,12 +103,50 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
         }
 	onClickButton = (event) => {
                 event.preventDefault()
-		let result = []
-		for (var key in this.props.companion_list)
+		let result= []
+		for (var key in this.state.companion_all_list)
 		{
-			console.log(this.props.companion_list[key])
+			let x = this.state.companion_all_list[key]
+			if(x.breed==this.state.desired_mate_breed && x.size==this.state.desired_mate_size && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address && x.second_address == this.state.desired_mate_second_address)
+			{
+				result.push(this.state.companion_all_list[key])
+			}
 		}
-                this.setState({search_companion_list:this.state.companion_all_list})
+		let personality_result = []
+		if(result.length == 0){
+			this.setState({search_companion_list:result})
+		}
+		else{
+			for(var key in result){
+				let p = result[key].personality
+				let dp = this.state.repr.personality
+				let score = 0
+				if(dp.affinity_with_human != 0)
+					score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human) 
+				if(dp.affinity_with_dog != 0)
+                                        score += 2-Math.abs(dp.affinity_with_dog-p.affinity_with_dog) 
+				if(dp.aggression != 0)
+                                        score += 2-Math.abs(dp.aggression-p.aggression)
+				if(dp.loudness != 0)
+                                        score += 2-Math.abs(dp.loudness-p.loudness)
+				if(dp.shyness != 0)
+                                        score += 2-Math.abs(dp.shyness-p.shyness)
+				if(dp.activity != 0)
+                                        score += 2-Math.abs(dp.activity-p.activity)
+				result[key].score = score
+			}
+		}
+		console.log("result_before_sort")
+		console.log(result)
+		result.sort(function(a, b){
+			if(a.score > b.score)
+				return -1
+			if(a.score < b.score)
+				return 1
+			return 0})
+	 	console.log("result")
+		console.log(result)
+                this.setState({search_companion_list:result})
         }
         search_result_atom = (companion, index, first_address, second_address) => {
             return (
@@ -124,9 +164,8 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
             }
 
             render() {
-                if(this.props.companion_list && this.props.companion_address_list) {
+                if(this.props.companion_list && this.props.companion_address_list && this.props.user_repr) {
                     if(!setting){
-                        companion = this.props.companion_list[0]
 			let companion_all_list = this.props.companion_list
 			console.log(companion_all_list)
 			for (var key in companion_all_list){
@@ -136,31 +175,35 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
 				console.log(companion_all_list)
 			}
 			console.log(companion_all_list)
-
-                        user = this.props.user_info
+			let companion_repr = this.props.companion_list[this.props.user_repr.represent_companion-1]
+			console.log("########################")
+			console.log(companion_repr)
+			console.log(this.props.user_repr.represent_companion)
                         firstLevelOptions = options.map(renderOption)
                         secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
                         this.setState({
-                            desired_mate_sex: companion.desired_mate.sex,
-                            desired_mate_breed: companion.desired_mate.breed,
-                            desired_mate_size: companion.desired_mate.size,
-                            desired_mate_affinity_with_human: companion.desired_mate.personality.affinity_with_human,
-                            desired_mate_affinity_with_dog: companion.desired_mate.personality.affinity_with_dog,
-                            desired_mate_shyness: companion.desired_mate.personality.shyness,
-                            desired_mate_activity: companion.desired_mate.personality.activity,
-                            desired_mate_aggression: companion.desired_mate.personality.aggression,
-                            desired_mate_loudness: companion.desired_mate.personality.loudness,
-                            desired_mate_etc: companion.desired_mate.personality.etc,
-                            desired_mate_first_address: user.profile.first_address,
-                            desired_mate_second_address: user.profile.second_address,
-			    companion_all_list:companion_all_list
+                            desired_mate_sex: companion_repr.desired_mate.sex,
+                            desired_mate_breed: companion_repr.desired_mate.breed,
+                            desired_mate_size: companion_repr.desired_mate.size,
+                            desired_mate_affinity_with_human: companion_repr.desired_mate.personality.affinity_with_human,
+                            desired_mate_affinity_with_dog: companion_repr.desired_mate.personality.affinity_with_dog,
+                            desired_mate_shyness: companion_repr.desired_mate.personality.shyness,
+                            desired_mate_activity: companion_repr.desired_mate.personality.activity,
+                            desired_mate_aggression: companion_repr.desired_mate.personality.aggression,
+                            desired_mate_loudness: companion_repr.desired_mate.personality.loudness,
+                            desired_mate_etc: companion_repr.desired_mate.personality.etc,
+                            desired_mate_first_address: this.props.user_info.profile.first_address,
+                            desired_mate_second_address: this.props.user_info.profile.second_address,
+			    repr: this.props.companion_list[this.props.user_repr.represent_companion-1],
+			    companion_all_list:companion_all_list,
+		 	    user:this.props.user_info
                         })
                         setting = true
                     }
                     console.log("state props: ")
                     console.log(this.state)
                     console.log(this.props)
-                    if(companion){
+                    if(this.state.repr){
                         return (
                             <div>
                             <h3><p /><center>Search <Badge color="success">New!</Badge></center></h3>

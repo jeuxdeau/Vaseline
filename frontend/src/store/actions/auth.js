@@ -47,7 +47,7 @@ const ProcUserProfileUpdateInfo = (input) => (
 	{
 		"profile":{
 			"nickname": input.nickname,
-			"first_address_list": input.first_address,
+			"first_address": input.first_address,
 			"second_address": input.second_address,
 			"age": input.age,
 			"gender": input.gender,

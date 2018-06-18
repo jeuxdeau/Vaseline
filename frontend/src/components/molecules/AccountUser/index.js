@@ -97,8 +97,12 @@ class AccountUser extends Component {
 			first_address_imsi = target.value
 			firstLevelOptions = options.map(renderOption)
 			secondLevelOptions = options2[first_address_imsi].map(renderOption)
+			second_address_imsi = options2[first_address_imsi][0]
 			console.log("first_address")
 			console.log(target.value)
+			console.log("second_address")
+			this.setState({second_address:second_address_imsi})
+			console.log(second_address_imsi)
 		}
 		else if(name == "second_address"){
 			second_address_imsi = target.value
@@ -113,7 +117,9 @@ class AccountUser extends Component {
 		console.log("###########")
 		this.setState({first_address: event.target.value})
 		first_address_imsi = event.target.value
-				console.log(options2[first_address_imsi])
+		console.log(options2[first_address_imsi])
+		second_address_imsi = options2[first_address_imsi][0]
+		console.log(options2[first_address_imsi])
 
 	}
 	handleSecondAddressChange(event) {
@@ -154,6 +160,7 @@ class AccountUser extends Component {
                 	if(profile_info[key] == undefined)
                         	profile_info[key]=this.props.user_info.profile[key]
                 }
+		console.log("^^^^^^^^^^^^^^^^")
                 console.log(profile_info)
 		this.setState({redirect:true})
                 this.props.onSubmitProfile(profile_info, this.props.user_id)
