@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
+import CompanionBlock from '../../atoms/CompanionBlock'
 
 let companion = undefined
 let user = undefined
@@ -74,7 +75,8 @@ class SearchPage extends Component {
                         desired_mate_loudness: undefined,
                         desired_mate_etc: undefined,
 			desired_mate_first_address:undefined,
-			desired_mate_second_address:undefined
+			desired_mate_second_address:undefined,
+			search_companion_list:undefined
                 }
         }
 	handleInputChange = (event) => {
@@ -98,22 +100,26 @@ class SearchPage extends Component {
         }
 	onClickButton = (event) => {
                 event.preventDefault()
-                console.log("??")
-                const profile_info = {
-                        nickname: this.state.nickname,
-                        first_address: this.state.first_address,
-                        second_address: this.state.second_address,
-                        age: this.state.age,
-                        gender: this.state.gender,
-                        email: this.state.email
-                }
-                for (var key in profile_info){
-                        if(profile_info[key] == undefined)
-                                profile_info[key]=this.props.user_info.profile[key]
-                }
-                console.log(profile_info)
-                this.setState({redirect:true})
+                this.setState({search_companion_list:this.props.companion_list})
         }
+	search_result_atom = (companion, index) => {
+		return (
+		<Col xs="4">
+                	<CompanionBlock companion={companion} key={index} /> <p />
+                </Col>)
+	}
+	search_result = (companion_list) => {
+		if(companion_list){
+			console.log("#########################")
+			return companion_list.map((companion, index) =>
+				this.search_result_atom(companion, index))
+		}
+		else{
+			return <div>No</div>
+		}
+	}
+	
+
 
 	render() {
 		if(this.props.companion_list) {
@@ -361,6 +367,7 @@ class SearchPage extends Component {
             </Card>
             </CardDeck>
             </Col>
+	    {this.search_result(this.state.search_companion_list)}
             </div>
         )
     		}
