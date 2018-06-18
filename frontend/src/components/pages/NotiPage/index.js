@@ -83,15 +83,30 @@ export default class NotiPage extends Component {
 		)
 	}
 
+	MakeConsentFromPropItem(proposalItem) {
+		if(proposalItem.granted) {
+			return (
+				<Badge color="info">Already married!</Badge>
+			)
+		}
+		else {
+			return (
+				<Badge href color="info" onClick={()=>{this.onBtnPropConsent(proposalItem)}}>수락하기</Badge>
+			)
+		}
+	}
+
 	MakeProposalListItem(proposalItem) {
-		const sender = proposalItem.sender
-		const receiver = proposalItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == proposalItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == proposalItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 청혼해요!(부끄) </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 청혼해요!</ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(proposalItem)}
-					<Badge href="#" color="primary">방문하기</Badge>
+					<Badge href color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
+					{this.MakeConsentFromPropItem(proposalItem)}
 				</div>
 			</ListGroupItem>
 		)
@@ -120,6 +135,10 @@ export default class NotiPage extends Component {
 			viewMessageAppActivated: !this.state.viewMessageAppActivated,
 			viewMessageAppObject: {sender: mSender, receiver: mReceiver, body: mBody},
 		})
+	}
+
+	onBtnPropConsent(proposalItem) {
+		this.props.read_proposal(proposalItem.id, true)
 	}
 
 	// Toggle apps : tApp could be "vMessage" for message view app, "sMessage" for message send app
@@ -249,7 +268,7 @@ export default class NotiPage extends Component {
             <p />
             잘 고민해서 결정하세요! 메시지를 충분히 주고 받은 후에, 개인 정보를 교환하도록 해요.
             <p />
-            <h6><Badge color="secondary">이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
+            <h6><Badge color="secondary">수락하면 이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
             
             <ListGroup>
             {notifications.prop.map((proposalItem, index) => {
