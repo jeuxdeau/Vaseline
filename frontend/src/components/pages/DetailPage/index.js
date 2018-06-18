@@ -30,12 +30,10 @@ export default class DetailPage extends Component {
 		this.props.post_signout()
 	}
 
-	componentDidMount() {
-		this.props.get_companion_list()
-	}
-
 	render() {
 		const companion_list = this.props.companion_list
+		const user_repr = this.props.user_repr
+		if(companion_list == undefined || user_repr == undefined) return null
 		const name = this.props.match.params.name
 		const errors = this.props.errors || {}
 		
@@ -47,11 +45,11 @@ export default class DetailPage extends Component {
 					<h1>
 						VASELINE 
 						<Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
-						<Button size="sm" outline color="primary" onClick={()=>this.onSendLikeBtnClick(this.props.user_id, companion.id)}>좋아요</Button>{' '}
+						<Button size="sm" outline color="primary" onClick={()=>this.onSendLikeBtnClick(user_repr.represent_companion, companion.id)}>좋아요</Button>{' '}
 						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
-						<Button size="sm" outline color="primary" onClick={()=>this.onSendProposalBtnClick(this.props.user_id, companion.id)}>결혼해요</Button>
+						<Button size="sm" outline color="primary" onClick={()=>this.onSendProposalBtnClick(user_repr.represent_companion, companion.id)}>결혼해요</Button>
 						<MessageApp messageAppOpen={this.state.messageAppActivated}
-									messageSenderId={this.props.user_id} 
+									messageSenderId={user_repr.represent_companion} 
 									messageReceiverName={companion.name} 
 									messageReceiverId={companion.id}
 									messageToggle={()=>this.onSendMessageBtnClick()}
