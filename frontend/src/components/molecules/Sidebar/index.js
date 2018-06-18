@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledTooltip, 
+import { Button, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledTooltip,
 	UncontrolledDropdown, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Badge } from 'reactstrap'
 
 export default class Sidebar extends Component {
@@ -82,7 +82,7 @@ export default class Sidebar extends Component {
 
 	MakeMyCompanionDropdownItems(myCompanions) {
 		return (
-			myCompanions.map((singleCompanion, index) => 
+			myCompanions.map((singleCompanion, index) =>
 				{return (<DropdownItem onClick={()=>
 					{this.UpdateMyReprCompanion(singleCompanion.id)}}>{singleCompanion.name}</DropdownItem>)})
 		)
@@ -104,6 +104,10 @@ export default class Sidebar extends Component {
 		)
 	}
 
+	onSignoutBtnClick() {
+		this.props.post_signout()
+	}
+
 	render() {
 		const news = this.props.user_news
 		const repr = this.props.user_repr
@@ -113,14 +117,15 @@ export default class Sidebar extends Component {
 		const uNewsNum = this.uNews(news)
 		const userName = news.username
 		const userRepr = repr.represent_companion
-		
+
 		const myCompanions = this.GetMyCompanions(comp, userId)
 		const myReprCompanion = myCompanions.filter((myCompanion) => {return (myCompanion.id == userRepr)})[0]
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
 					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>{userName}님, 환영합니다. </NavbarBrand>
+					<NavbarBrand>{userName}님, 환영합니다.♥ </NavbarBrand>
+					<Button size="sm" color="secondary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
