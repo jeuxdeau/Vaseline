@@ -83,6 +83,9 @@ export default class Sidebar extends Component {
 								<NavLink href="/notification">News</NavLink>
 							</NavItem>
 							<NavItem>
+                                                                <NavLink href="/account/">Account</NavLink>
+                                                        </NavItem>
+							<NavItem>
 								{uNewsNum}
 							</NavItem>
 							<UncontrolledDropdown nav inNavbar>

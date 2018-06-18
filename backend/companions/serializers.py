@@ -64,12 +64,14 @@ class CompanionSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
+        print("!!!!!!!!!!!!!!!")
         desired_mate_data = validated_data.pop('desired_mate')
         desired_mate = DesiredMateSerializer.create(DesiredMateSerializer(), desired_mate_data)
         personality_data = validated_data.pop('personality')
         personality = PersonalitySerializer.create(PersonalitySerializer(), personality_data)
         mating_season_data = validated_data.pop('mating_season')
         mating_season = MatingSeasonSerializer.create(MatingSeasonSerializer(), mating_season_data)
+        print("!!!!!!!!!!!!!!@@")
         companion = Companion.objects.create(
             user = validated_data['user'],
             name = validated_data['name'],
