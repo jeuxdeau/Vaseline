@@ -80,7 +80,6 @@ ReactDOM.render((
 	        <PrivateRoute path="/account/companion/:id" component={AccountCompanion} />
 		<PrivateRoute path="/account/companion_create/" component={AccountCreateCompanion}/>
           <Route exact path="/intro/" component={IntroPage} />
-		      <Route exact path="/upload/" component={Fileupload} />
           <PrivateRoute path="/detail/:name" component={Detail} />
 		      <PrivateRoute path="/search/" component={Search} />
           <PrivateRoute path="/notification" component={Notification} />
