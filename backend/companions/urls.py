@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^api/companions/address/$', views.CompanionAddressList.as_view()),
     url(r'^api/profiles/(?P<pk>[0-9]+)/$', views.ProfileDetail.as_view()),
     url(r'^api/upload/$', FileView.as_view(), name='file-upload'),
+    url(r'^api/images/$', views.ImageUploaderView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
