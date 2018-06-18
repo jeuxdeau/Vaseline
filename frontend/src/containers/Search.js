@@ -5,10 +5,13 @@ import { list } from '../store/actions/list'
 import { user } from '../store/actions/user'
 import { userInfo, userID } from '../store/reducers'
 import { currentCompanionList, listErrors } from '../store/reducers'
+import { address_list } from '../store/actions/auth'
+import { currentCompanionAddressList } from '../store/reducers'
 
 
 const mapStateToProps = (state) => ({
 	companion_list: currentCompanionList(state),
+	companion_address_list: currentCompanionAddressList(state),
 	user_info : userInfo(state),
         user_id : userID(state)
 })
@@ -22,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
         },
         post_signout: () => {
                 dispatch(logout())
+        },
+	get_companion_address_list: () => {
+                dispatch(address_list())
         }
 
 })
