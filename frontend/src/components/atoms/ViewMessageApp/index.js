@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Label, Form, FormGroup, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 class ViewMessageApp extends Component {
-	onSendBtnClick(message, sender, receiver) {
-		this.props.messageSend(sender, receiver, message)
+	onAnswerBtnClick() {
+		this.props.vMessageAnswer()
 	}	
 
 	handleInputChange = (event) => {
@@ -17,30 +17,25 @@ class ViewMessageApp extends Component {
 	}
 
 	render() {
-		const messageAppOpen = this.props.messageAppOpen
-		const messageSenderId = this.props.messageSenderId
-		const messageReceiverName = this.props.messageReceiverName
-		const messageReceiverId = this.props.messageReceiverId
-		const messageToggle = this.props.messageToggle
+		const vMessageAppOpen = this.props.vMessageAppOpen
+		const vMessageSenderId = this.props.vMessageSenderId
+		const vMessageReceiverId = this.props.vMessageReceiverId
+		const vMessageBody = this.props.vMessageBody
+		const vMessageToggle = this.props.vMessageToggle
 
 		return (
-				<Modal isOpen={messageAppOpen} toggle={messageToggle} centered={true} size="lg">
-					<ModalHeader>받는 친구 : {messageReceiverName}</ModalHeader>
+				<Modal isOpen={vMessageAppOpen} toggle={vMessageToggle} centered={true} size="lg">
+					<ModalHeader>{vMessageSenderId} 친구가 {vMessageReceiverId} 친구에게</ModalHeader>
 					<ModalBody>
-						<Form>
-							<FormGroup>
-								<Label for="exampleMessage" size="lg">Message</Label>
-								<Input type="textarea" name="message" id="exampleMessage" placeholder="사랑의 편지를 써보세요~" 
-										bsSize="lg" onChange={this.handleInputChange}/>
-							</FormGroup>
-						</Form>
+						{vMessageBody}
 					</ModalBody>
 					<ModalFooter>
 						<Button size="lg" outline color="primary" 
-						onClick={()=>this.onSendBtnClick(this.state.message, messageSenderId, messageReceiverId)}>보내기</Button>
+						onClick={()=>this.onAnswerBtnClick()}>답장하기</Button>
 					</ModalFooter>
 				</Modal>
 		)		
 	}
-
 }
+
+export default ViewMessageApp
