@@ -148,6 +148,7 @@ export default class SignupPage extends Component {
                 "season_start": this.state.mating_season__season_start,
                 "season_end": this.state.mating_season__season_end
             },
+            "media": [],
             "like_sent": [],
             "like_received": [],
             "proposal_sent": [],
@@ -157,8 +158,8 @@ export default class SignupPage extends Component {
             },
             "profile": {
                 "nickname": this.state.profile__nickname,
-                "rough_address": this.state.profile__rough_address,
-                "detailed_address": this.state.profile__detailed_address,
+                "first_address": this.state.profile__rough_address,
+                "second_address": this.state.profile__detailed_address,
                 "age": this.state.profile__age,
                 "gender": this.state.profile__gender,
                 "email": this.state.profile__email
