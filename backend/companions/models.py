@@ -64,12 +64,9 @@ class Companion(models.Model):
     desired_mate = models.OneToOneField(DesiredMate, on_delete=models.CASCADE)
     personality = models.OneToOneField(Personality, on_delete=models.CASCADE)
     mating_season = models.OneToOneField(MatingSeason, on_delete=models.CASCADE)
-    #media = models.OneToOneField(File, on_delete=models.CASCADE)
 
 class File(models.Model):
     file = models.FileField(blank=False, null=False)
-    remark = models.CharField(max_length=20)
-    timestamp = models.DateTimeField(auto_now_add=True)
     media = models.ForeignKey(Companion, related_name='media', on_delete=models.CASCADE)
 
 class RepresentCompanion(models.Model):
