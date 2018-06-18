@@ -100,11 +100,11 @@ class AccountUser extends Component {
 			console.log("first_address")
 			console.log(target.value)
 		}
-		else if(name == "second_address")
+		else if(name == "second_address"){
 			second_address_imsi = target.value
 			firstLevelOptions = options.map(renderOption)
                         secondLevelOptions = options2[first_address_imsi].map(renderOption)	
-                 
+		}
 		this.setState({
                         [name]: value
                 })

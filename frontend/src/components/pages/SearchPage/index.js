@@ -1,8 +1,149 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
 
-    const SearchPage = () => {
+let companion = undefined
+let user = undefined
+let setting = false
+
+const options = [
+        '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','>성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
+        '부산': ['강서구','금정구','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구','기장군'],
+        '대구': ['남구','달서구','동구','북구','서구','수성구','중구','달성군'],
+        '인천': ['계양구','남구','남동구','동구','부평구','서구','연수구','중구','강화군','옹진군'],
+        '광주': ['광산구','남구','동구','북구','서구'],
+        '대전': ['대덕구','동구','서구','유성구','중구'],
+        '울산': ['남구','동구','북구','중구','울주군'],
+        '세종': ['조치원읍', '금남면', '부강면', '소정면', '연기면', '연동면', '연서면', '장군면', '전동면', '전의면', '가람동', '한솔동', '새롬동', '나성동', '다정동', '새>롬동', '도담동', '어진동', '아름동', '종촌동', '고운동', '대평동', '반곡동', '보람동', '소담동'],
+        '경기': ['고양시','과천시','광명시','광주시','구리시','군포시','김포시','남양주시','동두천시','부천시','성남시','수원시','시흥시','안산시','안성시','안양시','>양주시','여주시','오산시','용인시','의왕시','의정부시','이천시','파주시','평택시','포천시','하남시','화성시','가평군','양평군','연천군'],
+        '강원': ['강릉시','동해시','삼척시','속초시','원주시','춘천시','태백시','고성군','양구군','양양군','영월군','인제군','정선군','철원군','평창군','홍천군','화천>군','횡성군'],
+        '충북': ['제천시','청주시','충주시','괴산군','단양군','보은군','영동군','옥천군','음성군','증평군','진천군'],
+        '충남': ['계룡시','공주시','논산시','당진시','보령시','서산시','아산시','천안시','금산군','부여군','서천군','예산군','청양군','태안군','홍성군'],
+        '전북': ['전주시','군산시','김제시','남원시','익산시','정읍시','고창군','무주군','부안군','순창군','완주군','임실군','장수군','진안군'],
+        '전남': ['광양시','나주시','목포시','순천시','여수시','강진군','고흥군','곡성군','구례군','담양군','무안군','보성군','신안군','영광군','영암군','완도군','장성>군','장흥군','진도군','함평군','해남군','화순군'],
+        '경북': ['경산시','경주시','구미시','김천시','문경시','상주시','안동시','영주시','영천시','포항시','고령군','군위군','봉화군','성주군','예천군','영덕군','영양>군','울릉군','울진군','의성군','청도군','청송군','칠곡군'],
+        '경남': ['거제시','김해시','밀양시','사천시','양산시','진주시','창원시','통영시','거창군','고성군','남해군','산청군','의령군','창녕군','하동군','함안군','함양>군','합천군'],
+        '제주': ['제주시','서귀포시'],
+        '해외': ['해외']
+]
+
+const options2 = {
+        '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','>성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
+        '부산': ['강서구','금정구','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구','기장군'],
+        '대구': ['남구','달서구','동구','북구','서구','수성구','중구','달성군'],
+        '인천': ['계양구','남구','남동구','동구','부평구','서구','연수구','중구','강화군','옹진군'],
+        '광주': ['광산구','남구','동구','북구','서구'],
+        '대전': ['대덕구','동구','서구','유성구','중구'],
+        '울산': ['남구','동구','북구','중구','울주군'],
+        '세종': ['조치원읍', '금남면', '부강면', '소정면', '연기면', '연동면', '연서면', '장군면', '전동면', '전의면', '가람동', '한솔동', '새롬동', '나성동', '다정동', '새롬동', '도담동', '어진동', '아름동', '종촌동', '고운동', '대평동', '반곡동', '보람동', '소담동'],
+        '경기': ['고양시','과천시','광명시','광주시','구리시','군포시','김포시','남양주시','동두천시','부천시','성남시','수원시','시흥시','안산시','안성시','안양시','>양주시','여주시','오산시','용인시','의왕시','의정부시','이천시','파주시','평택시','포천시','하남시','화성시','가평군','양평군','연천군'],
+        '강원': ['강릉시','동해시','삼척시','속초시','원주시','춘천시','태백시','고성군','양구군','양양군','영월군','인제군','정선군','철원군','평창군','홍천군','화천>군','횡성군'],
+        '충북': ['제천시','청주시','충주시','괴산군','단양군','보은군','영동군','옥천군','음성군','증평군','진천군'],
+        '충남': ['계룡시','공주시','논산시','당진시','보령시','서산시','아산시','천안시','금산군','부여군','서천군','예산군','청양군','태안군','홍성군'],
+        '전북': ['전주시','군산시','김제시','남원시','익산시','정읍시','고창군','무주군','부안군','순창군','완주군','임실군','장수군','진안군'],
+        '전남': ['광양시','나주시','목포시','순천시','여수시','강진군','고흥군','곡성군','구례군','담양군','무안군','보성군','신안군','영광군','영암군','완도군','장성>군','장흥군','진도군','함평군','해남군','화순군'],
+        '경북': ['경산시','경주시','구미시','김천시','문경시','상주시','안동시','영주시','영천시','포항시','고령군','군위군','봉화군','성주군','예천군','영덕군','영양>군','울릉군','울진군','의성군','청도군','청송군','칠곡군'],
+        '경남': ['거제시','김해시','밀양시','사천시','양산시','진주시','창원시','통영시','거창군','고성군','남해군','산청군','의령군','창녕군','하동군','함안군','함양>군','합천군'],
+        '제주': ['제주시','서귀포시'],
+        '해외': ['해외']
+}
+const renderOption = (item) => (<option value={item}>{item}</option>)
+let firstLevelOptions = undefined
+let secondLevelOptions = undefined
+
+class SearchPage extends Component {
+	onSignoutBtnClick() {
+                this.props.post_signout()
+        }
+	componentDidMount() {
+                this.props.get_companion_list()
+		this.props.get_user_info(this.props.user_id)
+        }
+	constructor(props) {
+                super(props)
+                this.state = {	
+                        redirect:false,
+                        desired_mate_sex: undefined,
+                        desired_mate_breed: undefined,
+                        desired_mate_size: undefined,
+                        desired_mate_affinity_with_human: undefined,
+                        desired_mate_affinity_with_dog: undefined,
+                        desired_mate_shyness: undefined,
+                        desired_mate_activity: undefined,
+                        desired_mate_aggression: undefined,
+                        desired_mate_loudness: undefined,
+                        desired_mate_etc: undefined,
+			desired_mate_first_address:undefined,
+			desired_mate_second_address:undefined
+                }
+        }
+	handleInputChange = (event) => {
+                const target = event.target
+                const value = target.type === 'checkbox' ? target.checked : target.value
+                const name = target.name
+		if(name == "desired_mate_first_address")
+                {
+                        firstLevelOptions = options.map(renderOption)
+                        secondLevelOptions = options2[target.value].map(renderOption)
+                        console.log("first_address")
+                        console.log(target.value)
+                }
+                else if(name == "desired_mate_second_address"){
+			firstLevelOptions = options.map(renderOption)
+                        secondLevelOptions = options2[this.state.desired_mate_first_address].map(renderOption)
+                }
+		this.setState({
+                        [name]: target.value
+                })
+        }
+	onClickButton = (event) => {
+                event.preventDefault()
+                console.log("??")
+                const profile_info = {
+                        nickname: this.state.nickname,
+                        first_address: this.state.first_address,
+                        second_address: this.state.second_address,
+                        age: this.state.age,
+                        gender: this.state.gender,
+                        email: this.state.email
+                }
+                for (var key in profile_info){
+                        if(profile_info[key] == undefined)
+                                profile_info[key]=this.props.user_info.profile[key]
+                }
+                console.log(profile_info)
+                this.setState({redirect:true})
+        }
+
+	render() {
+		if(this.props.companion_list) {
+			if(!setting){
+				companion = this.props.companion_list[0]
+				user = this.props.user_info
+				firstLevelOptions = options.map(renderOption)
+                                secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
+                        	this.setState({
+					desired_mate_sex: companion.desired_mate.sex,
+					desired_mate_breed: companion.desired_mate.breed,
+					desired_mate_size: companion.desired_mate.size,
+					desired_mate_affinity_with_human: companion.desired_mate.personality.affinity_with_human,
+					desired_mate_affinity_with_dog: companion.desired_mate.personality.affinity_with_dog,
+					desired_mate_shyness: companion.desired_mate.personality.shyness,
+					desired_mate_activity: companion.desired_mate.personality.activity,
+					desired_mate_aggression: companion.desired_mate.personality.aggression,
+					desired_mate_loudness: companion.desired_mate.personality.loudness,
+					desired_mate_etc: companion.desired_mate.personality.etc,
+					desired_mate_first_address: user.profile.first_address,
+					desired_mate_second_address: user.profile.second_address
+				})
+				setting = true
+			}
+		console.log(this.props.companion_list[0].desired_mate)	
+		console.log("state : ")
+		console.log(this.state)
+		console.log("props : ")
+		console.log(this.props)
+			if(companion){
         return (
             <div>
             <h3><p /><center>Search <Badge color="success">New!</Badge></center></h3>
@@ -27,9 +168,9 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
             <CardSubtitle><b>품종별 검색</b></CardSubtitle>
             <CardText><p />한 개 또는 여러 개의 품종을 선택할 수 있어요.
             어떤 품종도 상관 없을 경우에는 상관없음 칸에 체크해 주세요.<p />
-            <h6><Badge color="secondary">ctrl키를 누르면서 여러 개를 한 번에 선택할 수 있어요!</Badge></h6><p/ >
-            <FormGroup>
-            <Input type="select" name="select" id="exampleSelect" multiple>
+	    <h6><Badge color="secondary">ctrl키를 누르면서 여러 개를 한 번에 선택할 수 없어요!</Badge></h6><p/ >
+            <FormGroup onSubmit={this.onSubmit}>
+            <Input type="select" name="desired_mate_breed" onChange={this.handleInputChange} value={this.state.desired_mate_breed}>
             <option value='mix'>믹스</option>
             <option value='dachshund'>닥스훈트</option>
             <option value='dalmatian'>달마시안</option>
@@ -63,6 +204,16 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
             <option value='pyrenees'>피레니즈</option>
             <option value='hound'>하운드</option>
             <option value='etc'>기타</option>
+            </Input>
+	    <Input type="select" name="desired_mate_size" onChange={this.handleInputChange} value={this.state.desired_mate_size}>
+            <option value="small">소형견</option>
+            <option value="medium">중형견</option>
+            <option value="latge">대형견</option>
+            </Input>
+	    <Input type="select" name="desired_mate_sex" onChange={this.handleInputChange} value={this.state.desired_mate_sex}>
+
+            <option value='female'>암컷</option>
+            <option value='male'>수컷</option>
             </Input>
             </FormGroup>
             </CardText>
@@ -98,79 +249,85 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
     <tr>
       <td>사람은 싫어요</td>
       <th scope="row">
-        <Input type="select">
-         <option>1</option>
-         <option>2</option>
-         <option>3</option>
-         <option>4</option>
-         <option>5</option>
-       </Input>
+      <Input type="select" name="desired_mate_affinity_with_human" onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_human}>
+                                        <option value="0">상관 없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>  
       </th>
       <td>사람이 좋아요</td>
     </tr>
     <tr>
       <td>강아지는 싫어</td>
       <th scope="row">
-          <Input type="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
-          </Input>
-      </th>
+          <Input type="select" name="desired_mate_affinity_with_dog" onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_dog}>
+                                        <option value="0">상관 없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>
+		</th>
       <td>강아지가 좋아</td>
     </tr>
     <tr>
       <td>수줍지 않아요</td>
       <th scope="row">
-          <Input type="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
-          </Input>
-      </th>
+        <Input type="select" name="desired_mate_shyness" onChange={this.handleInputChange} value={this.state.desired_mate_shyness}>
+                                        <option value="0">상관없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>  
+	</th>
       <td>수줍어해요</td>
     </tr>
     <tr>
       <td>움직이기 싫어</td>
       <th scope="row">
-          <Input type="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
-          </Input>
-      </th>
+          <Input type="select" name="desired_mate_activity" onChange={this.handleInputChange} value={this.state.desired_mate_activity}>
+                                        <option value="0">상관없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>
+		</th>
       <td>활동적이에요</td>
     </tr>
     <tr>
       <td>짖지 않아요</td>
       <th scope="row">
-          <Input type="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
-          </Input>
-      </th>
+          <Input type="select" name="desired_mate_loudness" onChange={this.handleInputChange} value={this.state.desired_mate_loudness}>
+                                        <option value="0">상관없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>
+		</th>
       <td>많이 짖어요</td>
     </tr>
     <tr>
       <td>아주 순해요</td>
       <th scope="row">
-          <Input type="select">
-           <option>1</option>
-           <option>2</option>
-           <option>3</option>
-           <option>4</option>
-           <option>5</option>
-          </Input>
-      </th>
+          <Input type="select" name="desired_mate_aggression" onChange={this.handleInputChange} value={this.state.desired_mate_aggression_imsi}>
+                                        <option value="0">상관없음</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        </Input>
+		</th>
       <td>공격적이에요</td>
     </tr>
   </tbody>
@@ -188,14 +345,16 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
             <p />
             특정 지역에 살고 있는 친구를 찾으시나요? 가까운 지역을 선택하고 동네에 사는 친구를 찾아보세요.
             <p />
-            시/도 <Input type="select">
-                <option>서울시</option>
-            </Input><br/>
-            시/군/구 <Input type="select">
-                <option>서초구</option>
-            </Input><br/>
-            <div align="right">
-                <Button align="right">새로 검색하기</Button>
+            시/도 
+		<Input type="select" name="desired_mate_first_address" onChange={this.handleInputChange} value={this.state.desired_mate_first_address}>
+                	{firstLevelOptions}
+                </Input><br/>
+            시/군/구
+            <Input type="select" name="desired_mate_second_address" onChange={this.handleInputChange} value={this.state.desired_mate_second_address}>
+            	{secondLevelOptions}
+            </Input>
+		<div align="right">
+                <Button align="right"  onClick={this.onClickButton}>새로 검색하기</Button>
             </div>
             </CardText>
             </CardBody>
@@ -204,6 +363,32 @@ import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck
             </Col>
             </div>
         )
-    }
+    		}
+			else
+			{
+				return (
+                                <Card>
+                                        <CardTitle>{1}</CardTitle>
+                                        <CardText>not : {2}</CardText>
+                                        <CardText>start : {3}</CardText>
+                                </Card>
+                        )
+			}
+		}
+		else
+		{
+			return (
+                                <Card>
+                                        <CardTitle>{1}</CardTitle>
+                                        <CardText>not : {2}</CardText>
+                                        <CardText>start : {3}</CardText>
+                                </Card>
+                        )
 
-    export default SearchPage
+		}
+
+	}
+	
+}
+export default SearchPage
+

@@ -404,7 +404,7 @@ class AccountCompanion extends Component {
                                         <tbody>
 					<tr><th><center>Affinity_with_human</center></th><th><center>
 					<Input type="select" name="desired_mate_affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={desired_mate_affinity_with_human_imsi}>
-					<option value="상관 없음">0</option>
+					<option value="0">"상관없음"</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -413,8 +413,8 @@ class AccountCompanion extends Component {
 					</Input></center></th></tr>
 					<tr><th><center>Affinity_with_dog</center></th><th><center>
 					<Input type="select" name="desired_mate_affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={desired_mate_affinity_with_dog_imsi}>
-					<option value="상관 없음">0</option>
-					<option value="1">1</option>
+					<option value="0">상관없음</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -422,8 +422,8 @@ class AccountCompanion extends Component {
 					</Input></center></th></tr>
 					<tr><th><center>Shyness</center></th><th><center>
 					<Input type="select" name="desired_mate_shyness" error={errors.name} onChange={this.handleInputChange} value={desired_mate_shyness_imsi}>
-					<option value="상관 없음">0</option>
-					<option value="1">1</option>
+					<option value="0">상관없음</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -431,8 +431,8 @@ class AccountCompanion extends Component {
 					</Input></center></th></tr>
 					<tr><th><center>Activity</center></th><th><center>
 					<Input type="select" name="desired_mate_activity" error={errors.name} onChange={this.handleInputChange} value={desired_mate_activity_imsi}>
-					<option value="상관 없음">0</option>
-					<option value="1">1</option>
+					<option value="0">상관없음</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -440,8 +440,8 @@ class AccountCompanion extends Component {
 					</Input></center></th></tr>
 					<tr><th><center>Loudness</center></th><th><center>
 					<Input type="select" name="desired_mate_loudness" error={errors.name} onChange={this.handleInputChange} value={desired_mate_loudness_imsi}>
-					<option value="상관 없음">0</option>
-					<option value="1">1</option>
+					<option value="0">상관없음</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -449,8 +449,8 @@ class AccountCompanion extends Component {
 					</Input></center></th></tr>
 					<tr><th><center>Aggression</center></th><th><center>
 					<Input type="select" name="desired_mate_aggression" error={errors.name} onChange={this.handleInputChange} value={desired_mate_aggression_imsi}>
-					<option value="상관 없음">0</option>
-					<option value="1">1</option>
+					<option value="0">상관없음</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
