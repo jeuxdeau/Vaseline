@@ -71,6 +71,9 @@ class File(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     media = models.ForeignKey(Companion, related_name='media', on_delete=models.CASCADE)
 
+class ImageUploader(models.Model):
+    name=models.ImageField(upload_to='media')
+
 class RepresentCompanion(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     represent_companion = models.OneToOneField(Companion, on_delete=models.CASCADE)

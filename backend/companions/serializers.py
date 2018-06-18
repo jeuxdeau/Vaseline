@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import fields, serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
-from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
+from companions.models import ImageUploader, Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 import sys, os
 sys.path.insert(0, os.getcwd()+'/companions/model')
 from breeds import *
@@ -43,6 +43,11 @@ class DesiredMateSerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
+        fields = '__all__'
+
+class ImageUploaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageUploader
         fields = '__all__'
 
 class CompanionSerializer(serializers.ModelSerializer):

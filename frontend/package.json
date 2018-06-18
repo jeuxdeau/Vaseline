@@ -88,6 +88,7 @@
     "query-string": "^4.3.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.11",
     "react-hot-loader": "3.0.0-beta.6",
     "react-modal": "^1.6.5",
     "react-router": "^4.2.0",
@@ -103,6 +104,7 @@
     "styled-components": "^1.2.1",
     "styled-theme": "^0.3.0",
     "styled-tools": "^0.1.2",
+    "superagent": "^3.8.3",
     "validator": "^7.0.0",
     "whatwg-fetch": "^2.0.2"
   }

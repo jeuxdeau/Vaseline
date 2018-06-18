@@ -20,6 +20,11 @@ from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
 
+from rest_framework import viewsets, renderers
+from companions.models import ImageUploader
+from companions.serializers import ImageUploaderSerializer
+
+
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionSerializer
@@ -178,3 +183,6 @@ class CompanionAddressList(generics.ListAPIView):
     queryset = Companion.objects.all()
     serializer_class = CompanionAddressSerializer
 
+class ImageUploaderView(generics.ListCreateAPIView):
+    queryset = ImageUploader.objects.all()
+    serializer_class = ImageUploaderSerializer
