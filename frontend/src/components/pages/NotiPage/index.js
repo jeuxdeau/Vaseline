@@ -22,6 +22,24 @@ export default class NotiPage extends Component {
 		this.onBtnReadMessage = this.onBtnReadMessage.bind(this)
 	}
 
+	/*componentDidMount() {
+		console.log("HI")
+	}*/
+
+	/*componentWillUnmount() {
+		const news = this.props.user_news
+	 	if(news == undefined) return null
+	 	const notifications = this.GetWholeNotifications(news)
+	 	const newnotifications = this.GetOnlyNewNotifications(notifications)
+	 	var i
+	 	for(i = 0; i < newnotifications.like.length; i++) {
+	 		this.props.read_like(newnotifications.like[i].id)
+	 	}
+	 	for(i = 0; i < newnotifications.proposal.length; i++) {
+	 		this.props.read_proposal(newnotifications.proposal[i].id, newnotifications.proposal[i].granted)
+	 	}
+	}*/
+
 	MakeBadgeForNewItem(item) {
 		if(!item.is_read) {
 			return (
@@ -52,7 +70,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(likeItem)}
-					<Badge href="#" color="primary">방문하기</Badge>
+					<Badge color="primary">방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -89,6 +107,7 @@ export default class NotiPage extends Component {
 		const mSender = messageItem.sender
 		const mReceiver = messageItem.receiver
 		const mBody = messageItem.message
+		this.props.read_message(messageItem.id)
 		this.setState({
 			...this.state,
 			viewMessageAppActivated: !this.state.viewMessageAppActivated,
@@ -122,7 +141,7 @@ export default class NotiPage extends Component {
 		})
 	}
 
-/*	GetOnlyNewNotifications(notifications) {
+	/*GetOnlyNewNotifications(notifications) {
 		// get only new notifications from given notifications object
 		var i
 		let nMessage = [], nLike = [], nProposal = []
@@ -136,9 +155,9 @@ export default class NotiPage extends Component {
 			if(!notifications.prop[i].is_read) nProp = nProp.concat(notifications.prop[i])
 		}
 		return {mess: nMessage, like: nLike, prop: nProposal}
-	}
-*/
-	 render() {
+	}*/
+
+	render() {
 	 	const news = this.props.user_news
 	 	if(news == undefined) return null
 	 	const notifications = this.GetWholeNotifications(news)
