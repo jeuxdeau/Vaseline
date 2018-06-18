@@ -284,7 +284,7 @@ export const filePost = (fileData) => ({
 	            headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
-				}
+				},
                 types: [
                         FILE_REQUEST, FILE_SUCCESS, FILE_FAILURE
                 ]
