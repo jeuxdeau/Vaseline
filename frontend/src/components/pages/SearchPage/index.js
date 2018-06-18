@@ -44,11 +44,9 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
         '제주': ['제주시','서귀포시'],
         '해외': ['해외']
     }
-    const renderOption = (item) => (<option value={item}>{item}</option>)
-    let firstLevelOptions = undefined
-    let secondLevelOptions = undefined
+const renderOption = (item) => (<option value={item}>{item}</option>)
 
-    class SearchPage extends Component {
+class SearchPage extends Component {
         onSignoutBtnClick() {
             this.props.post_signout()
         }
@@ -74,6 +72,8 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                 desired_mate_etc: undefined,
                 desired_mate_first_address:undefined,
                 desired_mate_second_address:undefined,
+		firstLevelOptions:undefined,
+		secondLevelOptions:undefined,
 		repr: undefined,
 		companion_all_list: undefined,
                 search_companion_list: undefined,
@@ -86,16 +86,20 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
             const name = target.name
             if(name == "desired_mate_first_address")
             {
-                firstLevelOptions = options.map(renderOption)
-                secondLevelOptions = options2[target.value].map(renderOption)
-		this.setState({desired_mate_second_address:options2[target.value][0]})
+		this.setState({
+			desired_mate_second_address:options2[target.value][0],
+			firstLevelOptions:options.map(renderOption),
+			secondLevelOptions:options2[target.value].map(renderOption)
+		})
                 console.log("first_address")
                 console.log(target.value)
             }
             else if(name == "desired_mate_second_address"){
-                firstLevelOptions = options.map(renderOption)
-                secondLevelOptions = options2[this.state.desired_mate_first_address].map(renderOption)
-            }
+		    this.setState({
+			    firstLevelOptions:options.map(renderOption),
+			    secondLevelOptions:options2[this.state.desired_mate_first_address].map(renderOption)
+		    })
+	    }
             this.setState({
                 [name]: target.value
             })
@@ -160,6 +164,9 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                     return companion_list.map((companion, index) =>
                     this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address))
                 }
+		else{
+			return <div>검색 결과가 없습니다.</div>
+		}
             }
 
             render() {
@@ -178,8 +185,6 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
 			console.log("########################")
 			console.log(companion_repr)
 			console.log(this.props.user_repr.represent_companion)
-                        firstLevelOptions = options.map(renderOption)
-                        secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
                         this.setState({
 			    setting:true,
                             desired_mate_sex: companion_repr.desired_mate.sex,
@@ -194,6 +199,8 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             desired_mate_etc: companion_repr.desired_mate.personality.etc,
                             desired_mate_first_address: this.props.user_info.profile.first_address,
                             desired_mate_second_address: this.props.user_info.profile.second_address,
+			    firstLevelOptions:options.map(renderOption),
+		 	    secondLevelOptions:options2[this.props.user_info.profile.first_address].map(renderOption),
 			    repr: this.props.companion_list[this.props.user_repr.represent_companion-1],
 			    companion_all_list:companion_all_list,
 		 	    user:this.props.user_info
@@ -378,7 +385,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             <tr>
                             <td>아주 순해요</td>
                             <th scope="row">
-                            <Input type="select" name="desired_mate_aggression" onChange={this.handleInputChange} value={this.state.desired_mate_aggression_imsi}>
+                            <Input type="select" name="desired_mate_aggression" onChange={this.handleInputChange} value={this.state.desired_mate_aggression}>
                             <option value="0">상관없음</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -406,11 +413,11 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             <p />
                             시/도
                             <Input type="select" name="desired_mate_first_address" onChange={this.handleInputChange} value={this.state.desired_mate_first_address}>
-                            {firstLevelOptions}
+                            {this.state.firstLevelOptions}
                             </Input><br/>
                             시/군/구
                             <Input type="select" name="desired_mate_second_address" onChange={this.handleInputChange} value={this.state.desired_mate_second_address}>
-                            {secondLevelOptions}
+                            {this.state.secondLevelOptions}
                             </Input>
                             <div align="right">
                             <Button align="right"  onClick={this.onClickButton}>새로 검색하기</Button>
