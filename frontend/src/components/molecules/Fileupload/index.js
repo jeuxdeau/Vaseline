@@ -3,35 +3,32 @@ import styled from 'styled-components'
 import { font, palette } from 'styled-theme'
 
 const Wrapper = styled.div`
-  font-family: ${font('primary')};
-  color: ${palette('grayscale', 0)};
+font-family: ${font('primary')};
+color: ${palette('grayscale', 0)};
 `
 
-const Fileupload = ({ children, ...props }) => {
+const Fileupload = (props) => {
+    let uploadfile;
+    const fileChangedHandler = (event) => {
+        const target = event.target
+		uploadfile = target.files[0]
+    }
 
-  let formData = new FormData();
-  const onSubmit = () => {
+    const uploadHandler = () => {
+        let fileform = {
+            "file": uploadfile,
+            "remark": 'abc',
+            "media": 1
+        }
+        props.onFileSubmit(fileform);
+    }
 
-  }
-
-  return (
-    <div>
-        <h1>upload your photo</h1>
-        <input
-            type="file"
-            multiple={false}
-            ref={(input) => { this.inputElement = input; }}
-            accept=".jpg,.jpeg,.png"
-            onChange={this.handleChange}
-          />
-        <button onClick={this.handleSubmit}>submit</button>
-    </div>
-  )
-}
-
-Fileupload.propTypes = {
-  //reverse: PropTypes.bool,
-  //children: PropTypes.node,
+    return (
+        <div>
+        <input type="file" onChange={fileChangedHandler} />
+        <button onClick={uploadHandler}>Upload!</button>
+        </div>
+    )
 }
 
 export default Fileupload
