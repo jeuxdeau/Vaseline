@@ -35,6 +35,9 @@ export const FILE_REQUEST = '@@auth/FILE_REQUEST'
 export const FILE_SUCCESS = '@@auth/FILE_SUCCESS'
 export const FILE_FAILURE = '@@auth/FILE_FAILURE'
 
+export const ACCOUNT_COMPANION_ADDRESS_REQUEST = '@@auth/ACCOUNT_COMPANION_ADDRESS_REQUEST'
+export const ACCOUNT_COMPANION_ADDRESS_SUCCESS = '@@auth/ACCOUNT_COMPANION_ADDRESS_SUCCESS'
+export const ACCOUNT_COMPANION_ADDRESS_FAILURE = '@@auth/ACCOUNT_COMPANION_ADDRESS_FAILURE'
 
 const ProcUserPasswordUpdateInfo = (input) => ({
 	"password":input.password,
@@ -44,7 +47,7 @@ const ProcUserProfileUpdateInfo = (input) => (
 	{
 		"profile":{
 			"nickname": input.nickname,
-			"first_address": input.first_address,
+			"first_address_list": input.first_address,
 			"second_address": input.second_address,
 			"age": input.age,
 			"gender": input.gender,
@@ -296,6 +299,18 @@ const ProcUserProfileUpdateInfo = (input) => (
 			},
 			types: [
 				FILE_REQUEST, FILE_SUCCESS, FILE_FAILURE
+			]
+		}
+	})
+
+
+	export const address_list = () => ({
+		[RSAA]: {
+			endpoint: '/api/companions/address/',
+			method: 'GET',
+			headers: {'Content-type': 'application/json'},
+			types: [
+				ACCOUNT_COMPANION_ADDRESS_REQUEST, ACCOUNT_COMPANION_ADDRESS_SUCCESS, ACCOUNT_COMPANION_ADDRESS_FAILURE
 			]
 		}
 	})
