@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, 
-	NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, 
+	UncontrolledDropdown, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 export default class Sidebar extends Component {
 	createInterval(f, dynamicParam0, dynamicParam1, interval) {
@@ -43,14 +43,18 @@ export default class Sidebar extends Component {
 		super(props)
 
 		this.toggle = this.toggle.bind(this)
+		this.compToggle = this.compToggle.bind(this)
 		this.state = {
 			isOpen: false,
-			userID: props.user_id
+			compOpen: false,
+			userID: props.user_id,
 		}
 	}
 
 	componentDidMount() {
 		this.props.get_user_news(this.props.user_id)
+		this.props.get_user_repr(this.props.user_id)
+		this.props.get_companion_list()
 		this.createInterval(this.updateUserInfo, this.props.get_user_news, this.state.userID, 3000)
 	}
 
@@ -60,21 +64,68 @@ export default class Sidebar extends Component {
 		})
 	}
 
+	compToggle() {
+		this.setState({
+			...this.state,
+			compOpen: !this.state.compOpen,
+		})
+	}
+
+	GetMyCompanions(companion_list, userId) {
+		const myCompanions = companion_list.filter((singleCompanion) => { return (singleCompanion.user == userId)})
+		return myCompanions
+	}
+
+	UpdateMyReprCompanion(reprId) {
+		this.props.put_user_repr(this.props.user_id, reprId)
+	}
+
+	MakeMyCompanionDropdownItems(myCompanions) {
+		return (
+			myCompanions.map((singleCompanion, index) => 
+				{return (<DropdownItem onClick={()=>
+					{this.UpdateMyReprCompanion(singleCompanion.id)}}>{singleCompanion.name}</DropdownItem>)})
+		)
+	}
+
+	MakeMyCompanionDropdown(myCompanions, myReprCompanion) {
+		myCompanions = myCompanions.filter((singleCompanion) => { return (singleCompanion.id != myReprCompanion.id)})
+		return (
+		<ButtonDropdown isOpen={this.state.compOpen} toggle={this.compToggle}>
+			<DropdownToggle size="sm" color="primary" caret>
+				{myReprCompanion.name}
+			</DropdownToggle>
+			<DropdownMenu>
+				<DropdownItem header>반려동물 바꾸기</DropdownItem>
+				<DropdownItem divider/>
+				{this.MakeMyCompanionDropdownItems(myCompanions)}
+			</DropdownMenu>
+		</ButtonDropdown>
+		)
+	}
+
 	render() {
 		const news = this.props.user_news
-		if(news == undefined) return null
+		const repr = this.props.user_repr
+		const comp = this.props.companion_list
+		const userId = this.props.user_id
+		if(news == undefined || repr == undefined || comp == undefined) return null
 		const uNewsNum = this.uNews(news)
 		const userName = news.username
+		const userRepr = repr.represent_companion
+		
+		const myCompanions = this.GetMyCompanions(comp, userId)
+		const myReprCompanion = myCompanions.filter((myCompanion) => {return (myCompanion.id == userRepr)})[0]
 		return(
 			<div>
 				<Navbar color="info" light expand="md">
 					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>Welcome! {userName}</NavbarBrand>
+					<NavbarBrand>Welcome! {userName} </NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink href="/components/">Components</NavLink>
+								{this.MakeMyCompanionDropdown(myCompanions, myReprCompanion)}
 							</NavItem>
 							<NavItem>
 								<NavLink href="https://github.com/jeuxdeau/Vaseline">Github</NavLink>
@@ -83,11 +134,11 @@ export default class Sidebar extends Component {
 								<NavLink href="/notification">News</NavLink>
 							</NavItem>
 							<NavItem>
-                                                                <NavLink href="/account/">Account</NavLink>
-                                                        </NavItem>
-							<NavItem>
 								{uNewsNum}
 							</NavItem>
+							<NavItem>
+                                <NavLink href="/account/">Account</NavLink>
+                            </NavItem>
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav caret>
 									options

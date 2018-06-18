@@ -16,7 +16,6 @@ export default class ListPage extends Component {
 		const companion_address_list = this.props.companion_address_list
 		const errors = this.props.errors || {}
 		if(companion_list && companion_address_list) {
-			console.log(companion_address_list[0].user.profile)
 			return (
 				<Jumbotron className="container">
 					<h1>
