@@ -4,6 +4,7 @@ import * as auth from '../actions/auth'
 const initialState = {
 	access: undefined,
 	refresh: undefined,
+	companion_address_list:undefined,
 	errors: {},
 	errors_account_user_password:{},
 	errors_account_user_profile:{},
@@ -32,6 +33,11 @@ export default (state=initialState, action) => {
 			return {
 				...state,
 				errors_account_create_companion: action.payload.response || {'non_field_errors': action.payload.statusText},
+			}
+		case auth.ACCOUNT_COMPANION_ADDRESS_SUCCESS:
+			return {
+				...state,
+				companion_address_list:action.payload
 			}
 		case auth.LOGIN_SUCCESS:
 			return {
@@ -118,12 +124,12 @@ export function errors_account_companion(state) {
 export function errors_account_create_companion(state) {
         return state.errors_account_create_companion
 }
-
-
-
-
 export function userID(state) {
 	if(state.access) {
 		return state.access.user_id
 	}
 }
+export function companionAddressList(state) {
+	return state.companion_address_list
+}
+

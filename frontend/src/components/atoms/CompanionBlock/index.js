@@ -5,6 +5,8 @@ import { Card, Badge, Button, CardImg, CardTitle, CardText, CardBody } from 'rea
 class CompanionBlock extends Component {
 	render() {
 		const companion = this.props.companion
+		const first_address = this.props.first_address
+		const second_address = this.props.second_address
 		const name = companion.name
 		const btn_url = "/detail/" + name
 
@@ -19,6 +21,8 @@ class CompanionBlock extends Component {
 					<Badge color="secondary">생년</Badge> {companion.birth_year}<br/>
 					<Badge color="secondary">사이즈/품종</Badge> {companion.size} {companion.breed}<br/>
 					<Badge color="secondary">마감일</Badge> {companion.mating_season.season_start}<br/>
+					<Badge color="secondary">주소:</Badge> {first_address}<br/>
+					<Badge color="secondary">주소:</Badge> {second_address}<br/>
 					</CardText>
 					<Button outline color="info" tag={Link} to={btn_url}>더 알아보기</Button>
 				</CardBody>
