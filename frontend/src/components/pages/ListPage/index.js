@@ -8,13 +8,15 @@ export default class ListPage extends Component {
 	}
 	componentDidMount() {
 		this.props.get_companion_list()
+		this.props.get_companion_address_list()
 	}
 
 	render() {
 		const companion_list = this.props.companion_list
+		const companion_address_list = this.props.companion_address_list
 		const errors = this.props.errors || {}
-		console.log(this.props)
-		if(companion_list) {
+		if(companion_list && companion_address_list) {
+			console.log(companion_address_list[0].user.profile)
 			return (
 				<Jumbotron className="container">
 					<h1>
@@ -32,7 +34,7 @@ export default class ListPage extends Component {
 							{ return 	(
 											<Col xs="4">
 											<CompanionBlock companion={companion}
-															key={index} />
+															key={index} first_address={companion_address_list[index].user.profile.first_address} second_address={companion_address_list[index].user.profile.second_address} />
 											<p />
 											</Col>
 										)

@@ -44,6 +44,8 @@ export function withAuth(headers={}) {
 // Use functions below to get list info
 export const currentCompanionList = 
 	state => fromList.companionList(state.list)
+export const currentCompanionAddressList =
+	state => fromAuth.companionAddressList(state.auth)
 export const listErrors = 
 	state => fromList.errors(state.list)
 export const userErrors =
