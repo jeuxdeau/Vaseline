@@ -16,8 +16,15 @@ export default class SignupPage extends Component {
     constructor(props) {
         super(props)
 
+        this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
         this.handleFirstLevelChange = this.handleFirstLevelChange.bind(this)
         this.handleSecondLevelChange = this.handleSecondLevelChange.bind(this)
+    }
+
+    onRadioBtnClick(rSelected, value) {
+        this.setState({
+            [rSelected]: value
+        });
     }
 
     state = {
@@ -349,56 +356,56 @@ export default class SignupPage extends Component {
             <h2>어떤 성격인가요?</h2>
             <p>사람을 좋아해요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__affinity_with_human = 1; }}>1</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_human = 2; }}>2</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_human = 3; }}>3</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_human = 4; }}>4</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_human = 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s1", 1); this.state.personality__affinity_with_human = 1; }} active={this.state.s1 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s1", 2); this.state.personality__affinity_with_human = 2; }} active={this.state.s1 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s1", 3); this.state.personality__affinity_with_human = 3; }} active={this.state.s1 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s1", 4); this.state.personality__affinity_with_human = 4; }} active={this.state.s1 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s1", 5); this.state.personality__affinity_with_human = 5; }} active={this.state.s1 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>강아지 친구들과 친하게 지내요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__affinity_with_dog= 1; }}>1</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_dog= 2; }}>2</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_dog= 3; }}>3</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_dog= 4; }}>4</Button>
-            <Button onClick={node => { this.state.personality__affinity_with_dog= 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s2", 1); this.state.personality__affinity_with_dog= 1; }} active={this.state.s2 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s2", 2); this.state.personality__affinity_with_dog= 2; }} active={this.state.s2 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s2", 3); this.state.personality__affinity_with_dog= 3; }} active={this.state.s2 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s2", 4); this.state.personality__affinity_with_dog= 4; }} active={this.state.s2 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s2", 5); this.state.personality__affinity_with_dog= 5; }} active={this.state.s2 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>수줍음이 많아요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__shyness= 1; }}>1</Button>
-            <Button onClick={node => { this.state.personality__shyness= 2; }}>2</Button>
-            <Button onClick={node => { this.state.personality__shyness= 3; }}>3</Button>
-            <Button onClick={node => { this.state.personality__shyness= 4; }}>4</Button>
-            <Button onClick={node => { this.state.personality__shyness= 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s3", 1); this.state.personality__shyness= 1; }} active={this.state.s3 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s3", 2); this.state.personality__shyness= 2; }} active={this.state.s3 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s3", 3); this.state.personality__shyness= 3; }} active={this.state.s3 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s3", 4); this.state.personality__shyness= 4; }} active={this.state.s3 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s3", 5); this.state.personality__shyness= 5; }} active={this.state.s3 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>활동적이에요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__activity = 1; }} >1</Button>
-            <Button onClick={node => { this.state.personality__activity = 2; }} >2</Button>
-            <Button onClick={node => { this.state.personality__activity = 3; }} >3</Button>
-            <Button onClick={node => { this.state.personality__activity = 4; }} >4</Button>
-            <Button onClick={node => { this.state.personality__activity = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s4", 1); this.state.personality__activity= 1; }} active={this.state.s4 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s4", 2); this.state.personality__activity= 2; }} active={this.state.s4 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s4", 3); this.state.personality__activity= 3; }} active={this.state.s4 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s4", 4); this.state.personality__activity= 4; }} active={this.state.s4 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s4", 5); this.state.personality__activity= 5; }} active={this.state.s4 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>많이 짖어요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__loudness = 1; }} >1</Button>
-            <Button onClick={node => { this.state.personality__loudness = 2; }} >2</Button>
-            <Button onClick={node => { this.state.personality__loudness = 3; }} >3</Button>
-            <Button onClick={node => { this.state.personality__loudness = 4; }} >4</Button>
-            <Button onClick={node => { this.state.personality__loudness = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s5", 1); this.state.personality__loudness= 1; }} active={this.state.s5 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s5", 2); this.state.personality__loudness= 2; }} active={this.state.s5 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s5", 3); this.state.personality__loudness= 3; }} active={this.state.s5 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s5", 4); this.state.personality__loudness= 4; }} active={this.state.s5 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s5", 5); this.state.personality__loudness= 5; }} active={this.state.s5 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>공격적인 편이에요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.personality__aggression = 1; }} >1</Button>
-            <Button onClick={node => { this.state.personality__aggression = 2; }} >2</Button>
-            <Button onClick={node => { this.state.personality__aggression = 3; }} >3</Button>
-            <Button onClick={node => { this.state.personality__aggression = 4; }} >4</Button>
-            <Button onClick={node => { this.state.personality__aggression = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s6", 1); this.state.personality__aggression= 1; }} active={this.state.s6 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s6", 2); this.state.personality__aggression= 2; }} active={this.state.s6 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s6", 3); this.state.personality__aggression= 3; }} active={this.state.s6 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s6", 4); this.state.personality__aggression= 4; }} active={this.state.s6 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s6", 5); this.state.personality__aggression= 5; }} active={this.state.s6 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <FormGroup>
@@ -465,56 +472,56 @@ export default class SignupPage extends Component {
             <h2>이런 성격이면 좋겠어요</h2>
             <p>사람을 좋아해요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_human = 1; }}>1</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_human = 2; }}>2</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_human = 3; }}>3</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_human = 4; }}>4</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_human = 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s7", 1); this.state.desired_personality__affinity_with_human= 1; }} active={this.state.s7 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s7", 2); this.state.desired_personality__affinity_with_human= 2; }} active={this.state.s7 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s7", 3); this.state.desired_personality__affinity_with_human= 3; }} active={this.state.s7 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s7", 4); this.state.desired_personality__affinity_with_human= 4; }} active={this.state.s7 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s7", 5); this.state.desired_personality__affinity_with_human= 5; }} active={this.state.s7 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>강아지 친구들과 친하게 지내요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_dog= 1; }}>1</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_dog= 2; }}>2</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_dog= 3; }}>3</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_dog= 4; }}>4</Button>
-            <Button onClick={node => { this.state.desired_personality__affinity_with_dog= 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s8", 1); this.state.desired_personality__affinity_with_dog= 1; }} active={this.state.s8 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s8", 2); this.state.desired_personality__affinity_with_dog= 2; }} active={this.state.s8 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s8", 3); this.state.desired_personality__affinity_with_dog= 3; }} active={this.state.s8 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s8", 4); this.state.desired_personality__affinity_with_dog= 4; }} active={this.state.s8 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s8", 5); this.state.desired_personality__affinity_with_dog= 5; }} active={this.state.s8 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>수줍음이 많아요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__shyness= 1; }}>1</Button>
-            <Button onClick={node => { this.state.desired_personality__shyness= 2; }}>2</Button>
-            <Button onClick={node => { this.state.desired_personality__shyness= 3; }}>3</Button>
-            <Button onClick={node => { this.state.desired_personality__shyness= 4; }}>4</Button>
-            <Button onClick={node => { this.state.desired_personality__shyness= 5; }}>5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s9", 1); this.state.desired_personality__shyness= 1; }} active={this.state.s9 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s9", 2); this.state.desired_personality__shyness= 2; }} active={this.state.s9 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s9", 3); this.state.desired_personality__shyness= 3; }} active={this.state.s9 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s9", 4); this.state.desired_personality__shyness= 4; }} active={this.state.s9 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s9", 5); this.state.desired_personality__shyness= 5; }} active={this.state.s9 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>활동적이에요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__activity = 1; }} >1</Button>
-            <Button onClick={node => { this.state.desired_personality__activity = 2; }} >2</Button>
-            <Button onClick={node => { this.state.desired_personality__activity = 3; }} >3</Button>
-            <Button onClick={node => { this.state.desired_personality__activity = 4; }} >4</Button>
-            <Button onClick={node => { this.state.desired_personality__activity = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s10", 1); this.state.desired_personality__activity= 1; }} active={this.state.s10 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s10", 2); this.state.desired_personality__activity= 2; }} active={this.state.s10 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s10", 3); this.state.desired_personality__activity= 3; }} active={this.state.s10 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s10", 4); this.state.desired_personality__activity= 4; }} active={this.state.s10 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s10", 5); this.state.desired_personality__activity= 5; }} active={this.state.s10 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>많이 짖어요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__loudness = 1; }} >1</Button>
-            <Button onClick={node => { this.state.desired_personality__loudness = 2; }} >2</Button>
-            <Button onClick={node => { this.state.desired_personality__loudness = 3; }} >3</Button>
-            <Button onClick={node => { this.state.desired_personality__loudness = 4; }} >4</Button>
-            <Button onClick={node => { this.state.desired_personality__loudness = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s11", 1); this.state.desired_personality__loudness= 1; }} active={this.state.s11 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s11", 2); this.state.desired_personality__loudness= 2; }} active={this.state.s11 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s11", 3); this.state.desired_personality__loudness= 3; }} active={this.state.s11 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s11", 4); this.state.desired_personality__loudness= 4; }} active={this.state.s11 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s11", 5); this.state.desired_personality__loudness= 5; }} active={this.state.s11 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <p>공격적인 편이에요</p>
             <ButtonGroup>
-            <Button onClick={node => { this.state.desired_personality__aggression = 1; }} >1</Button>
-            <Button onClick={node => { this.state.desired_personality__aggression = 2; }} >2</Button>
-            <Button onClick={node => { this.state.desired_personality__aggression = 3; }} >3</Button>
-            <Button onClick={node => { this.state.desired_personality__aggression = 4; }} >4</Button>
-            <Button onClick={node => { this.state.desired_personality__aggression = 5; }} >5</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s12", 1); this.state.desired_personality__aggression= 1; }} active={this.state.s12 === 1}>1</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s12", 2); this.state.desired_personality__aggression= 2; }} active={this.state.s12 === 2}>2</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s12", 3); this.state.desired_personality__aggression= 3; }} active={this.state.s12 === 3}>3</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s12", 4); this.state.desired_personality__aggression= 4; }} active={this.state.s12 === 4}>4</Button>
+            <Button onClick={node => { this.onRadioBtnClick("s12", 5); this.state.desired_personality__aggression= 5; }} active={this.state.s12 === 5}>5</Button>
             </ButtonGroup><hr />
 
             <FormGroup>
