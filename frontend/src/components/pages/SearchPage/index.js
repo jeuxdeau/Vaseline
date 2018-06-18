@@ -6,7 +6,6 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
     let companion = undefined
     let user = undefined
     let setting = false
-
     const options = [
         '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','>성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
         '부산': ['강서구','금정구','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구','기장군'],
@@ -58,6 +57,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
         }
         componentDidMount() {
             this.props.get_companion_list()
+	    this.props.get_companion_address_list()
             this.props.get_user_info(this.props.user_id)
         }
         constructor(props) {
@@ -76,7 +76,8 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                 desired_mate_etc: undefined,
                 desired_mate_first_address:undefined,
                 desired_mate_second_address:undefined,
-                search_companion_list:undefined
+		companion_all_list: undefined,
+                search_companion_list: undefined,
             }
         }
         handleInputChange = (event) => {
@@ -105,28 +106,38 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
 		{
 			console.log(this.props.companion_list[key])
 		}
-                this.setState({search_companion_list:this.props.companion_list})
+                this.setState({search_companion_list:this.state.companion_all_list})
         }
-        search_result_atom = (companion, index) => {
+        search_result_atom = (companion, index, first_address, second_address) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} /><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address}/><p />
                 </Col>)
             }
             search_result = (companion_list) => {
                 if(companion_list){
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index))
+                    this.search_result_atom(companion, index, companion_list[index].user.profile.first_address, companion_list[index].user.profile.second_address))
                 }
             }
 
 
 
             render() {
-                if(this.props.companion_list) {
+                if(this.props.companion_list && this.props.companion_address_list) {
                     if(!setting){
                         companion = this.props.companion_list[0]
+			let companion_all_list = this.props.companion_list
+			for (var key in companion_all_list){
+				console.log("tttttttttttttt")
+				console.log(this.props.companion_address_list)
+				companion_all_list[key].first_address = this.props.companion_address_list[key].user.profile.first_address
+				companion_all_list[key].second_address = this.props.companion_address_list[key].user.profile.second_address
+			}
+			console.log("@@@@@@@@@")
+			console.log(companion_all_list)
+
                         user = this.props.user_info
                         firstLevelOptions = options.map(renderOption)
                         secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
@@ -142,14 +153,13 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             desired_mate_loudness: companion.desired_mate.personality.loudness,
                             desired_mate_etc: companion.desired_mate.personality.etc,
                             desired_mate_first_address: user.profile.first_address,
-                            desired_mate_second_address: user.profile.second_address
+                            desired_mate_second_address: user.profile.second_address,
+		            companion_all_list:companion_all_list
                         })
                         setting = true
                     }
-                    console.log(this.props.companion_list[0].desired_mate)
-                    console.log("state : ")
+                    console.log("state props: ")
                     console.log(this.state)
-                    console.log("props : ")
                     console.log(this.props)
                     if(companion){
                         return (

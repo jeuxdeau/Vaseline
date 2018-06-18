@@ -91,6 +91,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
+        print(companion_data)
         companion_data.update({'user':user.id})
         companion_serializer = CompanionSerializer(data=companion_data)
         if companion_serializer.is_valid():
@@ -115,6 +116,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         print("!!!!!!!!!!!!!!!!")
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
+        print(profile_data)
         profile_serializer = ProfileSerializer(data=profile_data)
         if profile_serializer.is_valid():
             profile_serializer.save()
