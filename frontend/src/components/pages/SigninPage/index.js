@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { Alert, Button, Jumbotron, Form } from 'reactstrap'
+import { Alert, Button, Jumbotron, Form, InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import './colorlib.css'
 
 import TextInput from '../../atoms/TextInput'
 
@@ -28,8 +29,20 @@ export default class SigninPage extends Component {
 	render() {
 		const errors = this.props.errors || {}
 		return (
+			<div> // 큰 div
+			<div class="login-page">
+			  <div class="form">
+			    <form class="login-form" onSubmit={this.onSubmit}>
+			      <input type="text" name="username" placeholder="username" onChange={this.handleInputChange}/>
+			      <input type="password" name="password" placeholder="password" onChange={this.handleInputChange}/>
+			      <button type="submit">login</button>
+			      <p class="message">Not registered? <a href="/signup">Create an account</a></p>
+			    </form>
+			  </div>
+			</div>
+
 			<Jumbotron className="container">
-				<Form onSubmit={this.onSubmit}>
+				<Form class="form" onSubmit={this.onSubmit}>
 					<h1>VASELINE</h1>
 					{
 						errors.non_field_errors?
@@ -37,9 +50,21 @@ export default class SigninPage extends Component {
 								{errors.non_field_errors}
 							</Alert>: ""
 					}
-					<TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} />
-					<TextInput name="password" label="Password" error={errors.password} type="password"
+					<InputGroup>
+						<InputGroupAddon addonType="prepend">
+	  					<Button color="danger">아이디♥</Button>
+						</InputGroupAddon>
+						<Input name="username" label="Username" error={errors.username} onChange={this.handleInputChange} />
+					</InputGroup>
+
+					<InputGroup>
+						<InputGroupAddon addonType="prepend">
+						<Button color="danger">비밀번호</Button>
+						</InputGroupAddon>
+						<Input name="password" label="Password" error={errors.password} type="password"
 								onChange={this.handleInputChange} />
+					</InputGroup>
+
 					<Button type="submit" color="secondary" size="lg">
 						Log in
 					</Button>
@@ -49,6 +74,7 @@ export default class SigninPage extends Component {
 					</Button>
 				</Form>
 			</Jumbotron>
+			</div> // 큰 div
 		)
 	}
 }
