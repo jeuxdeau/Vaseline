@@ -52,6 +52,19 @@ export default (state=initialState, action) => {
 				errors:
 					action.payload.response || {'get_user_repr_errors': action.payload.statusText}
 			}
+		case userAction.USER_REPR_UPDATE_SUCCESS:
+			return {
+				...state,
+				repr: action.payload,
+				errors: {}
+			}
+		case userAction.USER_REPR_UPDATE_FAILURE:
+			return {
+				...state,
+				repr: undefined,
+				errors:
+					action.payload.response || {'get_user_repr_update_errors': action.payload.statusText}
+			}
 		default:
 			return state
 	}

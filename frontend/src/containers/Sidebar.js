@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import SidebarMolecule from '../components/molecules/Sidebar'
 import { list } from '../store/actions/list'
-import { user_news, user_repr } from '../store/actions/user'
+import { user_news, user_repr, user_repr_update } from '../store/actions/user'
 import { userID, userNews, userRepr, currentCompanionList } from '../store/reducers'
 
 const Sidebar = (props) => {
@@ -30,7 +30,10 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	get_companion_list: () => {
 		dispatch(list())
-	}
+	},
+	put_user_repr: (userId, reprId) => {
+		dispatch(user_repr_update(userId, reprId))
+	},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

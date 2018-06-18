@@ -76,14 +76,20 @@ export default class Sidebar extends Component {
 		return myCompanions
 	}
 
+	UpdateMyReprCompanion(reprId) {
+		this.props.put_user_repr(this.props.user_id, reprId)
+	}
+
 	MakeMyCompanionDropdownItems(myCompanions) {
 		return (
 			myCompanions.map((singleCompanion, index) => 
-				{return (<DropdownItem onClick={()=>{console.log("HI")}}>{singleCompanion.name}</DropdownItem>)})
+				{return (<DropdownItem onClick={()=>
+					{this.UpdateMyReprCompanion(singleCompanion.id)}}>{singleCompanion.name}</DropdownItem>)})
 		)
 	}
 
 	MakeMyCompanionDropdown(myCompanions, myReprCompanion) {
+		myCompanions = myCompanions.filter((singleCompanion) => { return (singleCompanion.id != myReprCompanion.id)})
 		return (
 		<ButtonDropdown isOpen={this.state.compOpen} toggle={this.compToggle}>
 			<DropdownToggle size="sm" color="primary" caret>
