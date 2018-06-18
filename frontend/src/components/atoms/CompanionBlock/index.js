@@ -16,13 +16,11 @@ class CompanionBlock extends Component {
 							src="http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg"
 							alt="Card image cap" />
 				<CardBody>
-					<CardTitle>{companion.name}</CardTitle>
+					<CardTitle>{companion.name} <small>({2019 - companion.birth_year}살)</small></CardTitle>
 					<CardText>
-					<Badge color="secondary">생년</Badge> {companion.birth_year}<br/>
+					<Badge color="secondary">거주지</Badge> {first_address} {second_address}<br/>
 					<Badge color="secondary">사이즈/품종</Badge> {companion.size} {companion.breed}<br/>
 					<Badge color="secondary">마감일</Badge> {companion.mating_season.season_start}<br/>
-					<Badge color="secondary">주소:</Badge> {first_address}<br/>
-					<Badge color="secondary">주소:</Badge> {second_address}<br/>
 					</CardText>
 					<Button outline color="info" tag={Link} to={btn_url}>더 알아보기</Button>
 				</CardBody>

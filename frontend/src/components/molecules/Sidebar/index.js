@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, 
-	UncontrolledDropdown, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledTooltip, 
+	UncontrolledDropdown, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Badge } from 'reactstrap'
 
 export default class Sidebar extends Component {
 	createInterval(f, dynamicParam0, dynamicParam1, interval) {
@@ -91,16 +91,16 @@ export default class Sidebar extends Component {
 	MakeMyCompanionDropdown(myCompanions, myReprCompanion) {
 		myCompanions = myCompanions.filter((singleCompanion) => { return (singleCompanion.id != myReprCompanion.id)})
 		return (
-		<ButtonDropdown isOpen={this.state.compOpen} toggle={this.compToggle}>
-			<DropdownToggle size="sm" color="primary" caret>
+		<UncontrolledDropdown nav inNavbar>
+			<DropdownToggle id="myRepresentingCompanionSelector" nav caret>
 				{myReprCompanion.name}
 			</DropdownToggle>
-			<DropdownMenu>
-				<DropdownItem header>반려동물 바꾸기</DropdownItem>
-				<DropdownItem divider/>
+			<DropdownMenu right>
+				<DropdownItem header>반려동물 목록</DropdownItem>
+				<DropdownItem divider />
 				{this.MakeMyCompanionDropdownItems(myCompanions)}
 			</DropdownMenu>
-		</ButtonDropdown>
+		</UncontrolledDropdown>
 		)
 	}
 
@@ -120,42 +120,28 @@ export default class Sidebar extends Component {
 			<div>
 				<Navbar color="info" light expand="md">
 					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>Welcome! {userName} </NavbarBrand>
+					<NavbarBrand>{userName}님, 환영합니다. </NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
 								{this.MakeMyCompanionDropdown(myCompanions, myReprCompanion)}
 							</NavItem>
-							<NavItem>
-								<NavLink href="https://github.com/jeuxdeau/Vaseline">Github</NavLink>
+							<UncontrolledTooltip placement="bottom" target="myRepresentingCompanionSelector">
+								반려동물을 바꿀 수 있습니다.
+							</UncontrolledTooltip>
+							<NavItem id="newsfeed">
+								<NavLink href="/notification">뉴스피드<Badge color="danger">{uNewsNum}</Badge></NavLink>
 							</NavItem>
-							<NavItem>
-								<NavLink href="/notification">News</NavLink>
-							</NavItem>
-							<NavItem>
-								{uNewsNum}
-							</NavItem>
-							<NavItem>
-                                <NavLink href="/account/">Account</NavLink>
+							<UncontrolledTooltip placement="bottom" target="newsfeed">
+								반려동물에게 온 소식을 확인할 수 있습니다.
+							</UncontrolledTooltip>
+							<NavItem id="account">
+                                <NavLink href="/account/">내 계정</NavLink>
                             </NavItem>
-							<UncontrolledDropdown nav inNavbar>
-								<DropdownToggle nav caret>
-									options
-								</DropdownToggle>
-								<DropdownMenu right>
-									<DropdownItem>
-										Option 1
-									</DropdownItem>
-									<DropdownItem>
-										Option 2
-									</DropdownItem>
-									<DropdownItem divider />
-									<DropdownItem>
-										Reset
-									</DropdownItem>
-								</DropdownMenu>
-							</UncontrolledDropdown>
+                            <UncontrolledTooltip placement="bottom" target="account">
+								계정을 관리합니다.
+							</UncontrolledTooltip>
 						</Nav>
 					</Collapse>
 				</Navbar>

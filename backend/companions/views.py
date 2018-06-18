@@ -116,6 +116,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         print("!!!!!!!!!!!!!!!!")
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
+        print(profile_data)
         profile_serializer = ProfileSerializer(data=profile_data)
         if profile_serializer.is_valid():
             profile_serializer.save()
