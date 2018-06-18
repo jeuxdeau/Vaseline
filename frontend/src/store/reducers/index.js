@@ -25,6 +25,14 @@ export const isRefreshTokenExpired =
 	state => fromAuth.isRefreshTokenExpired(state.auth)
 export const authErrors = 
 	state => fromAuth.errors(state.auth)
+export const accountUserPasswordErrors =
+        state => fromAuth.errors_account_user_password(state.auth)
+export const accountUserProfileErrors =
+        state => fromAuth.errors_account_user_profile(state.auth)
+export const accountCompanionErrors =
+        state => fromAuth.errors_companion(state.auth)
+export const accountCreateCompanionErrors =
+        state => fromAuth.errors_create_companion(state.auth)
 
 export function withAuth(headers={}) {
 	return (state)=>({

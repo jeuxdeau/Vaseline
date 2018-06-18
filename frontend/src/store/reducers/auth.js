@@ -26,12 +26,12 @@ export default (state=initialState, action) => {
 		case auth.ACCOUNT_COMPANION_FAILURE:
 			return {
 				...state,
-				errors_account_user_password: action.payload.response || {'non_field_errors': action.payload.statusText},
+				errors_account_companion: action.payload.response || {'non_field_errors': action.payload.statusText},
 			}
 		case auth.ACCOUNT_CREATE_COMPANION_FAILURE:
 			return {
 				...state,
-				errors_account_user_password: action.payload.response || {'non_field_errors': action.payload.statusText},
+				errors_account_create_companion: action.payload.response || {'non_field_errors': action.payload.statusText},
 			}
 		case auth.LOGIN_SUCCESS:
 			return {
@@ -106,6 +106,21 @@ export function isAuthenticated(state) {
 export function errors(state) {
 	return state.errors
 }
+export function errors_account_user_password(state) {
+        return state.errors_account_user_password
+}
+export function errors_account_user_profile(state) {
+        return state.errors_account_user_profile
+}
+export function errors_account_companion(state) {
+        return state.errors_account_companion
+}
+export function errors_account_create_companion(state) {
+        return state.errors_account_create_companion
+}
+
+
+
 
 export function userID(state) {
 	if(state.access) {

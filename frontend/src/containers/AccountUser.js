@@ -5,7 +5,7 @@ import AccountUserMolecule from '../components/molecules/AccountUser'
 import { account_user_password, account_user_profile } from '../store/actions/auth'
 import { logout } from '../store/actions/auth'
 import { user } from '../store/actions/user'
-import { userInfo, userID, userErrors } from '../store/reducers'
+import { userInfo, userID, accountUserPasswordErrors, accountUserProfileErrors } from '../store/reducers'
 
 const AccountUser = (props) => {
 	return (
@@ -16,7 +16,8 @@ const AccountUser = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-	errors: userErrors(state),
+	errors_account_user_password: accountUserPasswordErrors(state),
+	errors_account_user_profile: accountUserProfileErrors(state),
 	user_info : userInfo(state),
 	user_id : userID(state)
 })
@@ -34,7 +35,6 @@ const mapDispatchToProps = (dispatch) => ({
 	onSubmitProfile: (input, user_id) => {
 		dispatch(account_user_profile(input, user_id))
 	}
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountUser)
