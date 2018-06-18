@@ -61,11 +61,12 @@ class CompanionSerializer(serializers.ModelSerializer):
     proposal_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
     message_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
     message_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
+    profile_img = serializers.PrimaryKeyRelatedField(many=True, queryset=ImageUploader.objects.all())
 
     class Meta:
         model = Companion
         fields = '__all__'
-        read_only_fields = ('media', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
+        read_only_fields = ('media', 'profile_images', 'like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received')
 
 
     def create(self, validated_data):
@@ -100,11 +101,12 @@ class CompanionUpdateSerializer(serializers.ModelSerializer):
     proposal_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Proposal.objects.all())
     message_sent = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
     message_received = serializers.PrimaryKeyRelatedField(many=True, queryset=Message.objects.all())
+    profile_img = serializers.PrimaryKeyRelatedField(many=True, queryset=ImageUploader.objects.all())
 
     class Meta:
         model = Companion
         fields = '__all__'
-        read_only_fields = ('like_sent', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received', 'user')
+        read_only_fields = ('like_sent', 'profile_images', 'like_received', 'proposal_sent', 'proposal_received', 'message_sent', 'message_received', 'user')
 
     def update(self, instance, validated_data):
         desired_mate = instance.desired_mate
