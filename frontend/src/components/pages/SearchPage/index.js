@@ -3,7 +3,6 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
     import CompanionBlock from '../../atoms/CompanionBlock'
 
-    let setting = false
     const options = [
         '서울': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','>성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
         '부산': ['강서구','금정구','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구','기장군'],
@@ -62,7 +61,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
         constructor(props) {
             super(props)
             this.state = {
-                redirect:false,
+                setting:false,
                 desired_mate_sex: undefined,
                 desired_mate_breed: undefined,
                 desired_mate_size: undefined,
@@ -165,7 +164,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
 
             render() {
                 if(this.props.companion_list && this.props.companion_address_list && this.props.user_repr) {
-                    if(!setting){
+                    if(!this.state.setting){
 			let companion_all_list = this.props.companion_list
 			console.log(companion_all_list)
 			for (var key in companion_all_list){
@@ -182,6 +181,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                         firstLevelOptions = options.map(renderOption)
                         secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
                         this.setState({
+			    setting:true,
                             desired_mate_sex: companion_repr.desired_mate.sex,
                             desired_mate_breed: companion_repr.desired_mate.breed,
                             desired_mate_size: companion_repr.desired_mate.size,
@@ -198,7 +198,6 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
 			    companion_all_list:companion_all_list,
 		 	    user:this.props.user_info
                         })
-                        setting = true
                     }
                     console.log("state props: ")
                     console.log(this.state)
@@ -268,7 +267,7 @@ import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, Ca
                             <Input type="select" name="desired_mate_size" onChange={this.handleInputChange} value={this.state.desired_mate_size}>
                             <option value="small">소형견</option>
                             <option value="medium">중형견</option>
-                            <option value="latge">대형견</option>
+                            <option value="large">대형견</option>
                             </Input>
                             <Input type="select" name="desired_mate_sex" onChange={this.handleInputChange} value={this.state.desired_mate_sex}>
 

@@ -316,7 +316,7 @@ export default class SignupPage extends Component {
             <Input type="select" name="size" id="sizeselect" onChange={(node) => { this.state.companion__size = node.target.value }}>
             <option value="small">소형견</option>
             <option value="medium">중형견</option>
-            <option value="latge">대형견</option>
+            <option value="large">대형견</option>
             </Input>
             </FormGroup>
 
@@ -465,7 +465,7 @@ export default class SignupPage extends Component {
             <Input type="select" name="size" id="sizeselect2" onChange={(node) => { this.state.desired_mate__size = node.target.value }}>
             <option value="small">소형견</option>
             <option value="medium">중형견</option>
-            <option value="latge">대형견</option>
+            <option value="large">대형견</option>
             </Input>
             </FormGroup><p /><p />
 
