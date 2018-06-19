@@ -23,18 +23,25 @@ class CompanionUpdateBlock extends Component {
 		const btn_visit_url = "/detail/" + name
 		const btn_update_url = "/account/companion/"
 		
+		const imgList = this.props.imgList
+
+		let reprImage = imgList.filter((img)=>{return (img.owner == companion.id)})
+		reprImage = (reprImage.length == 0)? "http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg" :
+											reprImage[0].name;
+
 		return (
 			<Card>
 				<CardImg 	top width="100%" 
-							src="http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg" 
+							height="300px"
+							src={reprImage} 
 							alt="Card image cap" />
 				<CardBody>
 					<CardTitle>{companion.name}</CardTitle>
 					<CardText>age : {companion.age}</CardText>
 					<CardText>sex : {companion.sex}</CardText>
-					<Button outline color="info" tag={Link} to={btn_visit_url}>Visit</Button>
-					<Button outline color="primary" tag={Link} to={btn_update_url+companion.id+"/"}>Update?</Button>
-					<Button outline color="danger" onClick={()=>{this.onUploadBtnClick()}}>Upload</Button>
+					<Button outline color="info" tag={Link} to={btn_visit_url}>방문하기</Button>
+					<Button outline color="primary" tag={Link} to={btn_update_url+companion.id+"/"}>수정하기</Button>
+					<Button outline color="danger" onClick={()=>{this.onUploadBtnClick()}}>이미지 업로드</Button>
 					<Fileupload uploadAppOpen={this.state.uploadAppActivated}
 								uploadOwnerName={name}
 								uploadOwnerId={this.props.companion.id}

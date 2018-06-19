@@ -62,7 +62,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
-					<Badge color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
+					<Badge href color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -77,7 +77,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(likeItem)}
-					<Badge color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
+					<Badge href color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)

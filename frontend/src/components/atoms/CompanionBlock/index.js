@@ -20,6 +20,7 @@ class CompanionBlock extends Component {
 		return (
 			<Card>
 				<CardImg 	top width="100%"
+							height="200px"
 							src={reprImage}
 							alt="Card image cap" />
 				<CardBody>

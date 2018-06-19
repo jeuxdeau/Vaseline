@@ -6,7 +6,7 @@ import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
 import { user } from '../store/actions/user'
 import { userInfo, userID } from '../store/reducers'
-import { currentCompanionList, listErrors } from '../store/reducers'
+import { currentCompanionList, listErrors, imageList } from '../store/reducers'
 
 const Account = (props) => {
 	return (
@@ -19,7 +19,8 @@ const Account = (props) => {
 const mapStateToProps = (state) => ({
 	companion_list: currentCompanionList(state),
 	user_info : userInfo(state),
-	user_id : userID(state)
+	user_id : userID(state),
+	image_list : imageList(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
