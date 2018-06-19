@@ -183,10 +183,26 @@ export default class NotiPage extends Component {
 		return {mess: nMessage, like: nLike, prop: nProposal}
 	}*/
 
+	ClearUnreadLikesProposals(notifications) {
+		const like = notifications.like
+		const prop = notifications.prop
+		console.log(like)
+		console.log(prop)
+		
+		var i
+		for(i = 0; i < like.length; i++) {
+			if(like[i].is_read == false) this.props.read_like(like[i].id)
+		}
+		for(i = 0; i < prop.length; i++) {
+			if(prop[i].is_read == false) this.props.read_proposal(prop[i].id)
+		}
+	}
+
 	render() {
 	 	const news = this.props.user_news
 	 	if(news == undefined) return null
 	 	const notifications = this.GetWholeNotifications(news)
+	 	this.ClearUnreadLikesProposals(notifications)
 	 	return (
             <div>
 
