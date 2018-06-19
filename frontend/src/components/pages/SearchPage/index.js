@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
+import {Jumbotron, Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
     import CompanionBlock from '../../atoms/CompanionBlock'
 
@@ -210,6 +210,10 @@ class SearchPage extends Component {
                     console.log(this.state)
                     console.log(this.props)
                     if(this.state.repr){
+			    if(this.state.repr.id!=this.props.companion_list[this.props.user_repr.represent_companion-1].id){
+                                        window.location.reload();
+                                }
+
                         return (
                             <div>
                             <h3><p /><center>Search <Badge color="success">New!</Badge></center></h3>
@@ -437,22 +441,15 @@ class SearchPage extends Component {
                     else
                     {
                         return (
-                            <Card>
-                            <CardTitle>{1}</CardTitle>
-                            <CardText>not : {2}</CardText>
-                            <CardText>start : {3}</CardText>
-                            </Card>
-                        )
+                        	<Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+			)
                     }
                 }
                 else
                 {
                     return (
-                        <Card>
-                        <CardTitle>{1}</CardTitle>
-                        <CardText>not : {2}</CardText>
-                        <CardText>start : {3}</CardText>
-                        </Card>
+			    <Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+
                     )
 
                 }

@@ -22,7 +22,7 @@ class CompanionBlock extends Component {
 					<Badge color="secondary">거주지</Badge> {first_address} {second_address}<br/>
 					<Badge color="secondary">사이즈/품종</Badge> {companion.size} {companion.breed}<br/>
 					<Badge color="secondary">마감일</Badge> {companion.mating_season.season_start}<br/>
-					<Badge color="secondary">점수</Badge> {score}<br/>
+					<Badge color="secondary">성격일치도</Badge> {score}<br/>
 					</CardText>
 					<Button outline color="info" tag={Link} to={btn_url}>더 알아보기</Button>
 				</CardBody>

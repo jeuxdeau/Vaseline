@@ -214,6 +214,7 @@ export default class ListPage extends Component {
 			else{
 				return (
                                 <Jumbotron className="container">
+					<center>잠시만 기다려주세요!</center>
                                 </Jumbotron>
                         )
 			}
@@ -221,6 +222,7 @@ export default class ListPage extends Component {
 		else {
 			return (
 				<Jumbotron className="container">
+					<center>잠시만 기다려주세요!</center>
 				</Jumbotron>
 			)
 		}
