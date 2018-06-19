@@ -142,12 +142,18 @@ export default class Sidebar extends Component {
 								반려동물에게 온 소식을 확인할 수 있습니다.
 							</UncontrolledTooltip>
 							<NavItem id="account">
-                                <NavLink href="/account/">내 계정</NavLink>
-                            </NavItem>
-                            <UncontrolledTooltip placement="bottom" target="account">
+                                				<NavLink href="/account/">내 계정</NavLink>
+                            				</NavItem>
+                            				<UncontrolledTooltip placement="bottom" target="account">
 								계정을 관리합니다.
 							</UncontrolledTooltip>
-						</Nav>
+							<NavItem id="search">
+                                				<NavLink href="/search/">검색</NavLink>
+                            				</NavItem>
+                            				<UncontrolledTooltip placement="bottom" target="search">
+                                                                원하는 상대를 찾아볼 수 있습니다.
+                                                        </UncontrolledTooltip>
+							</Nav>
 					</Collapse>
 				</Navbar>
 			</div>

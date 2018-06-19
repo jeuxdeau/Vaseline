@@ -110,7 +110,7 @@ class SearchPage extends Component {
 		for (var key in this.state.companion_all_list)
 		{
 			let x = this.state.companion_all_list[key]
-			if(x.breed==this.state.desired_mate_breed && x.size==this.state.desired_mate_size && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address && x.second_address == this.state.desired_mate_second_address)
+			if(x.breed==this.state.desired_mate_breed && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address)
 			{
 				result.push(this.state.companion_all_list[key])
 			}
@@ -136,7 +136,7 @@ class SearchPage extends Component {
                                         score += 2-Math.abs(dp.shyness-p.shyness)
 				if(dp.activity != 0)
                                         score += 2-Math.abs(dp.activity-p.activity)
-				result[key].score = score
+				result[key].score = (parseInt)((25*score)/6)
 			}
 		}
 		console.log("result_before_sort")
