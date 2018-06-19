@@ -9,7 +9,6 @@
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
@@ -58,7 +57,6 @@
 .container {
   position: relative;
   z-index: 1;
-  max-width: 300px;
   margin: 0 auto;
 }
 .container:before, .container:after {
@@ -87,6 +85,12 @@
 }
 .container .info span .fa {
   color: #EF3B3A;
+}
+.centered_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
 }
 body {
   background: #76b852; /* fallback for old browsers */

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
+import {Jumbotron, Badge, Alert, Container, Row, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table } from 'reactstrap';
     import CompanionBlock from '../../atoms/CompanionBlock'
 
@@ -110,7 +110,7 @@ class SearchPage extends Component {
 		for (var key in this.state.companion_all_list)
 		{
 			let x = this.state.companion_all_list[key]
-			if(x.breed==this.state.desired_mate_breed && x.size==this.state.desired_mate_size && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address && x.second_address == this.state.desired_mate_second_address)
+			if(x.breed==this.state.desired_mate_breed && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address)
 			{
 				result.push(this.state.companion_all_list[key])
 			}
@@ -136,7 +136,7 @@ class SearchPage extends Component {
                                         score += 2-Math.abs(dp.shyness-p.shyness)
 				if(dp.activity != 0)
                                         score += 2-Math.abs(dp.activity-p.activity)
-				result[key].score = score
+				result[key].score = (parseInt)((25*score)/6)
 			}
 		}
 		console.log("result_before_sort")
@@ -151,10 +151,10 @@ class SearchPage extends Component {
 		console.log(result)
                 this.setState({search_companion_list:result})
         }
-        search_result_atom = (companion, index, first_address, second_address) => {
+        search_result_atom = (companion, index, first_address, second_address, score) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address}/><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score={score}/><p />
                 </Col>)
             }
             search_result = (companion_list) => {
@@ -162,7 +162,7 @@ class SearchPage extends Component {
                 if(companion_list){
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address))
+                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score))
                 }
 		else{
 			return <div>검색 결과가 없습니다.</div>
@@ -210,6 +210,10 @@ class SearchPage extends Component {
                     console.log(this.state)
                     console.log(this.props)
                     if(this.state.repr){
+			    if(this.state.repr.id!=this.props.companion_list[this.props.user_repr.represent_companion-1].id){
+                                        window.location.reload();
+                                }
+
                         return (
                             <div>
                             <h3><p /><center>Search <Badge color="success">New!</Badge></center></h3>
@@ -437,22 +441,15 @@ class SearchPage extends Component {
                     else
                     {
                         return (
-                            <Card>
-                            <CardTitle>{1}</CardTitle>
-                            <CardText>not : {2}</CardText>
-                            <CardText>start : {3}</CardText>
-                            </Card>
-                        )
+                        	<Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+			)
                     }
                 }
                 else
                 {
                     return (
-                        <Card>
-                        <CardTitle>{1}</CardTitle>
-                        <CardText>not : {2}</CardText>
-                        <CardText>start : {3}</CardText>
-                        </Card>
+			    <Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+
                     )
 
                 }
