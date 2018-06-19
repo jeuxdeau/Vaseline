@@ -208,7 +208,7 @@ export default class ListPage extends Component {
 					<CardDeck>
 		                            {this.search_result(this.state.search_companion_list, image_list)}
                 	                </CardDeck>
-					<center><h2>----------------------------------------------------</h2></center>
+					<center><hr /></center>
 					<CardDeck>
 						{this.all_result(this.state.companion_all_list, image_list)}
 					</CardDeck>
