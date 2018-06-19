@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Badge, Alert, Col, Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, Form, FormGroup, Label, Input, FormText, Progress, Table,
     ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { Link } from 'react-router-dom'
 import ViewMessageApp from '../../atoms/ViewMessageApp'
 import MessageApp from '../../atoms/MessageApp'
 
@@ -22,6 +23,28 @@ export default class NotiPage extends Component {
 		this.onBtnReadMessage = this.onBtnReadMessage.bind(this)
 	}
 
+	componentDidMount() {
+		this.props.get_companion_list()
+	}
+
+	/*componentDidMount() {
+		console.log("HI")
+	}*/
+
+	/*componentWillUnmount() {
+		const news = this.props.user_news
+	 	if(news == undefined) return null
+	 	const notifications = this.GetWholeNotifications(news)
+	 	const newnotifications = this.GetOnlyNewNotifications(notifications)
+	 	var i
+	 	for(i = 0; i < newnotifications.like.length; i++) {
+	 		this.props.read_like(newnotifications.like[i].id)
+	 	}
+	 	for(i = 0; i < newnotifications.proposal.length; i++) {
+	 		this.props.read_proposal(newnotifications.proposal[i].id, newnotifications.proposal[i].granted)
+	 	}
+	}*/
+
 	MakeBadgeForNewItem(item) {
 		if(!item.is_read) {
 			return (
@@ -31,11 +54,12 @@ export default class NotiPage extends Component {
 	}
 
 	MakeMessageListItem(messageItem) {
-		const sender = messageItem.sender
-		const receiver = messageItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == messageItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == messageItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 보냈어요! </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
 					<Badge color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
@@ -45,28 +69,44 @@ export default class NotiPage extends Component {
 	}
 
 	MakeLikeListItem(likeItem) {
-		const sender = likeItem.sender
-		const receiver = likeItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == likeItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == likeItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구를 좋아해요! </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(likeItem)}
-					<Badge href="#" color="primary">방문하기</Badge>
+					<Badge color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)
 	}
 
+	MakeConsentFromPropItem(proposalItem) {
+		if(proposalItem.granted) {
+			return (
+				<Badge color="info">축하해요! 이메일을 확인하세요 @_@</Badge>
+			)
+		}
+		else {
+			return (
+				<Badge href color="info" onClick={()=>{this.onBtnPropConsent(proposalItem)}}>수락하기</Badge>
+			)
+		}
+	}
+
 	MakeProposalListItem(proposalItem) {
-		const sender = proposalItem.sender
-		const receiver = proposalItem.receiver
+		if(this.props.companion_list == undefined) return null
+		const sender = this.props.companion_list.filter((companion)=>{ return (companion.id == proposalItem.sender )})[0]
+		const receiver = this.props.companion_list.filter((companion)=>{ return (companion.id == proposalItem.receiver )})[0]
 		return (
 			<ListGroupItem>
-				<ListGroupItemHeading> {sender} 친구가 {receiver} 친구에게 청혼해요!(부끄) </ListGroupItemHeading>
+				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 청혼해요!</ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(proposalItem)}
-					<Badge href="#" color="primary">방문하기</Badge>
+					<Badge href color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
+					{this.MakeConsentFromPropItem(proposalItem)}
 				</div>
 			</ListGroupItem>
 		)
@@ -89,11 +129,16 @@ export default class NotiPage extends Component {
 		const mSender = messageItem.sender
 		const mReceiver = messageItem.receiver
 		const mBody = messageItem.message
+		this.props.read_message(messageItem.id)
 		this.setState({
 			...this.state,
 			viewMessageAppActivated: !this.state.viewMessageAppActivated,
 			viewMessageAppObject: {sender: mSender, receiver: mReceiver, body: mBody},
 		})
+	}
+
+	onBtnPropConsent(proposalItem) {
+		this.props.read_proposal(proposalItem.id, true)
 	}
 
 	// Toggle apps : tApp could be "vMessage" for message view app, "sMessage" for message send app
@@ -122,7 +167,7 @@ export default class NotiPage extends Component {
 		})
 	}
 
-/*	GetOnlyNewNotifications(notifications) {
+	/*GetOnlyNewNotifications(notifications) {
 		// get only new notifications from given notifications object
 		var i
 		let nMessage = [], nLike = [], nProposal = []
@@ -136,12 +181,26 @@ export default class NotiPage extends Component {
 			if(!notifications.prop[i].is_read) nProp = nProp.concat(notifications.prop[i])
 		}
 		return {mess: nMessage, like: nLike, prop: nProposal}
+	}*/
+
+	ClearUnreadLikesProposals(notifications) {
+		const like = notifications.like
+		const prop = notifications.prop
+		
+		var i
+		for(i = 0; i < like.length; i++) {
+			if(like[i].is_read == false) this.props.read_like(like[i].id)
+		}
+		for(i = 0; i < prop.length; i++) {
+			if(prop[i].is_read == false) this.props.read_proposal(prop[i].id)
+		}
 	}
-*/
-	 render() {
+
+	render() {
 	 	const news = this.props.user_news
 	 	if(news == undefined) return null
 	 	const notifications = this.GetWholeNotifications(news)
+	 	this.ClearUnreadLikesProposals(notifications)
 	 	return (
             <div>
 
@@ -223,7 +282,7 @@ export default class NotiPage extends Component {
             <p />
             잘 고민해서 결정하세요! 메시지를 충분히 주고 받은 후에, 개인 정보를 교환하도록 해요.
             <p />
-            <h6><Badge color="secondary">이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
+            <h6><Badge color="secondary">수락하면 이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
             
             <ListGroup>
             {notifications.prop.map((proposalItem, index) => {

@@ -9,7 +9,7 @@ from rest_framework import generics
 from companions.models import Companion, DesiredMate, Personality, PersonalityDesiredMate, MatingSeason, Like, Proposal, Message, Profile, File, RepresentCompanion
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer, LikeUpdateSerializer, ProposalUpdateSerializer, MessageUpdateSerializer
+from companions.serializers import CompanionSerializer, CompanionUpdateSerializer, DesiredMateSerializer, PersonalitySerializer, PersonalityDesiredMateSerializer, MatingSeasonSerializer, LikeSerializer, ProposalSerializer, MessageSerializer, UserSignUpSerializer, UserSerializer, UserPasswordUpdateSerializer, UserProfileUpdateSerializer, UserTotalInfoSerializer, ProfileSerializer, FileSerializer, RepresentCompanionSerializer, RepresentCompanionUpdateSerializer, LikeUpdateSerializer, ProposalUpdateSerializer, MessageUpdateSerializer, ProfileAddressSerializer, UserAddressSerializer, CompanionAddressSerializer
 from datetime import datetime
 from rest_framework import permissions, status
 from django.views.decorators.csrf import csrf_exempt
@@ -19,6 +19,11 @@ from django.http import QueryDict
 from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
+
+from rest_framework import viewsets, renderers
+from companions.models import ImageUploader
+from companions.serializers import ImageUploaderSerializer
+
 
 class CompanionList(generics.ListCreateAPIView):
     queryset = Companion.objects.all()
@@ -91,6 +96,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         username = request.data['username']
         user = User.objects.get(username=username)
         companion_data = request.data.pop('companion')
+        print(companion_data)
         companion_data.update({'user':user.id})
         companion_serializer = CompanionSerializer(data=companion_data)
         if companion_serializer.is_valid():
@@ -115,6 +121,7 @@ class UserListAndSignUp(generics.ListCreateAPIView):
         print("!!!!!!!!!!!!!!!!")
         profile_data = request.data.pop('profile')
         profile_data.update({'user':user.id})
+        print(profile_data)
         profile_serializer = ProfileSerializer(data=profile_data)
         if profile_serializer.is_valid():
             profile_serializer.save()
@@ -171,3 +178,11 @@ class FileView(APIView):
 class FileList(generics.ListAPIView):
     queryset = File.objects.all()
     serializer_class = FileSerializer
+
+class CompanionAddressList(generics.ListAPIView):
+    queryset = Companion.objects.all()
+    serializer_class = CompanionAddressSerializer
+
+class ImageUploaderView(generics.ListCreateAPIView):
+    queryset = ImageUploader.objects.all()
+    serializer_class = ImageUploaderSerializer

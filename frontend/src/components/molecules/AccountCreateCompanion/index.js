@@ -5,34 +5,6 @@ import TextInput from '../../atoms/TextInput'
 import CompanionBlock from '../../atoms/CompanionBlock'
 import { Redirect } from 'react-router-dom'
 
-
-let breed_imsi = 'toy_poodle'
-let name_imsi = "companion_name"
-let sex_imsi = 'female'
-let birth_year_imsi = 2018
-let size_imsi = 'small'
-let desired_mate_sex_imsi = 'male'
-let desired_mate_breed_imsi = 'toy_poodle'
-let desired_mate_size_imsi = 'small'
-let desired_mate_affinity_with_human_imsi = 0
-let desired_mate_affinity_with_dog_imsi = 0
-let desired_mate_aggression_imsi = 0
-let desired_mate_shyness_imsi = 0
-let desired_mate_activity_imsi = 0
-let desired_mate_loudness_imsi = 0
-let desired_mate_etc_imsi = "etc"
-
-let affinity_with_human_imsi = 1
-let affinity_with_dog_imsi = 1
-let aggression_imsi = 1
-let shyness_imsi = 1
-let activity_imsi = 1
-let loudness_imsi = 1
-let etc_imsi = "etc"
-let season_start_imsi = '2018-06-25'
-let season_end_imsi = '2018-06-25'
-let setting = false
-
 class AccountCreateCompanion extends Component {
 	onSignoutBtnClick() {
                 this.props.post_signout()
@@ -41,30 +13,31 @@ class AccountCreateCompanion extends Component {
                 super(props)
                 this.state = {
 			redirect:false,
-			name: name_imsi,
-                       	birth_year: birth_year_imsi,
-                        sex: sex_imsi,
-			size: size_imsi,
-			breed: breed_imsi,
-			desired_mate_sex: desired_mate_sex_imsi,
-			desired_mate_breed: desired_mate_breed_imsi,
-			desired_mate_size: desired_mate_size_imsi,
-			desired_mate_affinity_with_human: desired_mate_affinity_with_human_imsi,
-			desired_mate_affinity_with_dog: desired_mate_affinity_with_dog_imsi,
-			desired_mate_shyness: desired_mate_shyness_imsi,
-			desired_mate_activity: desired_mate_activity_imsi,
-			desired_mate_aggression: desired_mate_aggression_imsi,
-			desired_mate_loudness: desired_mate_loudness_imsi,
-			desired_mate_etc: desired_mate_etc_imsi,
-			affinity_with_human: affinity_with_human_imsi,
-			affinity_with_dog: affinity_with_dog_imsi,
-			shyness: shyness_imsi,
-			activity: activity_imsi,
-			aggression: aggression_imsi,
-			loudness: loudness_imsi,
-			etc: etc_imsi,
-			season_start:season_start_imsi,
-			season_end:season_end_imsi,
+			name: "companion_name",
+                       	birth_year: 2018,
+                        sex: 'female',
+			size: 'small',
+			breed: 'toy_poodle',
+			desired_mate_sex: 'male',
+			desired_mate_breed: 'toy_poodle',
+			desired_mate_size: 'small',
+			desired_mate_affinity_with_human: 0,
+			desired_mate_affinity_with_dog: 1,
+			desired_mate_shyness: 2,
+			desired_mate_activity: 3,
+			desired_mate_aggression: 4,
+			desired_mate_loudness: 5,
+			desired_mate_etc: "etc_example",
+			affinity_with_human: 5,
+			affinity_with_dog: 4,
+			shyness: 3,
+			activity: 2,
+			aggression: 1,
+			loudness: 2,
+			etc: "etc_example",
+			season_start:'2018-07-01',
+			season_end:'2018-07-01',
+			setting:false
                 }
         }
         handleInputChange = (event) => {
@@ -72,56 +45,7 @@ class AccountCreateCompanion extends Component {
                 const value = target.type === 'checkbox' ? target.checked : target.value
                 const name = target.name
 		console.log(target)
-                if(name == "breed")
-                        breed_imsi = target.value
-		else if(name == "name")
-			name_imsi = target.value
-		else if(name == "sex")
-			sex_imsi = target.value
-		else if(name == "birth_year")
-			birth_year_imsi = target.value
-		else if(name == "size")
-			size_imsi = target.value
-		else if(name == "desired_mate_sex")
-			desired_mate_sex_imsi = target.value
-		else if(name == "desired_mate_breed")
-			desired_mate_breed_imsi = target.value
-		else if(name == "desired_mate_size")
-			desired_mate_size_imsi = target.value
-		else if(name == "desired_mate_affinity_with_human")
-			desired_mate_affinity_with_human_imsi = target.value
-		else if(name == "desired_mate_affinity_with_dog")
-			desired_mate_affinity_with_dog_imsi = target.value
-		else if(name == "desired_mate_shyness")
-			desired_mate_shyness_imsi = target.value
-		else if(name == "desired_mate_activity")
-			desired_mate_activity_imsi = target.value
-		else if(name == "desired_mate_loudness")
-			desired_mate_loudness_imsi = target.value
-		else if(name == "desired_mate_agression")
-			desired_mate_agression_imsi = target.value
-		else if(name == "desired_mate_etc")
-			desired_mate_etc_imsi = target.value
-		else if(name == "affinity_with_human")
-                        affinity_with_human_imsi = target.value
-                else if(name == "affinity_with_dog")
-                        affinity_with_dog_imsi = target.value
-                else if(name == "shyness")
-                        shyness_imsi = target.value
-                else if(name == "activity")
-                        activity_imsi = target.value
-                else if(name == "loudness")
-                        loudness_imsi = target.value
-                else if(name == "agression")
-                        agression_imsi = target.value
-                else if(name == "etc")
-                        etc_imsi = target.value
-		else if(name == "season_start")
-			season_start_imsi = target.value
-		else if(name == "season_end")
-			season_end_imsi = target.value
-
-		this.setState({
+                this.setState({
                         [name]: value
                 })
         }
@@ -235,13 +159,13 @@ class AccountCreateCompanion extends Component {
 					</center></th></tr>
 					<tr><th><center>Sex</center></th><th><center>
 					
-					<Input type="select" name="sex" error={errors.name} onChange={this.handleInputChange} value={sex_imsi}>
+					<Input type="select" name="sex" error={errors.name} onChange={this.handleInputChange} value={this.state.sex}>
 					<option value='female'>암컷</option>
                                         <option value='male'>수컷</option>
 					</Input></center></th></tr>
 					
 					<tr><th><center>BirthYear</center></th><th><center>
-					<Input type="select" name="birth_year" error={errors.name} onChange={this.handleInputChange} value={birth_year_imsi}>
+					<Input type="select" name="birth_year" error={errors.name} onChange={this.handleInputChange} value={this.state.birth_year}>
 					<option value="2018">2018</option>
 					<option value="2017">2017</option>
 					<option value="2016">2016</option>
@@ -260,7 +184,7 @@ class AccountCreateCompanion extends Component {
 					</Input>
 					</center></th></tr>
 					<tr><th><center>Breed</center></th><th><center>
-					<Input type="select"  name="breed" error={errors.name} onChange={this.handleInputChange} value={breed_imsi}>
+					<Input type="select"  name="breed" error={errors.name} onChange={this.handleInputChange} value={this.state.breed}>
 					<option value='mix'>믹스</option>
 			          	<option value='dachshund'>닥스훈트</option>
           				<option value='dalmatian'>달마시안</option>
@@ -297,11 +221,11 @@ class AccountCreateCompanion extends Component {
 
 					</Input></center></th></tr>
 					<tr><th><center>Size</center></th><th><center>
-					<Input type="select" name="size" error={errors.name} onChange={this.handleInputChange} value={size_imsi}>
+					<Input type="select" name="size" error={errors.name} onChange={this.handleInputChange} value={this.state.size}>
 					
 					<option value="small">소형견</option>
 				        <option value="medium">중형견</option>
-        				<option value="latge">대형견</option>
+        				<option value="large">대형견</option>
 
 					</Input></center></th></tr>
 					</tbody>
@@ -313,12 +237,12 @@ class AccountCreateCompanion extends Component {
                                         </thead>
                                         <tbody>
 					<tr><th><center>Sex</center></th><th><center>
-					<Input type="select" name="desired_mate_sex" error={errors.name} onChange={this.handleInputChange} value={desired_mate_sex_imsi}>
+					<Input type="select" name="desired_mate_sex" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_sex}>
                                         <option value='female'>암컷</option>
                                         <option value='male'>수컷</option>
                                         </Input></center></th></tr>
 					<tr><th><center>Breed</center></th><th><center>
-                                        <Input type="select"  name="desired_mate_breed" error={errors.name} onChange={this.handleInputChange} value={desired_mate_breed_imsi}>
+                                        <Input type="select"  name="desired_mate_breed" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_breed}>
                                         <option value='mix'>믹스</option>
                                         <option value='dachshund'>닥스훈트</option>
                                         <option value='dalmatian'>달마시안</option>
@@ -356,11 +280,11 @@ class AccountCreateCompanion extends Component {
                                         </Input></center></th></tr>
 					
 					<tr><th><center>Size</center></th><th><center>
-                                        <Input type="select" name="desired_mate_size" error={errors.name} onChange={this.handleInputChange} value={desired_mate_size_imsi}>
+                                        <Input type="select" name="desired_mate_size" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_size}>
 
                                         <option value="small">소형견</option>
                                         <option value="medium">중형견</option>
-                                        <option value="latge">대형견</option>
+                                        <option value="large">대형견</option>
 
                                         </Input></center></th></tr>
 					</tbody>
@@ -374,7 +298,7 @@ class AccountCreateCompanion extends Component {
                                         </thead>
                                         <tbody>
 					<tr><th><center>Affinity_with_human</center></th><th><center>
-					<Input type="select" name="desired_mate_affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={desired_mate_affinity_with_human_imsi}>
+					<Input type="select" name="desired_mate_affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_human}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -383,7 +307,7 @@ class AccountCreateCompanion extends Component {
 					<option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Affinity_with_dog</center></th><th><center>
-					<Input type="select" name="desired_mate_affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={desired_mate_affinity_with_dog_imsi}>
+					<Input type="select" name="desired_mate_affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_dog}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -392,7 +316,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Shyness</center></th><th><center>
-					<Input type="select" name="desired_mate_shyness" error={errors.name} onChange={this.handleInputChange} value={desired_mate_shyness_imsi}>
+					<Input type="select" name="desired_mate_shyness" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_shyness}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -401,7 +325,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Activity</center></th><th><center>
-					<Input type="select" name="desired_mate_activity" error={errors.name} onChange={this.handleInputChange} value={desired_mate_activity_imsi}>
+					<Input type="select" name="desired_mate_activity" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_activity}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -410,7 +334,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Loudness</center></th><th><center>
-					<Input type="select" name="desired_mate_loudness" error={errors.name} onChange={this.handleInputChange} value={desired_mate_loudness_imsi}>
+					<Input type="select" name="desired_mate_loudness" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_loudness}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -419,7 +343,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Aggression</center></th><th><center>
-					<Input type="select" name="desired_mate_aggression" error={errors.name} onChange={this.handleInputChange} value={desired_mate_aggression_imsi}>
+					<Input type="select" name="desired_mate_aggression" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_aggression}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -441,7 +365,7 @@ class AccountCreateCompanion extends Component {
                                         </thead>
                                         <tbody>
 					<tr><th><center>Affinity_with_human</center></th><th><center>
-					<Input type="select" name="affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={affinity_with_human_imsi}>
+					<Input type="select" name="affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={this.state.affinity_with_human}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -449,7 +373,7 @@ class AccountCreateCompanion extends Component {
 					<option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Affinity_with_dog</center></th><th><center>
-					<Input type="select" name="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={affinity_with_dog_imsi}>
+					<Input type="select" name="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={this.state.affinity_with_dog}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -457,7 +381,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Shyness</center></th><th><center>
-					<Input type="select" name="shyness" error={errors.name} onChange={this.handleInputChange} value={shyness_imsi}>
+					<Input type="select" name="shyness" error={errors.name} onChange={this.handleInputChange} value={this.state.shyness}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -465,7 +389,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Activity</center></th><th><center>
-					<Input type="select" name="activity" error={errors.name} onChange={this.handleInputChange} value={activity_imsi}>
+					<Input type="select" name="activity" error={errors.name} onChange={this.handleInputChange} value={this.state.activity}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -473,7 +397,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Loudness</center></th><th><center>
-					<Input type="select" name="loudness" error={errors.name} onChange={this.handleInputChange} value={loudness_imsi}>
+					<Input type="select" name="loudness" error={errors.name} onChange={this.handleInputChange} value={this.state.loudness}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -481,7 +405,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="5">5</option>
 					</Input></center></th></tr>
 					<tr><th><center>Aggression</center></th><th><center>
-					<Input type="select" name="aggression" error={errors.name} onChange={this.handleInputChange} value={aggression_imsi}>
+					<Input type="select" name="aggression" error={errors.name} onChange={this.handleInputChange} value={this.state.aggression}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -500,9 +424,9 @@ class AccountCreateCompanion extends Component {
                                         </thead>
                                         <tbody>
 					<tr><th><center>Season Start</center></th><th><center>
-					<TextInput name="season_start" error={errors.name} onChange={this.handleInputChange}/></center></th></tr>
+					<TextInput name="season_start" error={errors.name} onChange={this.handleInputChange} placeholder="2018-07-01"/></center></th></tr>
 					<tr><th><center>Season End</center></th><th><center>
-                                        <TextInput name="season_end" error={errors.name} onChange={this.handleInputChange}/></center></th></tr>
+                                        <TextInput name="season_end" error={errors.name} onChange={this.handleInputChange} placeholder="2018-07-01"/></center></th></tr>
                                         </tbody>
 					</Table>
 					<center><Button type="submit" color="danger" size="lg">

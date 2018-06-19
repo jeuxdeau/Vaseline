@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { Alert, Button, Jumbotron, Form } from 'reactstrap'
+import { Alert, Button, Jumbotron, Form, InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import '../../pages/colorlib.css'
 
 import TextInput from '../../atoms/TextInput'
 
@@ -28,27 +29,23 @@ export default class SigninPage extends Component {
 	render() {
 		const errors = this.props.errors || {}
 		return (
-			<Jumbotron className="container">
-				<Form onSubmit={this.onSubmit}>
-					<h1>VASELINE</h1>
-					{
-						errors.non_field_errors?
-							<Alert color="danger">
-								{errors.non_field_errors}
-							</Alert>: ""
-					}
-					<TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange} />
-					<TextInput name="password" label="Password" error={errors.password} type="password"
-								onChange={this.handleInputChange} />
-					<Button type="submit" color="secondary" size="lg">
-						Log in
-					</Button>
-					&nbsp;
-					<Button color="info" size="lg" tag={Link} to='/signup'>
-						Sign Up
-					</Button>
-				</Form>
-			</Jumbotron>
+			<div class="login-page">
+			  <div class="form">
+			    <form class="login-form" onSubmit={this.onSubmit}>
+				<img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/logo.png" />
+				{
+					errors.non_field_errors?
+ 					<Alert color="warning">
+ 						{errors.non_field_errors}
+ 					</Alert>: ""
+ 				}
+				<TextInput name="username" placeholder="id" error={errors.username} onChange={this.handleInputChange} />
+				<TextInput name="password" placeholder="password" error={errors.password} type="password" onChange={this.handleInputChange} />
+				<button type="submit">login</button>
+			    <p class="message">아직 계정이 없으신가요? <a href="/signup">계정 만들기</a></p>
+			    </form>
+			  </div>
+			</div>
 		)
 	}
 }

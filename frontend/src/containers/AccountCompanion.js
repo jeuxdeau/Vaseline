@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
                 dispatch(logout())
         },
 	onSubmit: (input, companion_id) => {
-                dispatch(account_companion(input, companion_id))
+                dispatch(account_companion(input, companion_id)),
+		dispatch(list())
         }
 })
 

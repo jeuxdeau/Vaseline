@@ -45,13 +45,9 @@ const options2 = {
         '해외': ['해외']
 }
 
-let setting = false
-let gender_imsi = undefined
-let first_address_imsi = undefined
-let second_address_imsi = undefined
 const renderOption = (item) => (<option value={item}>{item}</option>)
-let firstLevelOptions = undefined
-let secondLevelOptions = undefined
+//let firstLevelOptions = undefined
+//let secondLevelOptions = undefined
 
 
 class AccountUser extends Component {
@@ -61,16 +57,11 @@ class AccountUser extends Component {
 
 	componentDidMount() {
 		this.props.get_user_info(this.props.user_id)
-		if(this.props.user_info){
-			firstLevelOptions = options.map(renderOption)
-			secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
-			console.log(firstLevelOptions)
-			console.log(secondLevelOptions)
-		}
 	}
 	constructor(props) {
 		super(props)
 		this.state = {
+			setting: false,
 			username: undefined,
                 	password: undefined,
                 	nickname: undefined,
@@ -79,6 +70,8 @@ class AccountUser extends Component {
                 	gender: undefined,
                 	email: undefined,
 			redirect: false,
+			firstLevelOptions: undefined,
+			secondLevelOptions:undefined
 		}
 	}
 	
@@ -86,45 +79,30 @@ class AccountUser extends Component {
                 const target = event.target
 		const value = target.type === 'checkbox' ? target.checked : target.value
                 const name = target.name
-		if(name == "gender")
+		if(name == "first_address")
 		{
-			gender_imsi = target.value
-			console.log("gender_imsi")
-			console.log(gender_imsi)
-		}
-		else if(name == "first_address")
-		{
-			first_address_imsi = target.value
-			firstLevelOptions = options.map(renderOption)
-			secondLevelOptions = options2[first_address_imsi].map(renderOption)
 			console.log("first_address")
 			console.log(target.value)
+			console.log("second_address")
+			this.setState({
+				first_address:target.value,
+				second_address:options2[target.value][0],
+				firstLevelOptions:options.map(renderOption),
+				secondLevelOptions:options2[target.value].map(renderOption)
+			})
 		}
-		else if(name == "second_address")
-			second_address_imsi = target.value
-			firstLevelOptions = options.map(renderOption)
-                        secondLevelOptions = options2[first_address_imsi].map(renderOption)	
-                 
+		else if(name == "second_address"){
+			this.setState({
+				second_address:target.value,
+				firstLevelOptions:options.map(renderOption),
+				secondLevelOptions:options2[this.state.first_address].map(renderOption)
+			})
+		}
 		this.setState({
                         [name]: value
                 })
         }
-	handleFirstAddressChange(event) {
-		console.log("###########")
-		this.setState({first_address: event.target.value})
-		first_address_imsi = event.target.value
-				console.log(options2[first_address_imsi])
-
-	}
-	handleSecondAddressChange(event) {
-		this.setState({second_address: event.target.value})
-		second_address_imsi = event.target.value
-		firstLevelOptions = options.map(renderOption)
-		secondLevelOptions = options2[first_address_imsi].map(renderOption)
-
-	}
-
-        onSubmitPassword = (event) => {
+	onSubmitPassword = (event) => {
                 event.preventDefault()
 		console.log("!!")
 		const password_info = {
@@ -154,33 +132,47 @@ class AccountUser extends Component {
                 	if(profile_info[key] == undefined)
                         	profile_info[key]=this.props.user_info.profile[key]
                 }
+		console.log("^^^^^^^^^^^^^^^^")
                 console.log(profile_info)
 		this.setState({redirect:true})
                 this.props.onSubmitProfile(profile_info, this.props.user_id)
         }
 	
-		render() {
+	render() 
+	{
                 const errors_account_user_password = this.props.errors_account_user_password || {}
 		const errors_account_user_profile = this.props.errors_account_user_profile || {}
-		const user_info = this.props.user_info
 		console.log(this.state)
 		console.log("@@@@@@@@@@@@@@@@@")
 		console.log(this.props.errors_account_user_profile)
-		if(this.state.redirect){
+		if(this.state.redirect)
+		{
 			return <Redirect to='/account'/>
 		}
-		if(user_info){
-			if(!setting){
-				gender_imsi = this.props.user_info.profile.gender
-				first_address_imsi = this.props.user_info.profile.first_address
-				second_address_imsi = this.props.user_info.profile.second_address
-                        	firstLevelOptions = options.map(renderOption)
-                        	secondLevelOptions = options2[this.props.user_info.profile.first_address].map(renderOption)
-				setting = true
+		if(this.props.user_info)
+		{
+			console.log("1111111111")
+			if(!this.state.setting)
+			{
+				this.setState(
+					{
+					username:this.props.user_info.username,
+					password:"vaseline",
+					nickname:this.props.user_info.profile.nickname,
+					email:this.props.user_info.profile.email,
+					gender:this.props.user_info.profile.gender,
+					first_address:this.props.user_info.profile.first_address,
+					second_address: this.props.user_info.profile.second_address,
+					firstLevelOptions:options.map(renderOption),
+					secondLevelOptions:options2[this.props.user_info.profile.first_address].map(renderOption),
+					setting: true
+				})
 				console.log("*****************")
 				console.log(this.state)
 				console.log(this.props.error_account_user_profile)
 			}
+			if(this.state.username && this.props.user_info)
+			{
 			return (
                         <Jumbotron className="container">
 				<h1>
@@ -206,7 +198,7 @@ class AccountUser extends Component {
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
 					</thead>
 					<tbody>
-					<tr><th><center>Username</center></th><th><center>{user_info.username}</center></th></tr>
+					<tr><th><center>Username</center></th><th><center>{this.state.username}</center></th></tr>
                                         <tr><th><center>Password</center></th><th><center><TextInput name="password" error={errors_account_user_password.password} type="password" onChange={this.handleInputChange} /></center></th></tr>
 					</tbody>
 					<center><Button type="submit" color="danger" size="lg">Update Password</Button></center>
@@ -223,21 +215,21 @@ class AccountUser extends Component {
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors_account_user_profile.nickname} onChange={this.handleInputChange} placeholder={user_info.profile.nickname}/></center></th></tr>
+					<tr><th><center>Nickname</center></th><th><center><TextInput name="nickname" error={errors_account_user_profile.nickname} onChange={this.handleInputChange} placeholder={this.props.user_info.profile.nickname}/></center></th></tr>
 					<tr><th><center>Gender</center></th><th><center>
-					<Input type="select" name="gender" onChange={this.handleInputChange} value={gender_imsi}>
+					<Input type="select" name="gender" onChange={this.handleInputChange} value={this.state.gender}>
 					<option value='female'>여성</option>
 					<option value='male'>남성</option>
 					</Input>
                                         </center></th></tr>
-					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors_account_user_profile.email} onChange={this.handleInputChange} placeholder={user_info.profile.email}/></center></th></tr>
+					<tr><th><center>Email</center></th><th><center><TextInput name="email" label="Email" error={errors_account_user_profile.email} onChange={this.handleInputChange} placeholder={this.props.user_info.profile.email}/></center></th></tr>
 					
 					<tr><th><center>거주지</center></th><th><center><div>
-        				<Input type="select" name="first_address" onChange={this.handleInputChange} value={first_address_imsi}>
-                                        {firstLevelOptions}
+        				<Input type="select" name="first_address" onChange={this.handleInputChange} value={this.state.first_address}>
+                                        {this.state.firstLevelOptions}
 					</Input>
-					<Input type="select" name="second_address" onChange={this.handleInputChange} value={second_address_imsi}>
-                                        {secondLevelOptions}
+					<Input type="select" name="second_address" onChange={this.handleInputChange} value={this.state.second_address}>
+                                        {this.state.secondLevelOptions}
 					</Input>
 					</div></center></th></tr>
 					</tbody>
@@ -249,8 +241,22 @@ class AccountUser extends Component {
 					</CardDeck>
                                 </Form>
                         </Jumbotron>
-                )}
-		else {
+                )
+			}
+			else
+			{
+				return (
+                                <Card>
+                                        <CardTitle>{1}</CardTitle>
+                                        <CardText>not : {2}</CardText>
+                                        <CardText>start : {3}</CardText>
+                                </Card>
+                        )
+
+			}
+		}
+		else 
+		{
                         return (
                                 <Card>
                                         <CardTitle>{1}</CardTitle>
@@ -259,6 +265,6 @@ class AccountUser extends Component {
                                 </Card>
                         )
                 }
-        }
+	}
 }
 export default AccountUser

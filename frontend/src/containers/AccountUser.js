@@ -30,10 +30,12 @@ const mapDispatchToProps = (dispatch) => ({
                 dispatch(logout())
         },
 	onSubmitPassword: (input, user_id) => {
-                dispatch(account_user_password(input, user_id))
+                dispatch(account_user_password(input, user_id)),
+		dispatch(user(user_id))
         },
 	onSubmitProfile: (input, user_id) => {
-		dispatch(account_user_profile(input, user_id))
+		dispatch(account_user_profile(input, user_id)),
+		dispatch(user(user_id))
 	}
 })
 

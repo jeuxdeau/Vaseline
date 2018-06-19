@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.views import generic
 from rest_framework.schemas import get_schema_view
 from rest_framework_simplejwt.views import (
@@ -24,6 +25,7 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework import views, serializers, status
 from rest_framework.response import Response
+from django.conf import settings
 
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField()
@@ -47,3 +49,5 @@ urlpatterns = [
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),
     url(r'^api/echo/$', EchoView.as_view())
 ]
+
+urlpatterns += static('/api/images/media/', document_root=settings.MEDIA_ROOT)
