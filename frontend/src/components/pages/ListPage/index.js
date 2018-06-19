@@ -118,8 +118,8 @@ export default class ListPage extends Component {
 			if(this.state.repr)
 			{
 				if(this.state.repr.id!=this.props.companion_list[this.props.user_repr.represent_companion-1].id){
-					window.location.reload();	
-				}				
+					window.location.reload();
+				}
 				console.log(this.state.result.length==0)
 				if(this.state.result.length==0)
 				{
@@ -167,7 +167,7 @@ export default class ListPage extends Component {
 						for(var key in result_imsi){
 							let p = result_imsi[key].personality
 							let dp = this.state.repr.desired_mate.personality
-							
+
 							let score = 0
 							if(dp.affinity_with_human != 0)
 								score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human)
@@ -199,34 +199,49 @@ export default class ListPage extends Component {
 
 				}
 				return (
-				<Jumbotron className="container">
-					<h1>
-						VASELINE
-					</h1>
+				<div>
+				<p />
+				<div class="form" style={{width:"1300px"}}>
+					<center><h2>
+						프로필 모아보기
+					</h2></center><p />
 					<CardDeck>
 		                            {this.search_result(this.state.search_companion_list, image_list)}
                 	                </CardDeck>
-					<center><h2>----------------------------------------------------</h2></center>
+					<center><hr /></center>
 					<CardDeck>
 						{this.all_result(this.state.companion_all_list, image_list)}
 					</CardDeck>
-	
-				</Jumbotron>
+
+				</div>
+				</div>
 			)
 			}
 			else{
 				return (
-                                <Jumbotron className="container">
-					<center>잠시만 기다려주세요!</center>
-                                </Jumbotron>
-                        )
+					<div>
+					<p />
+					<div class="form" style={{width:"800px"}}>
+					<img src="https://3.bp.blogspot.com/-N9PjOAo07Tk/WsNuU64SHEI/AAAAAAAWwDo/Gt45rCEKjmceVd8MHSNP1m8vHgar-IzZQCLcBGAs/s1600/AW898381_00.gif" /><p />
+					<Alert color="warning">
+					        <h5><font color="red">♥</font>~잠시만 기다려주세요~<font color="red">♥</font></h5>
+					 </Alert>
+					</div>
+					</div>
+        )
 			}
 		}
 		else {
 			return (
-				<Jumbotron className="container">
-					<center>잠시만 기다려주세요!</center>
-				</Jumbotron>
+				<div>
+				<p />
+				<div class="form" style={{width:"800px"}}>
+				<img src="https://3.bp.blogspot.com/-N9PjOAo07Tk/WsNuU64SHEI/AAAAAAAWwDo/Gt45rCEKjmceVd8MHSNP1m8vHgar-IzZQCLcBGAs/s1600/AW898381_00.gif" /><p />
+				<Alert color="warning">
+								<h5><font color="red">♥</font>~잠시만 기다려주세요~<font color="red">♥</font></h5>
+				 </Alert>
+				</div>
+				</div>
 			)
 		}
 	}
