@@ -151,10 +151,10 @@ class SearchPage extends Component {
 		console.log(result)
                 this.setState({search_companion_list:result})
         }
-        search_result_atom = (companion, index, first_address, second_address) => {
+        search_result_atom = (companion, index, first_address, second_address, score) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address}/><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score={score}/><p />
                 </Col>)
             }
             search_result = (companion_list) => {
@@ -162,7 +162,7 @@ class SearchPage extends Component {
                 if(companion_list){
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address))
+                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score))
                 }
 		else{
 			return <div>검색 결과가 없습니다.</div>
