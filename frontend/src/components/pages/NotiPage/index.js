@@ -186,8 +186,6 @@ export default class NotiPage extends Component {
 	ClearUnreadLikesProposals(notifications) {
 		const like = notifications.like
 		const prop = notifications.prop
-		console.log(like)
-		console.log(prop)
 		
 		var i
 		for(i = 0; i < like.length; i++) {

@@ -11,7 +11,7 @@ superuser.is_staff=True
 superuser.save()
 print("superuser's username : vaseline")
 print("superuser's password : vaseline")
-N=10
+N=100
 print("---------------")
 for (username, pwd) in promtest.create_users(N):
     print("\t{0}'s password : ".format(username)+pwd)

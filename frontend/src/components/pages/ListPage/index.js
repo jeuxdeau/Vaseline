@@ -35,28 +35,50 @@ export default class ListPage extends Component {
 		result:[],
             }
 	}
-	search_result_atom = (companion, index, first_address, second_address, score) => {
+	search_result_atom = (companion, index, first_address, second_address, score, imgList) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score}/><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score} imgList={imgList}/><p />
                 </Col>)
             }
-            search_result = (companion_list) => {
+            search_result = (companion_list, imgList) => {
                     console.log(companion_list)
                 if(companion_list){
 			console.log(companion_list)
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score))
+                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score, imgList))
+                }
+                else{
+                        return <div>검색 결과가 없습니다.</div>
+                }
+            }
+	all_atom = (companion, index, first_address, second_address, score, imgList) => {
+            return (
+                <Col xs="4">
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score} imgList={imgList}/><p />
+                </Col>)
+            }
+            all_result = (companion_list, imgList) => {
+                    console.log(companion_list)
+                if(companion_list){
+                        console.log(companion_list)
+                    console.log("#########################")
+                    return companion_list.map((companion, index) =>
+                    this.all_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score, imgList))
                 }
                 else{
                         return <div>검색 결과가 없습니다.</div>
                 }
             }
 
+
 	render() {
 		const companion_list = this.props.companion_list
 		const companion_address_list = this.props.companion_address_list
+		const image_list = this.props.image_list
+		if(image_list == undefined) return null
+
 		const errors = this.props.errors || {}
 		if(this.props.companion_list && this.props.companion_address_list && this.props.user_repr)
 		{
@@ -103,6 +125,7 @@ export default class ListPage extends Component {
 				{
 					console.log("saaa")
 					console.log(this.state.companion_all_list)
+					console.log(this.state)
 					let result_imsi = []
 					for (var key in this.state.companion_all_list)
 					{
@@ -110,7 +133,7 @@ export default class ListPage extends Component {
 						console.log("^0^")
 						console.log(x)
 						console.log(this.state)
-						if(x.breed==this.state.desired_mate_breed && x.size==this.state.desired_mate_size && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address && x.second_address == this.state.desired_mate_second_address)
+						if(x.breed==this.state.desired_mate_breed && x.sex==this.state.desired_mate_sex && x.first_address==this.state.desired_mate_first_address)
 						{
 							result_imsi.push(this.state.companion_all_list[key])
 						}
@@ -120,9 +143,31 @@ export default class ListPage extends Component {
 						this.setState({search_companion_list:result_imsi})
 					}
 					else{
+						let companion_all_list_imsi = this.state.companion_all_list
+						for(var key in this.state.companion_all_list){
+                                                        let p = this.state.companion_all_list[key].personality
+                                                        let dp = this.state.repr.desired_mate.personality
+
+                                                        let score = 0
+                                                        if(dp.affinity_with_human != 0)
+                                                                score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human)
+                                                        if(dp.affinity_with_dog != 0)
+                                                                score += 2-Math.abs(dp.affinity_with_dog-p.affinity_with_dog)
+                                                        if(dp.aggression != 0)
+                                                                score += 2-Math.abs(dp.aggression-p.aggression)
+                                                        if(dp.loudness != 0)
+                                                                score += 2-Math.abs(dp.loudness-p.loudness)
+                                                        if(dp.shyness != 0)
+                                                                score += 2-Math.abs(dp.shyness-p.shyness)
+                                                        if(dp.activity != 0)
+                                                                score += 2-Math.abs(dp.activity-p.activity)
+                                                        companion_all_list_imsi[key].score = (parseInt)((25*score/6)+50)
+                                                }
+						this.setState({companion_all_list:companion_all_list_imsi})
 						for(var key in result_imsi){
 							let p = result_imsi[key].personality
-							let dp = this.state.repr.personality
+							let dp = this.state.repr.desired_mate.personality
+							
 							let score = 0
 							if(dp.affinity_with_human != 0)
 								score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human)
@@ -136,7 +181,7 @@ export default class ListPage extends Component {
 								score += 2-Math.abs(dp.shyness-p.shyness)
 							if(dp.activity != 0)
 								score += 2-Math.abs(dp.activity-p.activity)
-							result_imsi[key].score = score
+							result_imsi[key].score = (parseInt)((25*score/6)+50)
 						}
 					}
 					console.log("result_before_sort")
@@ -151,6 +196,7 @@ export default class ListPage extends Component {
 					console.log(result_imsi)
 					this.setState({search_companion_list:result_imsi,
 					result:result_imsi})
+
 				}
 				return (
 				<Jumbotron className="container">
@@ -158,8 +204,12 @@ export default class ListPage extends Component {
 						VASELINE
 					</h1>
 					<CardDeck>
-		                            {this.search_result(this.state.search_companion_list)}
+		                            {this.search_result(this.state.search_companion_list, image_list)}
                 	                </CardDeck>
+					<center><h2>----------------------------------------------------</h2></center>
+					<CardDeck>
+						{this.all_result(this.state.companion_all_list, image_list)}
+					</CardDeck>
 	
 				</Jumbotron>
 			)
@@ -167,6 +217,7 @@ export default class ListPage extends Component {
 			else{
 				return (
                                 <Jumbotron className="container">
+					<center>잠시만 기다려주세요!</center>
                                 </Jumbotron>
                         )
 			}
@@ -174,6 +225,7 @@ export default class ListPage extends Component {
 		else {
 			return (
 				<Jumbotron className="container">
+					<center>잠시만 기다려주세요!</center>
 				</Jumbotron>
 			)
 		}

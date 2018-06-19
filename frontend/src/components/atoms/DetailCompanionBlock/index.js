@@ -1,6 +1,5 @@
 import React from 'react'
-import { UncontrolledCarousel } from 'reactstrap'
-import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText, Table } from 'reactstrap'
+import { Card, Col, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText,  UncontrolledCarousel, Table } from 'reactstrap'
 
 const items = [
 	{
