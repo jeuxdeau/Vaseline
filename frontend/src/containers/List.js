@@ -5,7 +5,7 @@ import ListPage from '../components/pages/ListPage'
 import { logout } from '../store/actions/auth'
 import { list } from '../store/actions/list'
 import { address_list } from '../store/actions/auth'
-import { currentCompanionAddressList, currentCompanionList, listErrors } from '../store/reducers'
+import { currentCompanionAddressList, currentCompanionList, imageList, listErrors } from '../store/reducers'
 
 const List = (props) => {
 	return (
@@ -18,6 +18,7 @@ const List = (props) => {
 const mapStateToProps = (state) => ({
 	companion_list: currentCompanionList(state),
 	companion_address_list: currentCompanionAddressList(state),
+	image_list: imageList(state),
 	errors: listErrors(state)	
 })
 

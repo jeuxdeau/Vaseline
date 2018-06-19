@@ -10,10 +10,16 @@ class CompanionBlock extends Component {
 		const name = companion.name
 		const btn_url = "/detail/" + name
 
+		const imgList = this.props.imgList
+
+		let reprImage = imgList.filter((img)=>{return (img.owner == companion.id)})
+		reprImage = (reprImage.length == 0)? "http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg" :
+											reprImage[0].name;
+
 		return (
 			<Card>
 				<CardImg 	top width="100%"
-							src="http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg"
+							src={reprImage}
 							alt="Card image cap" />
 				<CardBody>
 					<CardTitle>{companion.name} <small>({2019 - companion.birth_year}살)</small></CardTitle>

@@ -14,6 +14,9 @@ export default class ListPage extends Component {
 	render() {
 		const companion_list = this.props.companion_list
 		const companion_address_list = this.props.companion_address_list
+		const image_list = this.props.image_list
+		if(image_list == undefined) return null
+
 		const errors = this.props.errors || {}
 		if(companion_list && companion_address_list) {
 			return (
@@ -33,7 +36,10 @@ export default class ListPage extends Component {
 							{ return 	(
 											<Col xs="4">
 											<CompanionBlock companion={companion}
-															key={index} first_address={companion_address_list[index].user.profile.first_address} second_address={companion_address_list[index].user.profile.second_address} />
+															key={index} 
+															first_address={companion_address_list[index].user.profile.first_address} 
+															second_address={companion_address_list[index].user.profile.second_address}
+															imgList={image_list} />
 											<p />
 											</Col>
 										)
