@@ -6,6 +6,7 @@ import { options } from './address.js'
 import { Link } from 'react-router-dom'
 
 import TextInput from '../../atoms/TextInput'
+import '../../pages/colorlib.css'
 
 const Wrapper = styled.div`
 font-family: ${font('primary')};
@@ -210,28 +211,29 @@ export default class SignupPage extends Component {
 
         return (
             <div>
-            <Container>
-            <Jumbotron>
-            <h1>Sign Up</h1>
+            <Col class="container4" md={{ size: 8, offset: 2 }}><p />
+            <Alert color="success">
+            <h4 className="alert-heading">Sign Up</h4>
             <p>
-            회원님의 정보, 반려동물의 정보, 그리고 원하는 짝꿍의 모습을 알려 주세요.<br />
-            회원가입을 완료하고 마음에 꼭 드는 강아지 짝꿍을 찾아보세요.
+            회원가입을 완료하고 마음에 꼭 드는 강아지 짝꿍을 찾아보세요.<br />
+            회원님의 정보, 반려동물의 정보, 그리고 원하는 짝꿍의 모습을 알려 주시면 됩니다.
             </p>
-            <p>
-            <Button>Learn more</Button>
+            <hr />
+            <p className="mb-0">
+            이미 가입하셨나요? 지금 바로 <a href="/signin" className="alert-link">로그인</a>하세요.
             </p>
-            </Jumbotron>
+            </Alert>
+            </Col>
 
-            <Jumbotron>
+            <div class="form" style={{width:" 600px"}}>
             <h2>유저 정보</h2>  당신에 대해서 알려주세요.<p/>
             <Form onSubmit={this.onSubmit}>
-            <TextInput name="username" placeholder="id" onChange={this.handleInputChange} />
-            <TextInput type="password" name="password" placeholder="password" onChange={this.handleInputChange} />
-            <TextInput name="profile__nickname" placeholder="nickname" onChange={this.handleInputChange} />
-            <TextInput name="profile__email" placeholder="e-mail" onChange={this.handleInputChange} />
+            <TextInput name="username" placeholder="아이디" onChange={this.handleInputChange} />
+            <TextInput type="password" name="password" placeholder="비밀번호" onChange={this.handleInputChange} />
+            <TextInput name="profile__nickname" placeholder="닉네임" onChange={this.handleInputChange} />
+            <TextInput name="profile__email" placeholder="이메일 주소" onChange={this.handleInputChange} />
 
             <FormGroup>
-            <Label for="age">나이</Label>
             <Input type="select" name="age" id="ageselect" onChange={(node) => { this.state.profile__age = node.target.value }}>
             <option value='10'>10대</option>
             <option value='20'>20대</option>
@@ -243,7 +245,6 @@ export default class SignupPage extends Component {
             </FormGroup>
 
             <FormGroup>
-            <Label for="gender">성별</Label>
             <Input type="select" name="gender" id="genderselect" onChange={(node) => { this.state.profile__gender = node.target.value }}>
             <option value="male">남성</option>
             <option value="female">여성</option>
@@ -251,7 +252,6 @@ export default class SignupPage extends Component {
             </FormGroup>
 
             <FormGroup>
-            <Label for="address">거주지</Label>
             <Input type="select" onChange={this.handleFirstLevelChange} value={this.state.firstLevel}>
             {firstLevelOptions}
             </Input>
@@ -262,18 +262,16 @@ export default class SignupPage extends Component {
             <p />
 
             <h2>반려동물 정보</h2>
-            <Label>반려동물 이름</Label>
+            <Label>당신의 반려동물에 대해 알려주세요.</Label><p />
             <TextInput name="companion__name" placeholder="반려동물 이름" onChange={this.handleInputChange} />
 
             <FormGroup>
-            <Label for="sex">성별</Label>
             <Input type="select" onChange={(node) => { this.state.companion__sex = node.target.value }}>
             <option value="female">암컷</option>
             <option value="male">수컷</option>
             </Input>
             </FormGroup>
             <FormGroup>
-            <Label for="breed">품종</Label>
             <Input type="select" onChange={(node) => { this.state.companion__breed = node.target.value }}>
             <option value='mix'>믹스</option>
             <option value='dachshund'>닥스훈트</option>
@@ -312,7 +310,6 @@ export default class SignupPage extends Component {
             </FormGroup>
 
             <FormGroup>
-            <Label for="size">사이즈</Label>
             <Input type="select" name="size" id="sizeselect" onChange={(node) => { this.state.companion__size = node.target.value }}>
             <option value="small">소형견</option>
             <option value="medium">중형견</option>
@@ -321,36 +318,32 @@ export default class SignupPage extends Component {
             </FormGroup>
 
             <FormGroup>
-            <Label for="companionage">출생년도</Label>
             <Input type="select" name="size" id="companionageselect" onChange={(node) => { this.state.companion__birth_year = node.target.value }}>
-            <option value="2018">2018</option>
-            <option value="2017">2017</option>
-            <option value="2016">2016</option>
-            <option value="2015">2015</option>
-            <option value="2014">2014</option>
-            <option value="2013">2013</option>
-            <option value="2012">2012</option>
-            <option value="2011">2011</option>
-            <option value="2010">2010</option>
-            <option value="2009">2009</option>
-            <option value="2008">2008</option>
-            <option value="2007">2007</option>
-            <option value="2006">2006</option>
-            <option value="2005">2005</option>
-            <option value="2004">2004년 이전</option>
+            <option value="2018">2018년생</option>
+            <option value="2017">2017년생</option>
+            <option value="2016">2016년생</option>
+            <option value="2015">2015년생</option>
+            <option value="2014">2014년생</option>
+            <option value="2013">2013년생</option>
+            <option value="2012">2012년생</option>
+            <option value="2011">2011년생</option>
+            <option value="2010">2010년생</option>
+            <option value="2009">2009년생</option>
+            <option value="2008">2008년생</option>
+            <option value="2007">2007년생</option>
+            <option value="2006">2006년생</option>
+            <option value="2005">2005년생</option>
+            <option value="2004">2004년 이전 출생</option>
             </Input>
             </FormGroup>
 
             <FormGroup>
-            <Label for="date">원하는 만남 시간</Label>
+            <Label for="date"><b>원하는 만남 시간</b></Label>
             <Row>
-            <Col sm="3">
             <Input name="mating_season__season_start" type="date" placeholder="부터" onChange={this.handleInputChange} />
             <Col><Label>부터</Label></Col>
-            </Col><Col sm="3">
             <Input name="mating_season__season_end" type="date" placeholder="까지" onChange={this.handleInputChange} />
-            까지
-            </Col>
+            <Col><Label>까지</Label></Col>
             </Row>
             </FormGroup>
             <h2>어떤 성격인가요?</h2>
@@ -409,7 +402,7 @@ export default class SignupPage extends Component {
             </ButtonGroup><hr />
 
             <FormGroup>
-            <Label>더 알려주고 싶은 것들은요...</Label><br />
+            <Label>더 알려주고 싶은 것들은...</Label><br />
             <Input name="personality__etc" type="textarea" onChange={this.handleInputChange} rows="5" />
             </FormGroup><p /><p />
 
@@ -469,7 +462,7 @@ export default class SignupPage extends Component {
             </Input>
             </FormGroup><p /><p />
 
-            <h2>이런 성격이면 좋겠어요</h2>
+            <h2>짝꿍의 성격은</h2>
             <p>사람을 좋아해요</p>
             <ButtonGroup>
             <Button onClick={node => { this.onRadioBtnClick("s7", 1); this.state.desired_personality__affinity_with_human= 1; }} active={this.state.s7 === 1}>1</Button>
@@ -529,10 +522,9 @@ export default class SignupPage extends Component {
             <Input name="desired_personality__etc" type="textarea" onChange={this.handleInputChange} rows="5" />
             </FormGroup>
 
-            <center><Button type="submit" color="info" onClick={this.onSubmit} tag={Link} to='/upload'>다 했어요!</Button></center>
+            <center><button type="submit" onClick={this.onSubmit} tag={Link} to='/upload'>다 했어요!</button></center>
             </Form>
-            </Jumbotron>
-            </Container>
+            </div>
             </div>
         )
     }

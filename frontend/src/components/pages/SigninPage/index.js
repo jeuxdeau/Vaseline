@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Alert, Button, Jumbotron, Form, InputGroup, InputGroupAddon, Input } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import './colorlib.css'
+import '../../pages/colorlib.css'
 
 import TextInput from '../../atoms/TextInput'
 
