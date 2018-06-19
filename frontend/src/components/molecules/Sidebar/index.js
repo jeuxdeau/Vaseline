@@ -122,10 +122,10 @@ export default class Sidebar extends Component {
 		const myReprCompanion = myCompanions.filter((myCompanion) => {return (myCompanion.id == userRepr)})[0]
 		return(
 			<div>
-				<Navbar color="info" light expand="md">
-					<NavbarBrand href="/" className="text-white">VASELINE</NavbarBrand>
-					<NavbarBrand>{userName}님, 환영합니다.♥ </NavbarBrand>
-					<Button size="sm" color="secondary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
+				<Navbar color="light" light expand="md">
+					<NavbarBrand href="/" className="text-white"><img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/logo_nopadding_150.png" /></NavbarBrand>
+					<NavbarBrand>{userName}님, 환영합니다.</NavbarBrand>
+					<Button size="sm" color="success" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.setState.isOpen} navbar>
 						<Nav className="ml-auto" navbar>
@@ -136,7 +136,7 @@ export default class Sidebar extends Component {
 								반려동물을 바꿀 수 있습니다.
 							</UncontrolledTooltip>
 							<NavItem id="newsfeed">
-								<NavLink href="/notification">뉴스피드<Badge color="danger">{uNewsNum}</Badge></NavLink>
+								<NavLink href="/notification">뉴스피드 <Badge color="danger">{uNewsNum}</Badge></NavLink>
 							</NavItem>
 							<UncontrolledTooltip placement="bottom" target="newsfeed">
 								반려동물에게 온 소식을 확인할 수 있습니다.
