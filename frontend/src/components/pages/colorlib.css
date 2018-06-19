@@ -102,3 +102,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+td {
+  text-align: center;
+  vertical-align: middle;
+}

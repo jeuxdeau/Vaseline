@@ -78,38 +78,31 @@ export default class DetailPage extends Component {
 			const companion = companion_list.find((element) => (element.name == name))
 			return (
 				<div>
-				<Jumbotron className="container">
-					<h1>
-						VASELINE
-						{this.MakeLikeBtn(like_sent_receiver_id, user_repr.represent_companion, companion.id)}{' '}
+				<p />
+				<div class="form" style={{width:"800px"}}>
+				<h3>{companion.name}의 프로필</h3><p />
+				<DetailCompanionBlock companion={companion} /><p />
+				{this.MakeLikeBtn(like_sent_receiver_id, user_repr.represent_companion, companion.id)}{' '}
 
-						<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
+				<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
 
-						{this.MakeProposalBtn(proposal_sent_receiver_id, user_repr.represent_companion, companion.id)}{' '}
+				{this.MakeProposalBtn(proposal_sent_receiver_id, user_repr.represent_companion, companion.id)}{' '}
 
-						<MessageApp messageAppOpen={this.state.messageAppActivated}
-									messageSenderId={user_repr.represent_companion}
-									messageReceiverName={companion.name}
-									messageReceiverId={companion.id}
-									messageToggle={()=>this.onSendMessageBtnClick()}
-									messageSend={this.props.post_message}/>
-					</h1>
-					{
-						errors.get_list_errors?
-							<Alert color="danger">
-								{errors.get_list_errors}
-							</Alert>
-							:""
-					}
-					<DetailCompanionBlock companion={companion} />
-				</Jumbotron>
+				<MessageApp messageAppOpen={this.state.messageAppActivated}
+							messageSenderId={user_repr.represent_companion}
+							messageReceiverName={companion.name}
+							messageReceiverId={companion.id}
+							messageToggle={()=>this.onSendMessageBtnClick()}
+							messageSend={this.props.post_message}/>
+			{
+				errors.get_list_errors?
+					<Alert color="danger">
+						{errors.get_list_errors}
+					</Alert>
+					:""
+			}
 				</div>
-			)
-		}
-		else {
-			return (
-				<Jumbotron className="container">
-				</Jumbotron>
+				</div>
 			)
 		}
 	}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { UncontrolledCarousel } from 'reactstrap'
-import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText } from 'reactstrap'
+import { Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText, Table } from 'reactstrap'
 
 const items = [
 	{
@@ -28,17 +28,35 @@ export default ({companion}) => {
 		<div>
 			<UncontrolledCarousel items={items} />
 			<Card>
-				<CardHeader tag="h2">
-					{companion.name}{' '}
-					<Button color="info"><div>age:{companion.age}</div></Button>{' '}
-					<Button color="info"><div>sex:{companion.sex}</div></Button>{' '}
-					<Button color="info"><div>size:{companion.size}</div></Button>{' '}
-					<Button color="info"><div>breed:{companion.breed}</div></Button>{' '}
-					<Button color="info"><div>mating season:{companion.mating_season.season_start}~{companion.mating_season.season_start}</div></Button>
+				<CardHeader>
+					<h2>{companion.name}{' '}</h2>(좋아요<font color="red">♥</font> <b>{companion.like_received.length}개</b>)
 				</CardHeader>
 				<CardBody>
-					<h2>Description</h2>
-				</CardBody>
+				<Table hover>
+        <tbody>
+          <tr>
+            <th scope="row">성별</th>
+            <td>{companion.sex}</td>
+          </tr>
+					<tr>
+            <th scope="row">나이 (생년)</th>
+            <td>{2019 - companion.birth_year}살 ({companion.birth_year}년생)</td>
+          </tr>
+          <tr>
+            <th scope="row">품종</th>
+            <td>{companion.size}</td>
+          </tr>
+          <tr>
+            <th scope="row">사이즈</th>
+            <td>{companion.breed}</td>
+          </tr>
+					<tr>
+						<th scope="row">만남 기간</th>
+						<td>{companion.mating_season.season_start} - {companion.mating_season.season_start}</td>
+					</tr>
+        </tbody>
+      </Table>
+			</CardBody>
 			</Card>
 		</div>
 	)
