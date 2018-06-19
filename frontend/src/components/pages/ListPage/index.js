@@ -35,37 +35,37 @@ export default class ListPage extends Component {
 		result:[],
             }
 	}
-	search_result_atom = (companion, index, first_address, second_address, score) => {
+	search_result_atom = (companion, index, first_address, second_address, score, imgList) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score}/><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score} imgList={imgList}/><p />
                 </Col>)
             }
-            search_result = (companion_list) => {
+            search_result = (companion_list, imgList) => {
                     console.log(companion_list)
                 if(companion_list){
 			console.log(companion_list)
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score))
+                    this.search_result_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score, imgList))
                 }
                 else{
                         return <div>검색 결과가 없습니다.</div>
                 }
             }
-	all_atom = (companion, index, first_address, second_address, score) => {
+	all_atom = (companion, index, first_address, second_address, score, imgList) => {
             return (
                 <Col xs="4">
-                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score}/><p />
+                <CompanionBlock companion={companion} key={index} first_address={first_address} second_address={second_address} score = {score} imgList={imgList}/><p />
                 </Col>)
             }
-            all_result = (companion_list) => {
+            all_result = (companion_list, imgList) => {
                     console.log(companion_list)
                 if(companion_list){
                         console.log(companion_list)
                     console.log("#########################")
                     return companion_list.map((companion, index) =>
-                    this.all_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score))
+                    this.all_atom(companion, index, companion_list[index].first_address, companion_list[index].second_address, companion_list[index].score, imgList))
                 }
                 else{
                         return <div>검색 결과가 없습니다.</div>
@@ -204,11 +204,11 @@ export default class ListPage extends Component {
 						VASELINE
 					</h1>
 					<CardDeck>
-		                            {this.search_result(this.state.search_companion_list)}
+		                            {this.search_result(this.state.search_companion_list, image_list)}
                 	                </CardDeck>
 					<center><h2>----------------------------------------------------</h2></center>
 					<CardDeck>
-						{this.all_result(this.state.companion_all_list)}
+						{this.all_result(this.state.companion_all_list, image_list)}
 					</CardDeck>
 	
 				</Jumbotron>
