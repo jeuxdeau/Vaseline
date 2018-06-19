@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Col, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText,  UncontrolledCarousel, Table } from 'reactstrap'
 
-const items = [
+let items = [
 	{
 		src: 'https://www.enesco.co.uk/graphics_cache/0/2/18155-4060859-3-600.jpg',
 		altText: 'Slide 1',
@@ -22,7 +22,23 @@ const items = [
 	},
 ]
 
-export default ({companion}) => {
+function MakeCarouselItems(imgList) {
+	let items = []
+	var i
+	for(i = 0; i < imgList.length; i++) {
+		items = items.concat({
+			src: imgList[i].name,
+			altText: 'Slide '+ (i+1),
+			caption: 'Slide '+ (i+1),
+		})
+	}
+	return items
+}
+
+export default ({companion, imgList}) => {
+	let reprImage = imgList.filter((img)=>{return (img.owner == companion.id)})
+	items = (reprImage.length == 0)? items : MakeCarouselItems(reprImage)
+
 	return (
 		<div>
 			<UncontrolledCarousel items={items} />
