@@ -26,37 +26,38 @@ class Account extends Component {
 			}
 
                 	return (
-				<Jumbotron className="container">
-				<h1>
-                                	VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
-                              	</h1>
+				<div>
+				<p />
+				<div class="form" style={{width:"1000px"}}><p />
 
                         	<Card>
                                 	<CardBody>
-						<h2>User Info</h2>
+						<h2>내 계정</h2><Button outline color="success" tag={Link} to={"/account/user/"}>개인정보 수정하기</Button><p />
 						<Table>
 						<thead>
-						<tr><th><center>#</center></th><th><center>Info</center></th></tr>
+						<tr><th><center>#</center></th><th><center>내용</center></th></tr>
 						</thead>
 						<tbody>
-						<tr><th scope="row"><center>User ID</center></th><th><center>{this.props.user_id}</center></th></tr>
-						<tr><th><center>Username</center></th><th><center>{user_info.username}</center></th></tr>
-						<tr><th><center>Nickname</center></th><th><center>{user_info.profile.nickname}</center></th></tr>
-						<tr><th><center>Age</center></th><th><center>{user_info.profile.age}</center></th></tr>
-						<tr><th><center>Email</center></th><th><center>{user_info.profile.email}</center></th></tr>
-                                                <tr><th><center>Gender</center></th><th><center>{user_info.profile.gender}</center></th></tr>
-                                                <tr><th><center>FirstAddress</center></th><th><center>{user_info.profile.first_address}</center></th></tr>
-						<tr><th><center>SecondAddress</center></th><th><center>{user_info.profile.second_address}</center></th></tr>
+						<tr><th scope="row"><center>고유 ID</center></th><th><center>{this.props.user_id}</center></th></tr>
+						<tr><th><center>유저네임</center></th><th><center>{user_info.username}</center></th></tr>
+						<tr><th><center>닉네임</center></th><th><center>{user_info.profile.nickname}</center></th></tr>
+						<tr><th><center>나이</center></th><th><center>{user_info.profile.age}</center></th></tr>
+						<tr><th><center>이메일 주소</center></th><th><center>{user_info.profile.email}</center></th></tr>
+                                                <tr><th><center>성별</center></th><th><center>{user_info.profile.gender}</center></th></tr>
+                                                <tr><th><center>주소 (시/도)</center></th><th><center>{user_info.profile.first_address}</center></th></tr>
+						<tr><th><center>주소(시/군/구)</center></th><th><center>{user_info.profile.second_address}</center></th></tr>
 						</tbody>
 						</Table>
-						<center><Button outline color="primary" tag={Link} to={"/account/user/"}>Update User Info?</Button></center>
-						<center><Button outline color="primary" tag={Link} to={"/account/companion_create/"}>Create Companion?</Button></center>
+						<center></center>
+						<center><Button outline color="success" tag={Link} to={"/account/companion_create/"}>새로운 반려동물 추가하기</Button></center>
                                 	</CardBody>
                         	</Card>
+				<p />
 				<CardDeck>
 					{companion_update_block_list}
 				</CardDeck>
-				</Jumbotron>
+				</div>
+				</div>
                 	)
 		}
 		else {

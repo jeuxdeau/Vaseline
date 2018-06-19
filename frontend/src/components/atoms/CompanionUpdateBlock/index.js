@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
+import { Badge, Card, Button, CardImg, CardTitle, CardText, CardBody } from 'reactstrap'
 import Fileupload from '../../molecules/Fileupload'
 
 class CompanionUpdateBlock extends Component {
@@ -22,19 +22,23 @@ class CompanionUpdateBlock extends Component {
 		const name = companion.name
 		const btn_visit_url = "/detail/" + name
 		const btn_update_url = "/account/companion/"
-		
+
 		return (
 			<Card>
-				<CardImg 	top width="100%" 
-							src="http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg" 
+				<CardImg 	top width="100%"
+							src="http://www.petguide.com/wp-content/uploads/2013/05/cute-dog-names-12.jpg"
 							alt="Card image cap" />
 				<CardBody>
 					<CardTitle>{companion.name}</CardTitle>
-					<CardText>age : {companion.age}</CardText>
-					<CardText>sex : {companion.sex}</CardText>
-					<Button outline color="info" tag={Link} to={btn_visit_url}>Visit</Button>
-					<Button outline color="primary" tag={Link} to={btn_update_url+companion.id+"/"}>Update?</Button>
-					<Button outline color="danger" onClick={()=>{this.onUploadBtnClick()}}>Upload</Button>
+					<CardText>
+					<Badge color="secondary">사이즈/품종</Badge> {companion.size} {companion.breed}<br/>
+					<Badge color="secondary">나이 (생년)</Badge> {2019 - companion.birth_year}살 ({companion.birth_year}년생)<br/>
+					<Badge color="secondary">성별</Badge> {companion.sex}<br/>
+					<Badge color="secondary">마감일</Badge> {companion.mating_season.season_start}<br/>
+					</CardText>
+					<Button outline color="secondary" tag={Link} to={btn_visit_url}>방문하기</Button>{' '}
+					<Button outline color="secondary" tag={Link} to={btn_update_url+companion.id+"/"}>정보 수정하기</Button><p />
+					<Button outline color="danger" onClick={()=>{this.onUploadBtnClick()}}>사진 추가하기</Button>
 					<Fileupload uploadAppOpen={this.state.uploadAppActivated}
 								uploadOwnerName={name}
 								uploadOwnerId={this.props.companion.id}
