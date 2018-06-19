@@ -211,7 +211,7 @@ export default class SignupPage extends Component {
 
         return (
             <div>
-            <Col class="container4" md={{ size: 8, offset: 2 }}><p />
+            <Col class="container4" md={{ size: 4, offset: 4 }}><p />
             <Alert color="success">
             <h4 className="alert-heading">Sign Up</h4>
             <p>
@@ -255,6 +255,8 @@ export default class SignupPage extends Component {
             <Input type="select" onChange={this.handleFirstLevelChange} value={this.state.firstLevel}>
             {firstLevelOptions}
             </Input>
+	    </FormGroup>
+	    <FormGroup>
             <Input type="select" onChange={this.handleSecondLevelChange} value={this.state.secondLevel}>
             {secondLevelOptions}
             </Input>

@@ -32,6 +32,7 @@ export default class SigninPage extends Component {
 			<div class="login-page">
 			  <div class="form">
 			    <form class="login-form" onSubmit={this.onSubmit}>
+				<img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/logo.png" />
 				{
 					errors.non_field_errors?
  					<Alert color="warning">
@@ -41,7 +42,7 @@ export default class SigninPage extends Component {
 				<TextInput name="username" placeholder="id" error={errors.username} onChange={this.handleInputChange} />
 				<TextInput name="password" placeholder="password" error={errors.password} type="password" onChange={this.handleInputChange} />
 				<button type="submit">login</button>
-			    <p class="message">Not registered? <a href="/signup">Create an account</a></p>
+			    <p class="message">아직 계정이 없으신가요? <a href="/signup">계정 만들기</a></p>
 			    </form>
 			  </div>
 			</div>
