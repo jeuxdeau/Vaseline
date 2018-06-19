@@ -16,13 +16,15 @@ class Account extends Component {
 		const user_info = this.props.user_info
 		const companion_list = this.props.companion_list
 		const my_companion_list_key = []
+		const imgList = this.props.image_list
+		if(imgList == undefined) return null
 		// my_companion list to Companion_update_block_list
 		console.log(user_info)
 		if(user_info) {
 			let companion_update_block_list = []
 			for (var key in companion_list){
 				if(companion_list[key].user == this.props.user_id)
-					companion_update_block_list.push(<CompanionUpdateBlock companion={companion_list[key]} key={key+1} />)
+					companion_update_block_list.push(<CompanionUpdateBlock companion={companion_list[key]} key={key+1} imgList={imgList}/>)
 			}
 
                 	return (

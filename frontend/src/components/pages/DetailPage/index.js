@@ -62,7 +62,8 @@ export default class DetailPage extends Component {
 		const companion_list = this.props.companion_list
 		const user_repr = this.props.user_repr
 		const user_news = this.props.user_news
-		if(companion_list == undefined || user_repr == undefined || user_news == undefined) return null
+		const image_list = this.props.image_list
+		if(companion_list == undefined || user_repr == undefined || user_news == undefined || image_list == undefined) return null
 
 		const name = this.props.match.params.name
 		const errors = this.props.errors || {}
@@ -81,7 +82,7 @@ export default class DetailPage extends Component {
 				<p />
 				<div class="form" style={{width:"800px"}}>
 				<h3>{companion.name}의 프로필</h3><p />
-				<DetailCompanionBlock companion={companion} /><p />
+				<DetailCompanionBlock companion={companion} imgList={image_list}/><p />
 				{this.MakeLikeBtn(like_sent_receiver_id, user_repr.represent_companion, companion.id)}{' '}
 
 				<Button size="sm" outline color="primary" onClick={()=>this.onSendMessageBtnClick()}>쪽지보내기</Button>{' '}
