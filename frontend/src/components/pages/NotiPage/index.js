@@ -62,7 +62,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구에게 보냈어요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(messageItem)}
-					<Badge href color="primary" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
+					<Badge href color="warning" onClick={()=>{this.onBtnReadMessage(messageItem)}}>자세히보기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -77,7 +77,7 @@ export default class NotiPage extends Component {
 				<ListGroupItemHeading> {sender.name} 친구가 {receiver.name} 친구를 좋아해요! </ListGroupItemHeading>
 				<div align="right">
 					{this.MakeBadgeForNewItem(likeItem)}
-					<Badge href color="primary" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
+					<Badge href color="warning" tag={Link} to={"/detail/"+sender.name}>방문하기</Badge>
 				</div>
 			</ListGroupItem>
 		)
@@ -145,7 +145,7 @@ export default class NotiPage extends Component {
 	appToggle(tApp) {
 		if(tApp == "vMessage") {
 			this.setState({
-				...this.state, 
+				...this.state,
 				viewMessageAppActivated: !this.state.viewMessageAppActivated,
 			})
 		}
@@ -186,7 +186,7 @@ export default class NotiPage extends Component {
 	ClearUnreadLikesProposals(notifications) {
 		const like = notifications.like
 		const prop = notifications.prop
-		
+
 		var i
 		for(i = 0; i < like.length; i++) {
 			if(like[i].is_read == false) this.props.read_like(like[i].id)
@@ -204,19 +204,20 @@ export default class NotiPage extends Component {
 	 	return (
             <div>
 
-            <ViewMessageApp vMessageAppOpen={this.state.viewMessageAppActivated} 
+            <ViewMessageApp vMessageAppOpen={this.state.viewMessageAppActivated}
                             vMessageSenderId={this.state.viewMessageAppObject.sender}
                             vMessageReceiverId={this.state.viewMessageAppObject.receiver}
                             vMessageBody={this.state.viewMessageAppObject.body}
                             vMessageToggle={()=>this.appToggle("vMessage")}
-                            vMessageAnswer={()=>this.answerMessage(this.state.viewMessageAppObject.receiver, 
+                            vMessageAnswer={()=>this.answerMessage(this.state.viewMessageAppObject.receiver,
                             	                                   this.state.viewMessageAppObject.sender )} />
             <MessageApp messageAppOpen={this.state.sendMessageAppActivated}
             			messageSenderId={this.state.sendMessageAppObject.sender}
             			messageReceiverId={this.state.sendMessageAppObject.receiver}
             			messageToggle={()=>this.appToggle("sMessage")}
             			messageSend={this.props.post_message} />
-
+            <p />
+            <div class="form" style={{width:"1300px"}}>
             <h3><p /><center> 알림장 <Badge color="success">New!</Badge></center></h3>
             <Col>
             <Alert color="success">
@@ -239,7 +240,7 @@ export default class NotiPage extends Component {
             <CardSubtitle><b>친구들은 고운 말을 좋아한답니다@_@</b></CardSubtitle>
             <CardText><p />
             <h6><Badge color="secondary">편지를 눌러서 확인하고 답장을 보내주세요!</Badge></h6><p/ >
-            
+
             <ListGroup>
             {notifications.mess.map((messageItem, index) => {
             	return (
@@ -247,11 +248,11 @@ export default class NotiPage extends Component {
             			)
             })}
             </ListGroup>
-            
+
             </CardText>
             </CardBody>
             </Card>
-            
+
             <Card>
             <CardImg top width="100%" src="https://barkpost.com/wp-content/uploads/2012/09/doglove.jpg?q=70&fit=crop&crop=entropy&w=808&h=500" alt="Card image cap" />
             <CardBody>
@@ -260,7 +261,7 @@ export default class NotiPage extends Component {
             <CardText>
             <p />
             <h6><Badge color="secondary">친구에게 방문하여 서로를 알아가세요!</Badge></h6><p/ >
-            
+
             <ListGroup>
             {notifications.like.map((likeItem, index) => {
             	return (
@@ -283,7 +284,7 @@ export default class NotiPage extends Component {
             잘 고민해서 결정하세요! 메시지를 충분히 주고 받은 후에, 개인 정보를 교환하도록 해요.
             <p />
             <h6><Badge color="secondary">수락하면 이메일을 통해 연락할 수 있어요!</Badge></h6><p/ >
-            
+
             <ListGroup>
             {notifications.prop.map((proposalItem, index) => {
             	return (
@@ -291,12 +292,13 @@ export default class NotiPage extends Component {
             			)
             })}
             </ListGroup>
-            
+
             </CardText>
             </CardBody>
             </Card>
             </CardDeck>
             </Col>
+            </div>
             </div>
         )
 	}

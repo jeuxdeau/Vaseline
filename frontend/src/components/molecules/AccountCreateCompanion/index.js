@@ -136,10 +136,9 @@ class AccountCreateCompanion extends Component {
                 	const errors = this.props.errors || {}
 			if(this.props.user_id){
 				return (
-					<Jumbotron className="container">
-	                                <h1>
-        	                                VASELINE <Button size="sm" outline color="primary" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>
-                	                </h1>
+					<div>
+					<p />
+					<div class="form" style={{width:"800px"}}>
 					<Form onSubmit={this.onSubmit}>
                                         {
                                                 errors.non_field_errors?
@@ -148,23 +147,23 @@ class AccountCreateCompanion extends Component {
                                                         </Alert>: ""
                                         }
                                         <CardDeck>
-					<h2>Companion Info</h2>
+					<h2>반려동물 추가하기</h2><p />
 					<Table>
                                         <thead>
-                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+                                        <tr><th><center>#</center></th><th><center>내용</center></th></tr>
                                         </thead>
                                         <tbody>
-                                        <tr><th><center>Name</center></th><th><center>
+                                        <tr><th><center>이름</center></th><th><center>
 					<TextInput name="name" error={errors.name} onChange={this.handleInputChange}/>
 					</center></th></tr>
-					<tr><th><center>Sex</center></th><th><center>
-					
+					<tr><th><center>성별</center></th><th><center>
+
 					<Input type="select" name="sex" error={errors.name} onChange={this.handleInputChange} value={this.state.sex}>
 					<option value='female'>암컷</option>
                                         <option value='male'>수컷</option>
 					</Input></center></th></tr>
-					
-					<tr><th><center>BirthYear</center></th><th><center>
+
+					<tr><th><center>생년</center></th><th><center>
 					<Input type="select" name="birth_year" error={errors.name} onChange={this.handleInputChange} value={this.state.birth_year}>
 					<option value="2018">2018</option>
 					<option value="2017">2017</option>
@@ -183,7 +182,7 @@ class AccountCreateCompanion extends Component {
 					<option value="2004">2004년 이전</option>
 					</Input>
 					</center></th></tr>
-					<tr><th><center>Breed</center></th><th><center>
+					<tr><th><center>품종</center></th><th><center>
 					<Input type="select"  name="breed" error={errors.name} onChange={this.handleInputChange} value={this.state.breed}>
 					<option value='mix'>믹스</option>
 			          	<option value='dachshund'>닥스훈트</option>
@@ -220,9 +219,9 @@ class AccountCreateCompanion extends Component {
 					<option value='etc'>기타</option>
 
 					</Input></center></th></tr>
-					<tr><th><center>Size</center></th><th><center>
+					<tr><th><center>사이즈</center></th><th><center>
 					<Input type="select" name="size" error={errors.name} onChange={this.handleInputChange} value={this.state.size}>
-					
+
 					<option value="small">소형견</option>
 				        <option value="medium">중형견</option>
         				<option value="large">대형견</option>
@@ -230,18 +229,18 @@ class AccountCreateCompanion extends Component {
 					</Input></center></th></tr>
 					</tbody>
 					</Table>
-					<h2>Desired_mate</h2>
+					<h2>원하는 교제 상대</h2>
 					<Table>
                                         <thead>
-                                        <tr><th><center>#</center></th><th><center>Update</center></th></tr>
+                                        <tr><th><center>#</center></th><th><center>내용</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Sex</center></th><th><center>
+					<tr><th><center>성별</center></th><th><center>
 					<Input type="select" name="desired_mate_sex" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_sex}>
                                         <option value='female'>암컷</option>
                                         <option value='male'>수컷</option>
                                         </Input></center></th></tr>
-					<tr><th><center>Breed</center></th><th><center>
+					<tr><th><center>품종</center></th><th><center>
                                         <Input type="select"  name="desired_mate_breed" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_breed}>
                                         <option value='mix'>믹스</option>
                                         <option value='dachshund'>닥스훈트</option>
@@ -278,8 +277,8 @@ class AccountCreateCompanion extends Component {
                                         <option value='etc'>기타</option>
 
                                         </Input></center></th></tr>
-					
-					<tr><th><center>Size</center></th><th><center>
+
+					<tr><th><center>사이즈</center></th><th><center>
                                         <Input type="select" name="desired_mate_size" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_size}>
 
                                         <option value="small">소형견</option>
@@ -289,16 +288,16 @@ class AccountCreateCompanion extends Component {
                                         </Input></center></th></tr>
 					</tbody>
 					</Table>
-					
-					<h3>Personality (DesiredMate)</h3>
-					
+
+					<h3>원하는 성격</h3>
+
 					<Table>
                                         <thead>
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Affinity_with_human</center></th><th><center>
-					<Input type="select" name="desired_mate_affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_human}>
+					<tr><th><center>사람을 좋아해요</center></th><th><center>
+					<Input type="select" name="사람을 좋아해요" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_human}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -306,8 +305,8 @@ class AccountCreateCompanion extends Component {
 					<option value="4">4</option>
 					<option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Affinity_with_dog</center></th><th><center>
-					<Input type="select" name="desired_mate_affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_dog}>
+					<tr><th><center>강아지 친구들과 친하게 지내요</center></th><th><center>
+					<Input type="select" name="강아지 친구들과 친하게 지내요" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_affinity_with_dog}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -315,7 +314,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Shyness</center></th><th><center>
+					<tr><th><center>수줍음이 많아요</center></th><th><center>
 					<Input type="select" name="desired_mate_shyness" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_shyness}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
@@ -324,7 +323,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Activity</center></th><th><center>
+					<tr><th><center>활동적이에요</center></th><th><center>
 					<Input type="select" name="desired_mate_activity" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_activity}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
@@ -333,7 +332,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Loudness</center></th><th><center>
+					<tr><th><center>많이 짖어요</center></th><th><center>
 					<Input type="select" name="desired_mate_loudness" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_loudness}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
@@ -342,7 +341,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Aggression</center></th><th><center>
+					<tr><th><center>공격적인 편이에요</center></th><th><center>
 					<Input type="select" name="desired_mate_aggression" error={errors.name} onChange={this.handleInputChange} value={this.state.desired_mate_aggression}>
 					<option value="상관 없음">0</option>
 					<option value="1">1</option>
@@ -351,20 +350,20 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>ETC</center></th><th><center>
+					<tr><th><center>더 바라는 점은요...</center></th><th><center>
 					<TextInput name="desired_mate_etc" error={errors.name} onChange={this.handleInputChange}/>
 					</center></th></tr>
 					</tbody>
 					</Table>
-					
+
 					<h3>Personality</h3>
-					
+
 					<Table>
                                         <thead>
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Affinity_with_human</center></th><th><center>
+					<tr><th><center>사람을 좋아해요</center></th><th><center>
 					<Input type="select" name="affinity_with_human" error={errors.name} onChange={this.handleInputChange} value={this.state.affinity_with_human}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -372,7 +371,7 @@ class AccountCreateCompanion extends Component {
 					<option value="4">4</option>
 					<option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Affinity_with_dog</center></th><th><center>
+					<tr><th><center>강아지 친구를 좋아해요</center></th><th><center>
 					<Input type="select" name="affinity_with_dog" error={errors.name} onChange={this.handleInputChange} value={this.state.affinity_with_dog}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -380,7 +379,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Shyness</center></th><th><center>
+					<tr><th><center>수줍음이 많아요</center></th><th><center>
 					<Input type="select" name="shyness" error={errors.name} onChange={this.handleInputChange} value={this.state.shyness}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -388,7 +387,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Activity</center></th><th><center>
+					<tr><th><center>활동적이에요</center></th><th><center>
 					<Input type="select" name="activity" error={errors.name} onChange={this.handleInputChange} value={this.state.activity}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -396,7 +395,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Loudness</center></th><th><center>
+					<tr><th><center>많이 짖어요</center></th><th><center>
 					<Input type="select" name="loudness" error={errors.name} onChange={this.handleInputChange} value={this.state.loudness}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -404,7 +403,7 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>Aggression</center></th><th><center>
+					<tr><th><center>공격적인 편이에요</center></th><th><center>
 					<Input type="select" name="aggression" error={errors.name} onChange={this.handleInputChange} value={this.state.aggression}>
 					<option value="1">1</option>
                                         <option value="2">2</option>
@@ -412,30 +411,31 @@ class AccountCreateCompanion extends Component {
                                         <option value="4">4</option>
                                         <option value="5">5</option>
 					</Input></center></th></tr>
-					<tr><th><center>ETC</center></th><th><center>
+					<tr><th><center>더 바라는 점은요...</center></th><th><center>
 					<TextInput name="etc" error={errors.name} onChange={this.handleInputChange}/>
 					</center></th></tr>
 					</tbody>
 					</Table>
-					<h2>Mating Season</h2>
+					<h2>만남 기간</h2>
 					<Table>
                                         <thead>
                                         <tr><th><center>#</center></th><th><center>Update</center></th></tr>
                                         </thead>
                                         <tbody>
-					<tr><th><center>Season Start</center></th><th><center>
+					<tr><th><center>시작일</center></th><th><center>
 					<TextInput name="season_start" error={errors.name} onChange={this.handleInputChange} placeholder="2018-07-01"/></center></th></tr>
-					<tr><th><center>Season End</center></th><th><center>
+					<tr><th><center>종료일</center></th><th><center>
                                         <TextInput name="season_end" error={errors.name} onChange={this.handleInputChange} placeholder="2018-07-01"/></center></th></tr>
                                         </tbody>
 					</Table>
 					<center><Button type="submit" color="danger" size="lg">
-                                                Create Companion
+                                                반려동물 추가하기
                                         </Button></center>
                                         </CardDeck>
                                 </Form>
 
-			</Jumbotron>
+			</div>
+			</div>
 				)}
 			else {
                         return (

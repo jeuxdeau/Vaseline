@@ -125,9 +125,9 @@ class SearchPage extends Component {
 				let dp = this.state.repr.personality
 				let score = 0
 				if(dp.affinity_with_human != 0)
-					score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human) 
+					score += 2-Math.abs(dp.affinity_with_human-p.affinity_with_human)
 				if(dp.affinity_with_dog != 0)
-                                        score += 2-Math.abs(dp.affinity_with_dog-p.affinity_with_dog) 
+                                        score += 2-Math.abs(dp.affinity_with_dog-p.affinity_with_dog)
 				if(dp.aggression != 0)
                                         score += 2-Math.abs(dp.aggression-p.aggression)
 				if(dp.loudness != 0)
@@ -216,6 +216,8 @@ class SearchPage extends Component {
 
                         return (
                             <div>
+                            <p />
+                            <div class="form" style={{width:"1300px"}}>
                             <h3><p /><center>Search <Badge color="success">New!</Badge></center></h3>
                             <Col>
                             <Alert color="success">
@@ -238,7 +240,7 @@ class SearchPage extends Component {
                             <CardSubtitle><b>품종별 검색</b></CardSubtitle>
                             <CardText><p />한 개 또는 여러 개의 품종을 선택할 수 있어요.
                             어떤 품종도 상관 없을 경우에는 상관없음 칸에 체크해 주세요.<p />
-                            <h6><Badge color="secondary">ctrl키를 누르면서 여러 개를 한 번에 선택할 수 없어요!</Badge></h6><p/ >
+                            <h6><Badge color="secondary">품종, 사이즈, 성별을 선택하세요!</Badge></h6><p/ >
                             <FormGroup onSubmit={this.onSubmit}>
                             <Input type="select" name="desired_mate_breed" onChange={this.handleInputChange} value={this.state.desired_mate_breed}>
                             <option value='mix'>믹스</option>
@@ -423,7 +425,7 @@ class SearchPage extends Component {
                             <Input type="select" name="desired_mate_second_address" onChange={this.handleInputChange} value={this.state.desired_mate_second_address}>
                             {this.state.secondLevelOptions}
                             </Input>
-                            <div align="right">
+                            <div align="right"><p />
                             <Button align="right"  onClick={this.onClickButton}>새로 검색하기</Button>
                             </div>
                             </CardText>
@@ -436,19 +438,37 @@ class SearchPage extends Component {
                             {this.search_result(this.state.search_companion_list)}
                             </CardDeck>
                             </div>
+                            </div>
                         )
                     }
                     else
                     {
                         return (
-                        	<Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+                            <div>
+                              <p />
+                              <div class="form" style={{width:"800px"}}>
+                                <img src="https://3.bp.blogspot.com/-N9PjOAo07Tk/WsNuU64SHEI/AAAAAAAWwDo/Gt45rCEKjmceVd8MHSNP1m8vHgar-IzZQCLcBGAs/s1600/AW898381_00.gif" /><p />
+                                <Alert color="warning">
+                                        <h5><font color="red">♥</font>~잠시만 기다려주세요~<font color="red">♥</font></h5>
+                                 </Alert>
+                              </div>
+                            </div>
 			)
                     }
                 }
                 else
                 {
                     return (
-			    <Jumbotron><center>잠시만 기다려주세요!</center></Jumbotron>
+			    <div>
+					<p />
+					<div class="form" style={{width:"800px"}}>
+					<img src="https://3.bp.blogspot.com/-N9PjOAo07Tk/WsNuU64SHEI/AAAAAAAWwDo/Gt45rCEKjmceVd8MHSNP1m8vHgar-IzZQCLcBGAs/s1600/AW898381_00.gif" /><p />
+					<Alert color="warning">
+					        <h5><font color="red">♥</font>~잠시만 기다려주세요~<font color="red">♥</font></h5>
+					 </Alert>
+					</div>
+					</div>
+
 
                     )
 

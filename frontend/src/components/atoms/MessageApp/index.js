@@ -5,7 +5,7 @@ class MessageApp extends Component {
 	onSendBtnClick(message, sender, receiver) {
 		this.props.messageSend(sender, receiver, message)
 		this.props.messageToggle()
-	}	
+	}
 
 	handleInputChange = (event) => {
 		const target = event.target
@@ -31,17 +31,17 @@ class MessageApp extends Component {
 						<Form>
 							<FormGroup>
 								<Label for="exampleMessage" size="lg">Message</Label>
-								<Input type="textarea" name="message" id="exampleMessage" placeholder="사랑의 편지를 써보세요~" 
+								<Input type="textarea" name="message" id="exampleMessage" placeholder="사랑의 편지를 써보세요~"
 										bsSize="lg" onChange={this.handleInputChange}/>
 							</FormGroup>
 						</Form>
 					</ModalBody>
 					<ModalFooter>
-						<Button size="lg" outline color="primary" 
+						<Button size="lg" outline color="success"
 						onClick={()=>this.onSendBtnClick(this.state.message, messageSenderId, messageReceiverId)}>보내기</Button>
 					</ModalFooter>
 				</Modal>
-		)		
+		)
 	}
 
 }

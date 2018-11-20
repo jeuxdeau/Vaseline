@@ -4,7 +4,7 @@ import { Label, Form, FormGroup, Input, Button, Modal, ModalHeader, ModalBody, M
 class ViewMessageApp extends Component {
 	onAnswerBtnClick() {
 		this.props.vMessageAnswer()
-	}	
+	}
 
 	handleInputChange = (event) => {
 		const target = event.target
@@ -30,11 +30,11 @@ class ViewMessageApp extends Component {
 						{vMessageBody}
 					</ModalBody>
 					<ModalFooter>
-						<Button size="lg" outline color="primary" 
+						<Button size="lg" outline color="success"
 						onClick={()=>this.onAnswerBtnClick()}>답장하기</Button>
 					</ModalFooter>
 				</Modal>
-		)		
+		)
 	}
 }
 
