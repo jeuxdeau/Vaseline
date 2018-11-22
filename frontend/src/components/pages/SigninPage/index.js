@@ -32,7 +32,7 @@ export default class SigninPage extends Component {
 			<div class="login-page">
 			  <div class="form">
 			    <form class="login-form" onSubmit={this.onSubmit}>
-				<img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/logo.png" />
+				<img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/frontend/src/containers/images/logo_signin.png" />
 				{
 					errors.non_field_errors?
  					<Alert color="warning">

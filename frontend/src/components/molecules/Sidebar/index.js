@@ -124,7 +124,7 @@ export default class Sidebar extends Component {
 		return(
 			<div>
 				<Navbar color="light" light expand="md">
-					<NavbarBrand href="/" className="text-white"><img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/logo_nopadding_150.png" /></NavbarBrand>
+					<NavbarBrand href="/" className="text-white"><img src="https://raw.githubusercontent.com/jeuxdeau/Vaseline/master/frontend/src/containers/images/logo_sidebar.png" /></NavbarBrand>
 					<NavbarBrand>{userName}님, 환영합니다.</NavbarBrand>
 					<Button size="sm" color="success" onClick={()=>this.onSignoutBtnClick()}>Logout</Button>{' '}
 					<NavbarToggler onClick={this.toggle} />
